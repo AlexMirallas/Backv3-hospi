@@ -17,6 +17,7 @@ const authProvider: AuthProvider = {
     // Login: send credentials to the NestJS API and store the returned JWT
     login: async ({ email, password }) => {
         try {
+            console.log('Login attempt with:', { email, password: '********' });
             const request = new Request(`${apiUrl}/auth/login`, {
                 method: "POST",
                 body: JSON.stringify({ email, password }),
@@ -24,24 +25,47 @@ const authProvider: AuthProvider = {
             });
             
             const response = await fetch(request);
+            console.log('Response status:', response.status);
+            
+            // Clone the response for debugging
+            const responseClone = response.clone();
             
             if (response.status < 200 || response.status >= 300) {
-                // Handle error response
-                const error = await response.json().catch(() => null) || {};
-                throw new Error(error.message || "Authentication failed");
+                // Log the full response for debugging
+                const responseText = await responseClone.text();
+                console.error('Error response body:', responseText);
+                
+                let errorMessage = "Authentication failed";
+                try {
+                    const errorJson = JSON.parse(responseText);
+                    errorMessage = errorJson.message || errorMessage;
+                } catch (e) {
+                    // If it's not valid JSON, use the raw text
+                    errorMessage = responseText || errorMessage;
+                }
+                
+                throw new Error(errorMessage);
             }
             
-            const { accessToken } = await response.json();
+            // Parse the success response
+            const responseJson = await response.json();
+            console.log('Response structure:', Object.keys(responseJson));
             
-            if (!accessToken) {
+            if (!responseJson.accessToken) {
                 throw new Error("No access token received from server");
             }
             
             // Store token in localStorage
-            localStorage.setItem("token", accessToken);
+            localStorage.setItem("token", responseJson.accessToken);
             
             // Decode token to get user information
-            const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
+            const decodedToken = jwtDecode<CustomJwtPayload>(responseJson.accessToken);
+            console.log('Decoded token (partial):', {
+                email: decodedToken.email,
+                sub: decodedToken.sub,
+                roles: decodedToken.roles,
+                exp: new Date(decodedToken.exp * 1000).toISOString()
+            });
             
             // Store user roles if available
             if (decodedToken && decodedToken.roles) {
