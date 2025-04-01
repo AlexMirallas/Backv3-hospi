@@ -1,14 +1,14 @@
-import { Create, SimpleForm, TextInput, BooleanInput, NumberInput, ReferenceArrayInput, AutocompleteArrayInput } from 'react-admin';
+import { Create, SimpleForm, TextInput, NumberInput } from 'react-admin';
 
 const UserCreate = () => {
     return ( 
         <Create>
             <SimpleForm>
-                <TextInput source="email" />
-                <TextInput source="firstName" />
-                <TextInput source="lastName" />
-                <NumberInput source="phone" />
-                <TextInput source="password" type="password" />
+                <TextInput source="email" required/>
+                <TextInput source="firstName" required />
+                <TextInput source="lastName" required />
+                <NumberInput source="phone" required />
+                <TextInput source="password" type="password" required/>
             </SimpleForm>    
         </Create>
      );

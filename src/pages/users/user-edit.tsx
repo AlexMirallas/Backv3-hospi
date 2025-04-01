@@ -2,13 +2,13 @@ import { DateInput, Edit, SimpleForm, TextInput } from 'react-admin';
 export const UserEdit = () => (    
     <Edit>        
         <SimpleForm>            
-            <TextInput source="id" />
-                <TextInput source="email" />
-                <TextInput source="firstName" />            
-                <TextInput source="lastName" />            
-                <TextInput source="phone" />            
-                <TextInput source="roles" />            
-                <DateInput source="createdAt" />            
-                <DateInput source="updatedAt" />        
+                <TextInput source="id" disabled />
+                <TextInput source="email" required />
+                <TextInput source="firstName" required />            
+                <TextInput source="lastName" required />            
+                <TextInput source="phone" required />            
+                <TextInput source="roles" disabled />            
+                <DateInput source="createdAt" disabled />            
+                <DateInput source="updatedAt" disabled />        
         </SimpleForm>    
     </Edit>);
