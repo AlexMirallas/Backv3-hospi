@@ -1,9 +1,24 @@
-import { Create, SimpleForm, TextInput, BooleanInput, NumberInput, ReferenceArrayInput, AutocompleteArrayInput } from 'react-admin';
+import { 
+Create,
+SimpleForm, 
+TextInput, 
+BooleanInput, 
+NumberInput, 
+ReferenceArrayInput, 
+AutocompleteArrayInput,
+CreateProps,
 
-const ProductCreate = () => {
+} from 'react-admin';
+import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
+import { Card, CardContent, Typography } from '@mui/material';
+
+
+
+const ProductCreate:React.FC<CreateProps> = (props) => {
+   
     return ( 
-        <Create>
-            <SimpleForm>
+        <Create {...props}>
+            <SimpleForm >
                 <TextInput source="sku" required />
                 <TextInput source="name" required />
                 <TextInput source="description" required />
@@ -17,7 +32,13 @@ const ProductCreate = () => {
                         label="Categories" 
                     />
                 </ReferenceArrayInput>
-            </SimpleForm>    
+            </SimpleForm>
+            <Card sx={{ marginTop: 2 }}>
+                <CardContent>
+                    <Typography variant="h6" gutterBottom>Add New Variant</Typography>
+                        <AddNewVariantForm />
+                </CardContent>
+            </Card>    
         </Create>
      );
 }

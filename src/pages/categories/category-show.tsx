@@ -7,8 +7,6 @@ export const CategoryShow = () => (
             <TextField source="name" />
             <TextField source="slug" />
             <TextField source="description" />
-            <TextField source="children" />
-            <TextField source="parent" />
             <ReferenceField source="parentId" reference="parents" />
             <DateField source="createdAt" />
             <DateField source="updatedAt" />

@@ -40,47 +40,48 @@ import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 export const App = () => 
 
 <Admin 
-loginPage={LoginWithEmail} 
-dataProvider={myDataProvider} 
-layout={Layout} 
-authProvider={authProvider}  
-dashboard={Dashboard}>
-    <Resource 
-    icon={UserIcon} 
-    name="users" 
-    list={UserList} 
-    edit={UserEdit} 
-    show={UserShow} 
-    create={UserCreate} 
-    />
-    <Resource 
-    icon={ProductIcon} 
-    name="products" 
-    list={ProductList} 
-    edit={ProductEdit} 
-    show={ProductShow} 
-    create={ProductCreate} 
-    />
-    <Resource 
-    name="attributes" 
-    list={AttributeList} 
-    edit={AttributeEdit} 
-    show={AttributeShow}
-    create={AttributeCreate} 
-    />
-    <Resource 
-    name="attribute-values" 
-    list={AttributeValueList} 
-    edit={AttributeValueEdit} 
-    show={AttributeValueShow}
-    create={AttributeValueCreate}
-    />
-    <Resource 
-    icon={CategoryIcon} 
-    name="categories" 
-    list={CategoryList} 
-    edit={CategoryEdit} 
-    show={CategoryShow} 
-    create={CreateCategory} 
-    />    
+    loginPage={LoginWithEmail} 
+    dataProvider={myDataProvider} 
+    layout={Layout} 
+    authProvider={authProvider}  
+    dashboard={Dashboard}
+>
+        <Resource 
+            icon={UserIcon} 
+            name="users" 
+            list={UserList} 
+            edit={UserEdit} 
+            show={UserShow} 
+            create={UserCreate} 
+        />
+        <Resource 
+            icon={ProductIcon} 
+            name="products" 
+            list={ProductList} 
+            edit={ProductEdit} 
+            show={ProductShow} 
+            create={ProductCreate} 
+        />
+        <Resource 
+            name="attributes" 
+            list={AttributeList} 
+            edit={AttributeEdit} 
+            show={AttributeShow}
+            create={AttributeCreate} 
+        />
+        <Resource 
+            name="attribute-values" 
+            list={AttributeValueList} 
+            edit={AttributeValueEdit} 
+            show={AttributeValueShow}
+            create={AttributeValueCreate}
+        />
+        <Resource 
+            icon={CategoryIcon} 
+            name="categories" 
+            list={CategoryList} 
+            edit={CategoryEdit} 
+            show={CategoryShow} 
+            create={CreateCategory} 
+        />
 </Admin>;

@@ -11,7 +11,7 @@ const AttributeValueCreate = () => {
                 </ReferenceInput>     
                 <TextInput source="value"  required />
                 <NumberInput source="position"  required />
-                <TextInput source="hexcode" label="Hex Code if colour" />
+                <TextInput source="hexCode" label="Hex Code if colour" />
             </SimpleForm>
         </Create>
     );
