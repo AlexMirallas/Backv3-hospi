@@ -32,13 +32,7 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
                         label="Categories" 
                     />
                 </ReferenceArrayInput>
-            </SimpleForm>
-            <Card sx={{ marginTop: 2 }}>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>Add New Variant</Typography>
-                        <AddNewVariantForm />
-                </CardContent>
-            </Card>    
+            </SimpleForm>   
         </Create>
      );
 }

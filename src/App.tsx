@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail } from "react-admin";
+import { Admin, Resource, LoginWithEmail, ListGuesser, EditGuesser, ShowGuesser, Edit } from "react-admin";
 import { Layout } from "./Layout";
 import  myDataProvider  from "./dataProvider";
 import  authProvider  from "./authProvider"; 
@@ -28,12 +28,16 @@ import { AttributeValueEdit } from "./pages/attributes-values/attributeValue-edi
 import { AttributeValueShow } from "./pages/attributes-values/attributeValue-show";
 import { AttributeValueList } from "./pages/attributes-values/attributeValue-list";
 
+import { VariantList } from "./pages/product-variants/variants-list";
+
 import { Dashboard } from "./pages/dashboard/dashboard";
 
 
 import UserIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
+import { VariantShow } from "./pages/product-variants/variants-show";
+import { VariantEdit } from "./pages/product-variants/variants-edit";
 
 
 
@@ -83,5 +87,11 @@ export const App = () =>
             edit={CategoryEdit} 
             show={CategoryShow} 
             create={CreateCategory} 
+        />
+        <Resource
+            name="variants" 
+            list={VariantList} 
+            edit={VariantEdit} 
+            show={VariantShow} 
         />
 </Admin>;
