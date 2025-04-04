@@ -101,7 +101,7 @@ export const Dashboard: React.FC = () => {
 
             <Grid container spacing={3}>
                 <Grid item xs={12} md={8}> {/* Chart takes more space */}
-                    <ProductsPerCategoryChart />
+                    {/*<ProductsPerCategoryChart />*/} {/* Needs to be fixed*/}
                 </Grid>
                 <Grid item xs={12} md={4}> {/* Feed takes less space */}
                     <RecentUsers />

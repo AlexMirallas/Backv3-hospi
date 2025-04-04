@@ -1,4 +1,5 @@
 import { Admin, Resource, LoginWithEmail} from "react-admin";
+import { Route } from "react-router-dom";
 import { Layout } from "./Layout";
 import  myDataProvider  from "./dataProvider";
 import  authProvider  from "./authProvider"; 
@@ -55,51 +56,24 @@ export const App = () =>
     dashboard={Dashboard}
 >
         <Resource 
-            icon={UserIcon} 
-            name="users" 
-            list={UserList} 
-            edit={UserEdit} 
-            show={UserShow} 
-            create={UserCreate} 
+            icon={UserIcon} name="users" list={UserList} edit={UserEdit} show={UserShow} create={UserCreate} 
         />
         <Resource 
-            icon={ProductIcon} 
-            name="products" 
-            list={ProductList} 
-            edit={ProductEdit} 
-            show={ProductShow} 
-            create={ProductCreate} 
+            icon={ProductIcon} name="products" list={ProductList} edit={ProductEdit} show={ProductShow} create={ProductCreate} 
+        />
+
+        <Resource 
+            icon={CategoryIcon} name="categories" list={CategoryList} edit={CategoryEdit} show={CategoryShow} create={CreateCategory} 
+        />
+
+        <Resource 
+            icon={AttributeIcon} name="attributes" list={AttributeList} edit={AttributeEdit} show={AttributeShow} create={AttributeCreate} 
         />
         <Resource 
-            icon={CategoryIcon} 
-            name="categories" 
-            list={CategoryList} 
-            edit={CategoryEdit} 
-            show={CategoryShow} 
-            create={CreateCategory} 
-        />
-        <Resource 
-            icon={AttributeIcon}
-            name="attributes" 
-            list={AttributeList} 
-            edit={AttributeEdit} 
-            show={AttributeShow}
-            create={AttributeCreate} 
-        />
-        <Resource 
-            icon={AttributeValueIcon}
-            name="attribute-values" 
-            list={AttributeValueList} 
-            edit={AttributeValueEdit} 
-            show={AttributeValueShow}
-            create={AttributeValueCreate}
+            icon={AttributeValueIcon} name="attribute-values" list={AttributeValueList} edit={AttributeValueEdit} show={AttributeValueShow} create={AttributeValueCreate}
         />
         
         <Resource
-            icon={VariantIcon}
-            name="variants" 
-            list={VariantList} 
-            edit={VariantEdit} 
-            show={VariantShow} 
+            icon={VariantIcon} name="variants" list={VariantList} edit={VariantEdit} show={VariantShow} 
         />
 </Admin>;

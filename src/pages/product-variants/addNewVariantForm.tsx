@@ -66,16 +66,16 @@ export const AddNewVariantForm: React.FC = () => {
                 // Only create an object if a value was actually selected for this attribute
                 if (selectedValueId != null) { // Check for null or undefined
                     return {
-                        attributeValueId: selectedValueId, // The ID of the selected value (e.g., 4 for 'Red')
-                        attributeId: attr.id              // The ID of the parent attribute (e.g., the ID for 'Color')
+                        attributeValueId: selectedValueId, 
+                        attributeId: attr.id              
                     };
                 }
                 return null; // Return null if no value was selected for this attribute
             })
-            .filter(item => item !== null); // Filter out the null entries where no value was selected
+            .filter(item => item !== null); 
 
 
-        // --- Validation (can also use RA validation props on inputs) ---
+        // Validation
         if (!formData.sku) {
             notify('SKU is required.', { type: 'warning' });
             return; 
@@ -98,7 +98,6 @@ export const AddNewVariantForm: React.FC = () => {
         };
 
         try {
-            // Using dataProvider.create
             await dataProvider.create('variants', { data: newVariantPayload });
             notify('Variant created successfully!', { type: 'success' });
             refresh(); // Refresh ProductEdit view

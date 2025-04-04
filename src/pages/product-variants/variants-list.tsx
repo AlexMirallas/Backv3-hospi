@@ -1,7 +1,13 @@
-import { ArrayField, BooleanField, ChipField, Datagrid, DateField, List, NumberField, SingleFieldList, TextField } from 'react-admin';
+import { ArrayField, BooleanField, ChipField, Datagrid, DateField, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton } from 'react-admin';
 
-export const VariantList = () => (
-    <List>
+export const VariantList = () =>{
+    
+    const variantFilters = [
+        <TextInput label="Product Name" source="name" resettable />,
+        <NumberInput label="Stock" source="stockQuantity" />,]
+
+    return(
+    <List filters={variantFilters}>
         <Datagrid>
             <TextField source="sku" />
             <TextField source="product.name" />
@@ -15,6 +21,8 @@ export const VariantList = () => (
             </ArrayField>
             <DateField source="createdAt" />
             <DateField source="updatedAt" />
+            <EditButton label='Modifier' />
+            <ShowButton label='Détails' />
         </Datagrid>
     </List>
-);
+)};

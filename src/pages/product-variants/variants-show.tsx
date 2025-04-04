@@ -3,9 +3,8 @@ import { ArrayField, BooleanField, Datagrid, DateField, NumberField, Show, Simpl
 export const VariantShow = () => (
     <Show>
         <SimpleShowLayout>
-            <TextField source="id" />
             <TextField source="sku" />
-            <TextField source="product.id" />
+            <TextField source="product.name" />
             <TextField source="priceAdjustment" />
             <NumberField source="stockQuantity" />
             <BooleanField source="isActive" />
