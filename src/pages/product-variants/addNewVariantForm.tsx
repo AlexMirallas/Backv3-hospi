@@ -33,15 +33,14 @@ export const AddNewVariantForm: React.FC = () => {
     const dataProvider = useDataProvider();
     const productRecord = useRecordContext();
 
-    // Fetch attributes - This part remains the same
+    // Fetch attributes 
     const { data: attributes, isLoading: attributesLoading, error: attributesError } = useGetList<AttributeRecord>(
         'attributes',
         {
             pagination: { page: 1, perPage: 100 },
             sort: { field: 'name', order: 'ASC' }
         }
-        // Add productRecord.id as dependency if attributes depend on product type maybe?
-        // , { enabled: !!productRecord?.id } // Example conditional fetch
+       
     );
 
     // --- Custom Submit Handler for <Form> ---
@@ -50,12 +49,19 @@ export const AddNewVariantForm: React.FC = () => {
             notify('Product context or attributes not available.', { type: 'error' });
             return;
         }
+        
+        //Debugging Form Data and Attributes
+        console.log("--- Form Data ---");
+        console.log(formData);
+        console.log("--- Attributes ---");
+        console.log(attributes);
+
 
         // Extract attribute values from formData based on dynamic sources
         const attributeValueSelections = attributes
             .map(attr => {
                 // Get the selected value ID from the form data
-                const selectedValueId = formData[`attribute_${attr.id}`];
+                const selectedValueId = formData[`${attr.name}`];
 
                 // Only create an object if a value was actually selected for this attribute
                 if (selectedValueId != null) { // Check for null or undefined
@@ -72,9 +78,10 @@ export const AddNewVariantForm: React.FC = () => {
         // --- Validation (can also use RA validation props on inputs) ---
         if (!formData.sku) {
             notify('SKU is required.', { type: 'warning' });
-            return; // Prevent submission
+            return; 
         }
         if (attributeValueSelections.length !== attributes.length) {
+            console.log("Attribute Value Selections:", attributeValueSelections);
              notify(`Please select a value for all attributes (${attributes.map(a => a.name).join(', ')}).`, { type: 'warning' });
              return;
         }
@@ -85,22 +92,21 @@ export const AddNewVariantForm: React.FC = () => {
             sku: formData.sku,
             priceAdjustment: Number(formData.priceAdjustment) || 0,
             stockQuantity: Number(formData.stockQuantity) || 0,
-            isActive: formData.isActive ?? true, // Handle potential undefined from Switch
+            isActive: formData.isActive ?? true, // Default to true if not provided
             productId: productRecord.id,
             attributeValues: attributeValueSelections,
         };
 
         try {
-            // Using dataProvider.create directly is fine for custom logic
+            // Using dataProvider.create
             await dataProvider.create('variants', { data: newVariantPayload });
             notify('Variant created successfully!', { type: 'success' });
             refresh(); // Refresh ProductEdit view
-            // Form reset is often handled automatically by RA redirects or manually if needed
+            
         } catch (error: any) {
             console.error("Error creating variant:", error);
             notify(error.message || 'Error creating variant.', { type: 'error' });
-            // Return error to Form component if you want it to display errors
-            // return { error: new Error(error.message || 'Error creating variant.') };
+
         }
     }, [dataProvider, notify, refresh, productRecord, attributes]);
 
@@ -111,14 +117,11 @@ export const AddNewVariantForm: React.FC = () => {
     if (!productRecord) return <Alert severity="warning">Product context not found.</Alert>;
 
     return (
-        <Form onSubmit={handleSubmit} /* Or use defaultSave for simpler cases */>
-            <Box sx={{ mt: 2, width: '100%' /* Ensure Box takes width */ }}>
+        <Form onSubmit={handleSubmit}>
+            <Box sx={{ mt: 2, width: '100%' }}>
                 <Grid container spacing={2}>
-                    {/* Use RA Inputs or regular MUI components */}
-                    {/* For RA inputs, 'source' links to the form data */}
                     <Grid item xs={12} sm={6} md={4}>
                         <TextInput source="sku" label="Variant SKU" validate={required()} fullWidth size="small" />
-
                     </Grid>
                     <Grid item xs={6} sm={3} md={2}>
                         <NumberInput source="priceAdjustment" label="Price Adj." fullWidth size="small" defaultValue={0} />
@@ -129,14 +132,13 @@ export const AddNewVariantForm: React.FC = () => {
                     <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center' }}>
                         <BooleanInput source="isActive" label="Is Active" defaultValue={true} />
                     </Grid>
-
+                   
                     {/* Dynamically Generated Attribute Selectors */}
                     {attributes.map(attribute => (
                         <Grid item xs={12} sm={6} md={4} key={attribute.id}>
-                             {/* ReferenceInput now works because it's inside <Form> */}
                              <ReferenceInput
                                 label={attribute.name}
-                                source={`attribute_${attribute.name}`}
+                                source={`${attribute.name}`}
                                 reference="attribute-values"
                                 filter={{ attributeId: attribute.id }}
                                 perPage={100}
@@ -145,8 +147,6 @@ export const AddNewVariantForm: React.FC = () => {
                              >
                                  <AutocompleteInput
                                      optionText={(record?: AttributeValueRecord) => record?.value ?? ''}
-                                     // No need for manual onChange or value prop here,
-                                     // Form context handles it via the `source` prop.
                                      fullWidth
                                      size="small"
                                      helperText={false}

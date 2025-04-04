@@ -1,16 +1,14 @@
-import { DateInput, Edit, SimpleForm, TextInput } from 'react-admin';
+import { Edit, SimpleForm} from 'react-admin';
+import { CategoryHierarchy } from './categorie-components/CategoryHierarchy';
+import { CategoryDetails } from './categorie-components/CategoryDetails';
 
-export const CategoryEdit = () => (
+export const CategoryEdit = () => {
+    
+    return(
     <Edit>
         <SimpleForm>
-            <TextInput source="name" />
-            <TextInput source="slug" />
-            <TextInput source="description" />
-            <TextInput source="children" />
-            <TextInput source="parent" />
-            <TextInput source="products" />
-            <DateInput source="createdAt" />
-            <DateInput source="updatedAt" />
+            <CategoryDetails />
+            <CategoryHierarchy />
         </SimpleForm>
     </Edit>
-);
+)};

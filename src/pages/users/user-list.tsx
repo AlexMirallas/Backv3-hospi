@@ -1,4 +1,4 @@
-import { Datagrid, DateField, EditButton, EmailField, List, TextField, TextInput,SelectInput } from 'react-admin';
+import { Datagrid, DateField, EditButton, EmailField, List, TextField, TextInput,SelectInput, ShowButton } from 'react-admin';
 
 export const UserList = () => {
 
@@ -17,14 +17,13 @@ export const UserList = () => {
     return(
     <List filters={userFilters}>
         <Datagrid>
-            <TextField source="id" />
-            <EmailField source="email" />
             <TextField source="firstName" />
             <TextField source="lastName" />
+            <EmailField source="email" />
             <TextField source="phone" />
             <TextField source="roles" />
             <DateField source="createdAt" />
-            <DateField source="updatedAt" />
+            <ShowButton label='Détails' />
             <EditButton label='Modifier' />
         </Datagrid>
     </List>

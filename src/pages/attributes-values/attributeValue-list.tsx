@@ -1,7 +1,18 @@
-import { Datagrid, DateField, EditButton, List, NumberField, ReferenceField, TextField } from 'react-admin';
+import { Datagrid, DateField, EditButton, List, NumberField, ReferenceField, ReferenceInput, SelectInput, TextField } from 'react-admin';
 
-export const AttributeValueList = () => (
-    <List>
+
+
+export const AttributeValueList = () => {
+   
+
+    const attributeFilters = [
+        <ReferenceInput label="Par Attribut " source="attributeId" reference="attributes" allowEmpty>
+            <SelectInput optionText="name" resettable />
+        </ReferenceInput>,
+    ];
+    
+    return(
+    <List filters={attributeFilters} >
         <Datagrid>
             <TextField source="id" />
             <NumberField source="position" />
@@ -13,4 +24,4 @@ export const AttributeValueList = () => (
             <EditButton label='Modifier' />
         </Datagrid>
     </List>
-);
+)};

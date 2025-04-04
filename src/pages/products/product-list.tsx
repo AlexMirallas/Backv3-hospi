@@ -23,7 +23,7 @@ export const ProductList = () => {
                                 <ChipField source="name" />
                             </SingleFieldList>
                         </ArrayField>
-            { /*<FunctionField label="Image" render={record => <img src={record.imageUrl} alt={record.name} style={{ width: '50px' }} />} />*/}
+            { /* Reminder When to add Image uncomment: <FunctionField label="Image" render={record => <img src={record.imageUrl} alt={record.name} style={{ width: '50px' }} />} />*/}
             <DateField source="createdAt" label="Date de création" />
             <DateField source="updatedAt" label="Date de mise à jour" />
             <EditButton label='Modifier' />

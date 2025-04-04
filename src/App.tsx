@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail, ListGuesser, EditGuesser, ShowGuesser, Edit } from "react-admin";
+import { Admin, Resource, LoginWithEmail} from "react-admin";
 import { Layout } from "./Layout";
 import  myDataProvider  from "./dataProvider";
 import  authProvider  from "./authProvider"; 
@@ -29,6 +29,8 @@ import { AttributeValueShow } from "./pages/attributes-values/attributeValue-sho
 import { AttributeValueList } from "./pages/attributes-values/attributeValue-list";
 
 import { VariantList } from "./pages/product-variants/variants-list";
+import { VariantShow } from "./pages/product-variants/variants-show";
+import { VariantEdit } from "./pages/product-variants/variants-edit";
 
 import { Dashboard } from "./pages/dashboard/dashboard";
 
@@ -36,8 +38,10 @@ import { Dashboard } from "./pages/dashboard/dashboard";
 import UserIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
-import { VariantShow } from "./pages/product-variants/variants-show";
-import { VariantEdit } from "./pages/product-variants/variants-edit";
+import AttributeIcon from '@mui/icons-material/Settings';
+import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
+import VariantIcon from '@mui/icons-material/SettingsInputComposite';
+
 
 
 
@@ -67,20 +71,6 @@ export const App = () =>
             create={ProductCreate} 
         />
         <Resource 
-            name="attributes" 
-            list={AttributeList} 
-            edit={AttributeEdit} 
-            show={AttributeShow}
-            create={AttributeCreate} 
-        />
-        <Resource 
-            name="attribute-values" 
-            list={AttributeValueList} 
-            edit={AttributeValueEdit} 
-            show={AttributeValueShow}
-            create={AttributeValueCreate}
-        />
-        <Resource 
             icon={CategoryIcon} 
             name="categories" 
             list={CategoryList} 
@@ -88,7 +78,25 @@ export const App = () =>
             show={CategoryShow} 
             create={CreateCategory} 
         />
+        <Resource 
+            icon={AttributeIcon}
+            name="attributes" 
+            list={AttributeList} 
+            edit={AttributeEdit} 
+            show={AttributeShow}
+            create={AttributeCreate} 
+        />
+        <Resource 
+            icon={AttributeValueIcon}
+            name="attribute-values" 
+            list={AttributeValueList} 
+            edit={AttributeValueEdit} 
+            show={AttributeValueShow}
+            create={AttributeValueCreate}
+        />
+        
         <Resource
+            icon={VariantIcon}
             name="variants" 
             list={VariantList} 
             edit={VariantEdit} 

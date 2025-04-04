@@ -9,11 +9,13 @@ export const VariantShow = () => (
             <TextField source="priceAdjustment" />
             <NumberField source="stockQuantity" />
             <BooleanField source="isActive" />
-            <ArrayField source="attributeValues"><Datagrid><TextField source="id" />
-<NumberField source="attributeValue.id" />
-<NumberField source="attribute.id" />
-<DateField source="createdAt" />
-<DateField source="updatedAt" /></Datagrid></ArrayField>
+            <ArrayField source="attributeValues">
+                <Datagrid>
+                    <TextField source="attribute.name" label="Atribute"/>
+                    <TextField source="attributeValue.value" label="Value" />     
+                    <DateField source="updatedAt" label="Last updated" />
+                </Datagrid>
+            </ArrayField>
             <DateField source="createdAt" />
             <DateField source="updatedAt" />
         </SimpleShowLayout>

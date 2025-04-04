@@ -17,9 +17,9 @@ export const ExistingVariantsList: React.FC = () => {
     return (
         <ReferenceManyField<ProductVariantRecord>
             label="Existing Variants"
-            reference="variants" // Assumes you have a 'variants' resource endpoint
-            target="productId" // Assumes your /variants endpoint filters by 'productId'
-            source="id"       // The field in the *current* record (Product) to use for filtering
+            reference="variants"  
+            target="productId" // filters by 'productId'
+            source="id"       // *current* record (Product) to use for filtering
             perPage={25}
         >
            {/* Use SimpleList on small screens, Datagrid on larger screens */}
@@ -38,13 +38,12 @@ export const ExistingVariantsList: React.FC = () => {
                             ?.map(pav => `${pav.attribute?.name}: ${pav.attributeValue?.value}`)
                             .join(', ') ?? 'N/A'
                         }
-                        sortBy="attributeValues" // Note: Sorting might not work well on complex fields
+                        sortBy="attributeValues" 
                     />
-                    <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'USD' }} /> {/* Adjust currency */}
+                    <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} /> {/* Adjust currency */}
                     <NumberField source="stockQuantity" />
                     <BooleanField source="isActive" />
-                    {/* Optional: Direct edit button if you have a variant edit view */}
-                     <EditButton /> 
+                    <EditButton /> 
                 </Datagrid>
             )}
         </ReferenceManyField>

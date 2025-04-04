@@ -1,21 +1,23 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { useGetList } from 'react-admin'; // Or useGetList if applicable
+import { useGetList } from 'react-admin'; 
 
 export const ProductsPerCategoryChart = () => {
-    // Example: Fetch data from a custom endpoint /api/stats/products-per-category
+    // Fetching data from the API using react-admin's useGetList hook
     const { data, isLoading, error } = useGetList(
         'products',{
             pagination: { page: 1, perPage: 10 }, 
             sort: { field: 'count', order: 'DESC' }, 
             filter: {} 
         });
-
+    console.log('Chart data:', data);
+    console.log(data?.map(item => item.categories.name));
+    
     if (isLoading) return <Typography>Loading chart...</Typography>;
     if (error || !data) return <Typography color="error">Could not load chart data.</Typography>;
 
-    // Assuming data looks like: [{ categoryName: 'Electronics', count: 50 }, ...]
-    const chartData = data.map(item => ({ name: item.categoryName, Products: item.count }));
+    if (data.length === 0) return <Typography>No data available for chart.</Typography>;
+    const chartData = data.map(item => ({ name: item.categories.name, Products: item.count }));
 
     return (
         <Card>
