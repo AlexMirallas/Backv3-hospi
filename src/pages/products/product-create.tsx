@@ -9,8 +9,6 @@ AutocompleteArrayInput,
 CreateProps,
 
 } from 'react-admin';
-import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
-import { Card, CardContent, Typography } from '@mui/material';
 
 
 

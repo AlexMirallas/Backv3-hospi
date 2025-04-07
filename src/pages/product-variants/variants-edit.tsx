@@ -22,7 +22,7 @@ import { transformEditVariant } from '../../utils/transformData';
 
 export const VariantEdit = () => {
     return (
-        <Edit transform={transformEditVariant} mutationMode="optimistic" undoable={false}>
+        <Edit transform={transformEditVariant} undoable={false}>
             <SimpleForm>   
                         <Grid container spacing={2}>
                              <Grid item xs={12} sm={6}>
@@ -53,8 +53,8 @@ export const VariantEdit = () => {
                             >
                                 <SimpleFormIterator
                                     inline
-                                    disableAdd
                                     disableRemove
+                                    disableAdd
                                     disableReordering
                                 >
                                     {/* Source targets the 'name' field within the 'attribute' object */}
@@ -65,23 +65,17 @@ export const VariantEdit = () => {
 
                                     {/* 2. Select Attribute Value */}
                                     <FormDataConsumer>
-                                        {/* Adjust type for scopedFormData */}
                                         {({ scopedFormData }: FormDataConsumerRenderParams<RaRecord, VariantAttributeValueLink>) => {
-
-                                            // Get the parent attribute ID from the NESTED structure
-                                            const currentAttributeId = scopedFormData?.attribute?.id; // <-- Use attribute.id
+   
+                                            const currentAttributeId = scopedFormData?.attribute?.id;
                                             const filter = currentAttributeId ? { attributeId: currentAttributeId } : {};
-
-                                            if (!currentAttributeId) {
-                                                return <Typography color="error" sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>Missing Attribute ID</Typography>;
-                                            }
 
                                             return (
                                                 <ReferenceInput
                                                     label="Value"
                                                     source="attributeValue.id" 
-                                                    reference="attribute-values" // Resource to fetch options like 'M', 'L', 'Red', 'Green'
-                                                    filter={filter} // Filter options by parent attribute ID
+                                                    reference="attribute-values" 
+                                                    filter={filter} 
                                                     perPage={100}
                                                     isRequired
                                                     sx={{ minWidth: 200 }}

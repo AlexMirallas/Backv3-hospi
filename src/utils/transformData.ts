@@ -12,26 +12,20 @@ export const transformEditVariant = (data: RaRecord): RaRecord => {
             .map((item: VariantAttributeValueLink) => {
                 // Basic check to ensure the nested structure exists
                 if (!item?.attribute?.id || item?.attributeValue?.id === undefined || item?.attributeValue?.id === null) {
-                    console.warn('Skipping transformation for invalid item:', item);
-                    // Return null or an empty object, or throw an error,
-                    // depending on how you want to handle invalid items from the form state.
-                    // Returning null might be safest if filtering later.
+                    console.warn('Skipping transformation for invalid item:', item); 
                     return null;
                 }
-                // Return the object matching VariantAttributeValueUpdateDto
                 return {
                     attributeValueId: item.attributeValue.id,
                     attributeId: item.attribute.id, 
                 };
             })
-            .filter(item => item !== null); // Filter out any items that couldn't be transformed
+            .filter(item => item !== null); 
     } else {
-        // If attributeValues is not an array or doesn't exist,
-        // ensure it's not sent or sent as empty array if backend allows/requires
-         transformedData.attributeValues = undefined; // Or [] depending on DTO/backend logic
+         transformedData.attributeValues = undefined; 
     }
 
 
-    console.log('Transformed data being sent:', transformedData); // Debug log
+    console.log('Transformed data being sent:', transformedData);
     return transformedData;
 };

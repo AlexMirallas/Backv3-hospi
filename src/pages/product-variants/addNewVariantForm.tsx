@@ -43,39 +43,36 @@ export const AddNewVariantForm: React.FC = () => {
        
     );
 
-    // --- Custom Submit Handler for <Form> ---
+   
     const handleSubmit = useCallback(async (formData: any) => {
         if (!productRecord || !productRecord.id || !attributes) {
             notify('Product context or attributes not available.', { type: 'error' });
             return;
         }
         
-        //Debugging Form Data and Attributes
+        
         console.log("--- Form Data ---");
         console.log(formData);
         console.log("--- Attributes ---");
         console.log(attributes);
 
 
-        // Extract attribute values from formData based on dynamic sources
+        // Prepare attribute value selections for the new variant
         const attributeValueSelections = attributes
             .map(attr => {
-                // Get the selected value ID from the form data
                 const selectedValueId = formData[`${attr.name}`];
-
-                // Only create an object if a value was actually selected for this attribute
-                if (selectedValueId != null) { // Check for null or undefined
+                if (selectedValueId != null) {
                     return {
                         attributeValueId: selectedValueId, 
                         attributeId: attr.id              
                     };
                 }
-                return null; // Return null if no value was selected for this attribute
+                return null;
             })
             .filter(item => item !== null); 
 
 
-        // Validation
+        
         if (!formData.sku) {
             notify('SKU is required.', { type: 'warning' });
             return; 
@@ -85,7 +82,7 @@ export const AddNewVariantForm: React.FC = () => {
              notify(`Please select a value for all attributes (${attributes.map(a => a.name).join(', ')}).`, { type: 'warning' });
              return;
         }
-        // --- End Validation ---
+       
 
 
         const newVariantPayload = {
@@ -141,7 +138,7 @@ export const AddNewVariantForm: React.FC = () => {
                                 reference="attribute-values"
                                 filter={{ attributeId: attribute.id }}
                                 perPage={100}
-                                allowEmpty={false} // 
+                                allowEmpty={false} 
                                 isRequired 
                              >
                                  <AutocompleteInput

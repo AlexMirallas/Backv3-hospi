@@ -6,7 +6,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';       
 import CategoryIcon from '@mui/icons-material/Category';   
 import { WelcomeMessage } from './welcomeMessage';
-import { ProductsPerCategoryChart } from './productsPerCategory';
+// import { ProductsPerCategoryChart } from './productsPerCategory';
 import { QuickActions } from './quickActions'; 
 import { RecentUsers } from './recentUsers';
 import { StatCard } from './statCard';  
@@ -18,17 +18,16 @@ import { StatCard } from './statCard';
 // The Main Dashboard Component
 export const Dashboard: React.FC = () => {
     // Fetch total counts for different resources using useGetList
-    // We only need 1 item per page because we only care about the 'total'
     const pagination = { page: 1, perPage: 1 };
 
     const { total: productTotal, isLoading: productsLoading, error: productsError } = useGetList(
         'products',
         { pagination }
-        // Add filter if needed, e.g., { filter: { is_active: true } }
+      
     );
 
     const { total: usersTotal, isLoading: usersLoading, error: usersError } = useGetList(
-        'users', // Assuming you have a 'users' resource
+        'users',
         { pagination }
     );
 
@@ -50,7 +49,7 @@ export const Dashboard: React.FC = () => {
     if (productsError || usersError || categoriesError) {
          console.error("Dashboard Errors:", { productsError, usersError, categoriesError });
         
-         // maybe return Error component in the future />;
+         
     }
 
 

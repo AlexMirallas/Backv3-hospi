@@ -1,5 +1,4 @@
 import { Admin, Resource, LoginWithEmail} from "react-admin";
-import { Route } from "react-router-dom";
 import { Layout } from "./Layout";
 import  myDataProvider  from "./dataProvider";
 import  authProvider  from "./authProvider"; 
