@@ -7,7 +7,6 @@ import {
     NumberInput,
     AutocompleteArrayInput,
     EditProps,
-    Create
 } from 'react-admin';
 import { ExistingVariantsList } from '../product-variants/product-variant-list';
 import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
@@ -15,11 +14,13 @@ import { Card, CardContent, Typography } from '@mui/material';
 
 
 
+
+
 export const ProductEdit:React.FC<EditProps> = (props) => {
-   
+
     return(
     <>
-        <Edit title="Edit Product" undoable={false}>
+        <Edit {...props} title= {`Edit Product`} redirect="list" mutationMode='pessimistic' > 
             <SimpleForm >
                 <TextInput source="id" disabled />
                 <TextInput source="sku" label="SKU" required /> 
