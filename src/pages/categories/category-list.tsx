@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, ReferenceField, TextField, EditButton, FunctionField, ArrayField, ChipField, SingleFieldList } from 'react-admin';
+import { Datagrid, List, ReferenceField, TextField, EditButton, FunctionField, ArrayField, SingleFieldList } from 'react-admin';
 
 export const CategoryList = () => (
     <List>
@@ -11,8 +11,6 @@ export const CategoryList = () => (
             <ArrayField source="children">
                 <SingleFieldList/>
             </ArrayField>
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
             <EditButton label='Modifier' />
         </Datagrid>
     </List>

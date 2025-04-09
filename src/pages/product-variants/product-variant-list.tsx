@@ -9,7 +9,7 @@ import { ProductVariantRecord } from '../../types/types';
 
 
 export const ExistingVariantsList: React.FC = () => {
-    const record = useRecordContext(); // Get the current product record
+    const record = useRecordContext(); 
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
 
     if (!record) return null;
@@ -18,11 +18,11 @@ export const ExistingVariantsList: React.FC = () => {
         <ReferenceManyField<ProductVariantRecord>
             label="Existing Variants"
             reference="variants"  
-            target="productId" // filters by 'productId'
-            source="id"       // *current* record (Product) to use for filtering
+            target="productId" 
+            source="id"       
             perPage={25}
         >
-           {/* Use SimpleList on small screens, Datagrid on larger screens */}
+           
            {isSmall ? (
                 <SimpleList
                     primaryText={record => record.sku}
@@ -30,7 +30,7 @@ export const ExistingVariantsList: React.FC = () => {
                     tertiaryText={record => `Active: ${record.isActive}`}
                 />
             ) : (
-                <Datagrid rowClick="edit"> {/* Make rows clickable to edit variant */}
+                <Datagrid rowClick="edit">
                     <TextField source="sku" />
                     <FunctionField<ProductVariantRecord>
                         label="Attributes"
@@ -38,9 +38,9 @@ export const ExistingVariantsList: React.FC = () => {
                             ?.map(pav => `${pav.attribute?.name}: ${pav.attributeValue?.value}`)
                             .join(', ') ?? 'N/A'
                         }
-                        sortBy="attributeValues" 
+                        sortBy="position" 
                     />
-                    <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} /> {/* Adjust currency */}
+                    <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} /> 
                     <NumberField source="stockQuantity" />
                     <BooleanField source="isActive" />
                     <EditButton /> 

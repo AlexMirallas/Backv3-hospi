@@ -1,4 +1,6 @@
-import { Datagrid, DateField, List, TextField, EditButton } from 'react-admin';
+import { Datagrid, List, TextField, EditButton, BooleanField } from 'react-admin';
+import { CustomCheckIcon } from '../../components/CustomCheckIcon';
+import { CustomCrossIcon } from '../../components/CustomCrossIcon';
 
 export const AttributeList = () => (
     <List>
@@ -6,8 +8,7 @@ export const AttributeList = () => (
             <TextField source="id" />
             <TextField source="name" label="Nom" />
             <TextField source="position" label="Position" />
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
+            <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />            
             <EditButton label='Modifier' />
         </Datagrid>
     </List>

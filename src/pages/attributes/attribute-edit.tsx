@@ -14,8 +14,8 @@ import {
     Button,
     EditProps,
     NumberInput,
-    DateField,
     DateInput,
+    BooleanInput,
 } from 'react-admin';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -54,9 +54,9 @@ export const AttributeEdit: React.FC<EditProps> = (props) => (
             <TextInput source="id" disabled />
             <TextInput source="name" validate={required()}  />
             <NumberInput source="position" />
+            <BooleanInput source="isActive" label="Active" defaultValue={true} />
             <DateInput source="createdAt" disabled />
             <DateInput source="updatedAt" disabled />
-            
             <Typography variant="h6" mt={4} mb={2}>Attribute Values</Typography>
             <ReferenceManyField
                 label="Possible Values"
@@ -67,8 +67,7 @@ export const AttributeEdit: React.FC<EditProps> = (props) => (
             >
                 <Datagrid>
                     <TextField source="value" />
-                    <DateField source="createdAt" />
-                    <DateField source="updatedAt" />
+                    <TextField source="position" label="Position" />
                     <EditButton />
                     <DeleteButton />
                 </Datagrid>

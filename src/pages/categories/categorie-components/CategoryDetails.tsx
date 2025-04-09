@@ -11,10 +11,10 @@ const slugify = (text:string) => {
       .toString()
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, '-')           // Replace spaces with -
-      .replace(/&/g, '-and-')         // Replace & with 'and'
-      .replace(/[^\w\-]+/g, '')       // Remove all non-word characters
-      .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+      .replace(/\s+/g, '-')           
+      .replace(/&/g, '-and-')         
+      .replace(/[^\w\-]+/g, '')      
+      .replace(/\-\-+/g, '-');        
   };
   
   export const CategoryDetails = () => (
@@ -28,7 +28,7 @@ const slugify = (text:string) => {
         helperText="The name of the category"
         onChange={(event:any) => {
           const slug = slugify(event.target.value);
-          event.target.form.slug.value = slug; // Automatically set slug based on name
+          event.target.form.slug.value = slug; 
         }}
       />
       

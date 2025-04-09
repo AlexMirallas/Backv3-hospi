@@ -11,7 +11,8 @@ export const VariantList = () =>{
         <Datagrid>
             <TextField source="sku" />
             <TextField source="product.name" />
-            <TextField source="priceAdjustment" />
+            <NumberField source="priceAdjustment" options={
+                { style: 'currency', currency: 'EUR' } } />
             <NumberField source="stockQuantity" />
             <BooleanField source="isActive" />
             <ArrayField source="attributeValues">
