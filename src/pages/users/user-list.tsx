@@ -16,7 +16,11 @@ export const UserList = () => {
     ];
     return(
     <List filters={userFilters}>
-        <Datagrid>
+        <Datagrid sx={{
+                '& .RaDatagrid-rowOdd': {
+                    backgroundColor: '#f0f0f0',
+                },
+            }}>
             <TextField source="firstName" />
             <TextField source="lastName" />
             <EmailField source="email" />

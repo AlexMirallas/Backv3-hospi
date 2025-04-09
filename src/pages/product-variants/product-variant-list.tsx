@@ -30,7 +30,11 @@ export const ExistingVariantsList: React.FC = () => {
                     tertiaryText={record => `Active: ${record.isActive}`}
                 />
             ) : (
-                <Datagrid rowClick="edit">
+                <Datagrid rowClick="edit" sx={{
+                    '& .RaDatagrid-rowOdd': {
+                        backgroundColor: '#f0f0f0',
+                    },
+                }}>
                     <TextField source="sku" />
                     <FunctionField<ProductVariantRecord>
                         label="Attributes"

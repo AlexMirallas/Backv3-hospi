@@ -23,11 +23,11 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
         <Edit {...props} title= {`Edit Product`} redirect="list" mutationMode='pessimistic' > 
             <SimpleForm >
                 <TextInput source="id" disabled />
-                <TextInput source="sku" label="SKU" required /> 
-                <TextInput source="name" required />
+                <TextInput source="sku" label="SKU" required helperText="Numéro d'unité de gestion des stocks, doit être unique"/> 
+                <TextInput source="name" required helperText="Nom de produit" />
                 <TextInput source="description" multiline rows={3} />
-                <NumberInput source="basePrice" required /> 
-                <BooleanInput source="isActive" defaultValue={true} />
+                <NumberInput source="basePrice" required helperText="Prix ​​de base du produit, le prix final sera calculé après ajustement du prix des variantes." /> 
+                <BooleanInput source="isActive" helperText="Si non actif, il ne peut pas être vu par les clients"/>
                 <ReferenceArrayInput source="categoryIds" reference="categories">
                     <AutocompleteArrayInput
                         optionText="name"

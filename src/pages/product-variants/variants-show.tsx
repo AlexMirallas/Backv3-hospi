@@ -9,10 +9,9 @@ export const VariantShow = () => (
             <NumberField source="stockQuantity" />
             <BooleanField source="isActive" />
             <ArrayField source="attributeValues">
-                <Datagrid>
+                <Datagrid bulkActionButtons={false} >
                     <TextField source="attribute.name" label="Atribute"/>
                     <TextField source="attributeValue.value" label="Value" />     
-                    <DateField source="updatedAt" label="Last updated" />
                 </Datagrid>
             </ArrayField>
             <DateField source="createdAt" />

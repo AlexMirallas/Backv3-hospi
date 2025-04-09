@@ -14,7 +14,11 @@ export const ProductList = () => {
     
     return(
     <List filters={productFilters}>
-        <Datagrid>
+        <Datagrid sx={{
+                '& .RaDatagrid-rowOdd': {
+                    backgroundColor: '#f0f0f0',
+                },
+            }}>
             <TextField source="sku" label="SKU" />
             <TextField source="name" label="Nom" />
             <FunctionField source="description" label="Description" render={(record) => `${record.description.substring(0,30)} ...`} />
@@ -22,7 +26,7 @@ export const ProductList = () => {
                 { style: 'currency', currency: 'EUR' } } 
                  />
             <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
-            <ArrayField source="categories" label="Catégories">
+            <ArrayField source="categories" label="Catégories" sortable={false}>
                 <SingleFieldList linkType={false}> 
                     <ChipField source="name" />
                 </SingleFieldList>

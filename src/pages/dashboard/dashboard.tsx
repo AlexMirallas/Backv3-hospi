@@ -5,11 +5,12 @@ import { Box, Grid, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; 
 import PeopleIcon from '@mui/icons-material/People';       
 import CategoryIcon from '@mui/icons-material/Category';   
-import { WelcomeMessage } from './welcomeMessage';
+import { WelcomeMessage } from './Components/welcomeMessage';
 // import { ProductsPerCategoryChart } from './productsPerCategory';
-import { QuickActions } from './quickActions'; 
-import { RecentUsers } from './recentUsers';
-import { StatCard } from './statCard';  
+import { QuickActions } from './Components/quickActions'; 
+import { RecentUsers } from './Components/recentUsers';
+import { StatCard } from './Components/statCard';
+import { LowStockVariants } from './Components/LowStockProducts';
 
 
 
@@ -99,8 +100,8 @@ export const Dashboard: React.FC = () => {
             </Grid>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8}> {/* Chart takes more space */}
-                    {/*<ProductsPerCategoryChart />*/} {/* Needs to be fixed*/}
+                <Grid item xs={12} md={8}> 
+                    <LowStockVariants /> {/* Low stock products */}
                 </Grid>
                 <Grid item xs={12} md={4}> {/* Feed takes less space */}
                     <RecentUsers />

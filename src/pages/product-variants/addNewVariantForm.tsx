@@ -118,10 +118,10 @@ export const AddNewVariantForm: React.FC = () => {
             <Box sx={{ mt: 2, width: '100%' }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} md={4}>
-                        <TextInput source="sku" label="Variant SKU" validate={required()} fullWidth size="small" />
+                        <TextInput source="sku" label="Variant SKU" validate={required()} fullWidth size="small" helperText="Numéro d'unité de gestion des stocks, doit être unique" />
                     </Grid>
                     <Grid item xs={6} sm={3} md={2}>
-                        <NumberInput source="priceAdjustment" label="Price Adj." fullWidth size="small" defaultValue={0} />
+                        <NumberInput source="priceAdjustment" label="Price Adj." fullWidth size="small" defaultValue={0} helperText="Permet de calculer le prix final. Laissez 0 si le prix est identique au prix de base." />
                     </Grid>
                     <Grid item xs={6} sm={3} md={2}>
                         <NumberInput source="stockQuantity" label="Stock Qty." fullWidth size="small" defaultValue={0} />

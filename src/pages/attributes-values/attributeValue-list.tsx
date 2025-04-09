@@ -13,7 +13,11 @@ export const AttributeValueList = () => {
     
     return(
     <List filters={attributeFilters} >
-        <Datagrid>
+        <Datagrid sx={{
+                '& .RaDatagrid-rowOdd': {
+                    backgroundColor: '#f0f0f0',
+                },
+            }}>
             <TextField source="id" />
             <NumberField source="position" />
             <TextField source="value" />

@@ -8,15 +8,19 @@ export const VariantList = () =>{
 
     return(
     <List filters={variantFilters}>
-        <Datagrid>
+        <Datagrid sx={{
+                '& .RaDatagrid-rowOdd': {
+                    backgroundColor: '#f0f0f0',
+                },
+            }}>
             <TextField source="sku" />
             <TextField source="product.name" />
             <NumberField source="priceAdjustment" options={
                 { style: 'currency', currency: 'EUR' } } />
             <NumberField source="stockQuantity" />
             <BooleanField source="isActive" />
-            <ArrayField source="attributeValues">
-                <SingleFieldList>
+            <ArrayField source="attributeValues" sortable={false}>
+                <SingleFieldList linkType={false}>
                     <ChipField source="attributeValue.value" />
                 </SingleFieldList>
             </ArrayField>

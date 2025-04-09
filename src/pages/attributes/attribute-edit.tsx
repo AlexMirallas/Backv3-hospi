@@ -14,7 +14,6 @@ import {
     Button,
     EditProps,
     NumberInput,
-    DateInput,
     BooleanInput,
 } from 'react-admin';
 import { useNavigate } from 'react-router-dom';
@@ -55,8 +54,6 @@ export const AttributeEdit: React.FC<EditProps> = (props) => (
             <TextInput source="name" validate={required()}  />
             <NumberInput source="position" />
             <BooleanInput source="isActive" label="Active" defaultValue={true} />
-            <DateInput source="createdAt" disabled />
-            <DateInput source="updatedAt" disabled />
             <Typography variant="h6" mt={4} mb={2}>Attribute Values</Typography>
             <ReferenceManyField
                 label="Possible Values"
@@ -65,7 +62,7 @@ export const AttributeEdit: React.FC<EditProps> = (props) => (
                 filter={{ attributeId: props.id }}
                 sort={{ field: 'position', order: 'ASC' }}
             >
-                <Datagrid>
+                <Datagrid bulkActionButtons={false} rowClick="edit">
                     <TextField source="value" />
                     <TextField source="position" label="Position" />
                     <EditButton />
