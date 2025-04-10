@@ -18,7 +18,7 @@ export const ProductList = () => {
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',
                 },
-            }}>
+            }} rowClick="edit">
             <TextField source="sku" label="SKU" />
             <TextField source="name" label="Nom" />
             <FunctionField source="description" label="Description" render={(record) => `${record.description.substring(0,30)} ...`} />

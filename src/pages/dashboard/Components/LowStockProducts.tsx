@@ -29,7 +29,7 @@ export const LowStockVariants: React.FC = (props) => {
         {
             pagination: { page: 1, perPage: ITEMS_TO_SHOW }, 
             sort: { field: 'stockQuantity', order: 'ASC' }, 
-            filter: { stockQuantity_lte: MAX_STOCK_THRESHOLD } // Use _lte for "less than or equal to"
+            filter: { stockQuantity: MAX_STOCK_THRESHOLD }
         }
     );
 
@@ -113,7 +113,7 @@ export const LowStockVariants: React.FC = (props) => {
                  <Box sx={{ p: 2, textAlign: 'right' }}>
                       <Link
                           component={RouterLink}
-                          to={`/variants?filter=${JSON.stringify({ stockQuantity_lte: MAX_STOCK_THRESHOLD })}&sort=stockQuantity&order=ASC`}
+                          to={`/variants?filter=${JSON.stringify({ stockQuantity: MAX_STOCK_THRESHOLD })}&sort=stockQuantity&order=ASC`}
                           underline="hover"
                       >
                           See all low stock products

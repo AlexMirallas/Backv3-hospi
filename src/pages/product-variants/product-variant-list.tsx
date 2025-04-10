@@ -1,8 +1,12 @@
 import React from 'react';
 import { useMediaQuery, Theme } from '@mui/material';
-import { useRecordContext,EditButton } from 'react-admin';
-import { ReferenceManyField, Datagrid, TextField, FunctionField, NumberField, BooleanField, SimpleList } from 'react-admin';
+import { useRecordContext } from 'react-admin';
+import { ReferenceManyField, SimpleList } from 'react-admin';
 import { ProductVariantRecord } from '../../types/types';
+import { VariantsListWithDynamicAttributes } from './VariantsListWithDynamicAttributes';
+
+
+
 
 
 
@@ -30,25 +34,7 @@ export const ExistingVariantsList: React.FC = () => {
                     tertiaryText={record => `Active: ${record.isActive}`}
                 />
             ) : (
-                <Datagrid rowClick="edit" sx={{
-                    '& .RaDatagrid-rowOdd': {
-                        backgroundColor: '#f0f0f0',
-                    },
-                }}>
-                    <TextField source="sku" />
-                    <FunctionField<ProductVariantRecord>
-                        label="Attributes"
-                        render={record => record?.attributeValues
-                            ?.map(pav => `${pav.attribute?.name}: ${pav.attributeValue?.value}`)
-                            .join(', ') ?? 'N/A'
-                        }
-                        sortBy="position" 
-                    />
-                    <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} /> 
-                    <NumberField source="stockQuantity" />
-                    <BooleanField source="isActive" />
-                    <EditButton /> 
-                </Datagrid>
+                <VariantsListWithDynamicAttributes />
             )}
         </ReferenceManyField>
     );

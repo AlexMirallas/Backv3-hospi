@@ -26,8 +26,7 @@ export interface ProductVariantRecord extends RaRecord {
 
 export interface AttributeRecord extends RaRecord {
     id: Identifier;
-    name: string;
-   
+    name: string;  
 }
 
 export interface AttributeValueItem extends RaRecord {
