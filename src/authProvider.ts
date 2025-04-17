@@ -157,7 +157,7 @@ const authProvider: AuthProvider = {
             return Promise.resolve({
                 id: userId,
                 fullName: decodedToken.email || "User",
-                avatar: decodedToken.avatar,
+                clientId: decodedToken.clientId || null,
             } as any); 
         } catch (error) {
             console.error("Error getting identity:", error);

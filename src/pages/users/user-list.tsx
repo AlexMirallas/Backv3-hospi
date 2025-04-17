@@ -1,10 +1,9 @@
-import { Datagrid, DateField, EditButton, EmailField, List, TextField, TextInput,SelectInput, ShowButton } from 'react-admin';
+import { Datagrid, EditButton, EmailField, List, TextField,Loading, TextInput,SelectInput, ShowButton, ReferenceField,usePermissions } from 'react-admin';
+import { roleChoices } from '../../enums/enums';
 
 export const UserList = () => {
-
-    const rolesChoices = [
-       "admin","user"
-    ];
+    const {isLoading, permissions} = usePermissions();
+    const rolesChoices = roleChoices.map(role => ({ id: role, name: role }));
 
     const userFilters = [
         <TextInput label="Email" source="email" resettable />,
@@ -14,6 +13,12 @@ export const UserList = () => {
         <SelectInput label="Rôles" choices={rolesChoices} source="roles"/>
         
     ];
+
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+
+    if (isLoading) {
+        return <Loading/>
+    }
     return(
     <List filters={userFilters}>
         <Datagrid sx={{
@@ -24,9 +29,12 @@ export const UserList = () => {
             <TextField source="firstName" />
             <TextField source="lastName" />
             <EmailField source="email" />
-            <TextField source="phone" />
             <TextField source="roles" />
-            <DateField source="createdAt" />
+            {isSuperAdmin && (
+                    <ReferenceField source="clientId" reference="clients" label="Client" >
+                        <TextField source="name" />
+                    </ReferenceField>
+            )}
             <ShowButton label='Détails' />
             <EditButton label='Modifier' />
         </Datagrid>

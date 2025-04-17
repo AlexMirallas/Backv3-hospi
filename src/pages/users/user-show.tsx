@@ -1,4 +1,4 @@
-import { DateField, EmailField, Show, SimpleShowLayout, TextField } from 'react-admin';
+import { EmailField, ReferenceField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const UserShow = () => (
     <Show>
@@ -9,8 +9,7 @@ export const UserShow = () => (
             <TextField source="lastName" />
             <TextField source="phone" />
             <TextField source="roles" />
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
+            <TextField source="clientId" label="Client ID" />
         </SimpleShowLayout>
     </Show>
 );

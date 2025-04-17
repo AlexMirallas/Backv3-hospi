@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail, ListGuesser, EditGuesser, ShowGuesser, Loading, usePermissions } from "react-admin";
+import { Admin, Resource, LoginWithEmail } from "react-admin";
 import { Layout } from "./Layout";
 import myDataProvider from "./dataProvider";
 import authProvider from "./authProvider";
@@ -42,6 +42,10 @@ import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
 import VariantIcon from '@mui/icons-material/SettingsInputComposite';
+import { ClientList } from "./pages/clients/client-list";
+import { ClientShow } from "./pages/clients/client-show";
+import { ClientEdit } from "./pages/clients/client-edit";
+import { ClientCreate } from "./pages/clients/client-create";
 
 export const App = () => (
     <Admin
@@ -88,9 +92,10 @@ export const App = () => (
                             <Resource
                                 icon={UserIcon}
                                 name="clients"
-                                list={ListGuesser}
-                                edit={EditGuesser}
-                                show={ShowGuesser}
+                                list={ClientList}
+                                edit={ClientEdit}
+                                show={ClientShow}
+                                create={ClientCreate}
                             />
                         </>
                     )}

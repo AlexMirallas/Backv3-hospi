@@ -54,7 +54,7 @@ export interface CustomJwtPayload {
     email: string;
     sub: string;
     roles: string[];
+    clientId: string;
     iat: number;
     exp: number;
-    avatar?: string;
 }
