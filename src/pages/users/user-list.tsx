@@ -3,7 +3,7 @@ import { roleChoices } from '../../enums/enums';
 
 export const UserList = () => {
     const {isLoading, permissions} = usePermissions();
-    const rolesChoices = roleChoices.map(role => ({ id: role, name: role }));
+    const rolesChoices = roleChoices;
 
     const userFilters = [
         <TextInput label="Email" source="email" resettable />,

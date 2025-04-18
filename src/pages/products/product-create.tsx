@@ -47,11 +47,10 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
         return <Loading />;
     }
 
-    // Determine if the user has permission to create products
+    
     const canCreate = isSuperAdmin || isAdmin;
 
     if (!canCreate) {
-        // Optional: Show a message or redirect if the user shouldn't be here
         return <Typography color="error">You do not have permission to create products.</Typography>;
     }
    
