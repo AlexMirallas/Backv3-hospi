@@ -6,7 +6,7 @@ import authProvider from "./authProvider";
 
 import { UserShow } from "./pages/users/user-show";
 import UserCreate from "./pages/users/user-create";
-import { UserEdit } from "./pages/users/user-edit";
+import UserEdit  from "./pages/users/user-edit";
 import { UserList } from "./pages/users/user-list";
 
 import ProductCreate from "./pages/products/product-create";
@@ -33,7 +33,12 @@ import { VariantList } from "./pages/product-variants/variants-list";
 import { VariantShow } from "./pages/product-variants/variants-show";
 import { VariantEdit } from "./pages/product-variants/variants-edit";
 
-import { Dashboard } from "./pages/dashboard/dashboard";
+import { ClientList } from "./pages/clients/client-list";
+import { ClientShow } from "./pages/clients/client-show";
+import { ClientEdit } from "./pages/clients/client-edit";
+import { ClientCreate } from "./pages/clients/client-create";
+
+import { Dashboard } from "./pages/dashboard/DashBoard";
 
 
 import UserIcon from '@mui/icons-material/Person';
@@ -42,12 +47,14 @@ import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
 import VariantIcon from '@mui/icons-material/SettingsInputComposite';
-import { ClientList } from "./pages/clients/client-list";
-import { ClientShow } from "./pages/clients/client-show";
-import { ClientEdit } from "./pages/clients/client-edit";
-import { ClientCreate } from "./pages/clients/client-create";
 
-export const App = () => (
+
+
+
+export const App = () => {
+
+    
+    return(
     <Admin
         loginPage={LoginWithEmail}
         dataProvider={myDataProvider}
@@ -103,4 +110,4 @@ export const App = () => (
             );
         }}
     </Admin>
-);
+)};

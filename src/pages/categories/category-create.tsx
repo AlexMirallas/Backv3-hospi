@@ -17,7 +17,7 @@ const CreateCategory = (props:any) => (
                             color: '#333333',
                             fontSize: '2rem'
                              }
-          }>Créer une nouvelle catégoriey</Typography>
+          }>Créer une nouvelle catégorie</Typography>
           <CategoryDetails />
           <CategoryHierarchy />
     </SimpleForm>

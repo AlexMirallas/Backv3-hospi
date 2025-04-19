@@ -2,7 +2,7 @@ import {  Resource, ListGuesser, EditGuesser, ShowGuesser, usePermissions, Loadi
 
 import { UserShow } from "../pages/users/user-show";
 import UserCreate  from "../pages/users/user-create";
-import { UserEdit } from "../pages/users/user-edit";
+import UserEdit  from "../pages/users/user-edit";
 import { UserList } from "../pages/users/user-list";
 
 import  ProductCreate  from "../pages/products/product-create";

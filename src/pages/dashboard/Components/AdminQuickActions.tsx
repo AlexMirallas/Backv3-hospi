@@ -4,7 +4,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 
-export const QuickActions = () => (
+export const AdminQuickActions = () => (
     <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
         <CreateButton
             resource="products"
