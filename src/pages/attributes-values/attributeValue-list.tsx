@@ -1,4 +1,5 @@
 import { Datagrid, DateField, EditButton, List, NumberField, ReferenceField, ReferenceInput, SelectInput, TextField } from 'react-admin';
+import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
 
 
@@ -12,7 +13,7 @@ export const AttributeValueList = () => {
     ];
     
     return(
-    <List filters={attributeFilters} >
+    <List filters={attributeFilters} aside={<SuperAdminClientFilterList/>} >
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',

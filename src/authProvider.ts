@@ -156,6 +156,9 @@ const authProvider: AuthProvider = {
             return Promise.resolve({
                 id: userId,
                 email: decodedToken.email || "User",
+                fullName: (decodedToken.firstName && decodedToken.lastName) 
+                    ? `${decodedToken.firstName} ${decodedToken.lastName}` 
+                    : "User",
                 firstname: decodedToken.firstName || "User",
                 lastname: decodedToken.lastName || "User",
                 clientId: decodedToken.clientId || null,

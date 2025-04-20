@@ -1,5 +1,6 @@
 import { Datagrid, EditButton, EmailField, List, TextField,Loading, TextInput,SelectInput, ShowButton, ReferenceField,usePermissions } from 'react-admin';
 import { roleChoices } from '../../enums/enums';
+import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
 export const UserList = () => {
     const {isLoading, permissions} = usePermissions();
@@ -20,7 +21,7 @@ export const UserList = () => {
         return <Loading/>
     }
     return(
-    <List filters={userFilters}>
+    <List filters={userFilters} aside={<SuperAdminClientFilterList/>}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',

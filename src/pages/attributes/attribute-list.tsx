@@ -1,9 +1,13 @@
 import { Datagrid, List, TextField, EditButton, BooleanField } from 'react-admin';
 import { CustomCheckIcon } from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
+import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
-export const AttributeList = () => (
-    <List>
+export const AttributeList = () => {
+
+    
+    return(
+    <List aside={<SuperAdminClientFilterList/>}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',
@@ -16,4 +20,4 @@ export const AttributeList = () => (
             <EditButton label='Modifier' />
         </Datagrid>
     </List>
-);
+)};

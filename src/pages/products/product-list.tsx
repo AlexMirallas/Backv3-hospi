@@ -1,6 +1,7 @@
 import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField } from 'react-admin';
 import { CustomCheckIcon} from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
+import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
 
 
@@ -13,7 +14,7 @@ export const ProductList = () => {
     ];
     
     return(
-    <List filters={productFilters}>
+    <List filters={productFilters} aside={<SuperAdminClientFilterList/>}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',

@@ -1,4 +1,5 @@
 import { ArrayField, BooleanField, ChipField, Datagrid, DateField, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton } from 'react-admin';
+import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
 export const VariantList = () =>{
     
@@ -7,7 +8,7 @@ export const VariantList = () =>{
         <NumberInput label="Stock" source="stockQuantity" />,]
 
     return(
-    <List filters={variantFilters}>
+    <List filters={variantFilters}  aside={<SuperAdminClientFilterList/>}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',
