@@ -151,12 +151,13 @@ const authProvider: AuthProvider = {
         try {
             const decodedToken = jwtDecode<CustomJwtPayload>(token);
             
-            // Ensure id is not undefined, with fallback to empty string
             const userId = decodedToken.sub || '';
             
             return Promise.resolve({
                 id: userId,
-                fullName: decodedToken.email || "User",
+                email: decodedToken.email || "User",
+                firstname: decodedToken.firstName || "User",
+                lastname: decodedToken.lastName || "User",
                 clientId: decodedToken.clientId || null,
             } as any); 
         } catch (error) {

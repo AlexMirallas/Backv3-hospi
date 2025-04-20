@@ -51,10 +51,12 @@ export interface VariantAttributeValueLink extends RaRecord {
 }
 
 export interface CustomJwtPayload {
+    sub: string; 
     email: string;
-    sub: string;
-    roles: string[];
+    firstName: string;
+    roles: string[]; 
+    lastName: string;
     clientId: string;
-    iat: number;
     exp: number;
+    iat: number;
 }
