@@ -23,22 +23,17 @@ export const AdminDashBoard: React.FC = () => {
         { pagination }
       
     );
-
     const { total: usersTotal, isLoading: usersLoading, error: usersError } = useGetList(
         'users',
         { pagination }
     );
-
     const { total: categoriesTotal, isLoading: categoriesLoading, error: categoriesError } = useGetList(
         'categories',
         { pagination }
     );
     
-
-    // Combine loading states
     const isLoading = productsLoading || usersLoading || categoriesLoading ;
 
-    // Simple loading state for the whole dashboard
     if (isLoading) {
         return <Loading />;
     }
@@ -51,15 +46,13 @@ export const AdminDashBoard: React.FC = () => {
     return (
         <Box sx={{ p: 2 }}> 
             <Title title="Dashboard" /> 
-            <WelcomeMessage/> {/* Custom Welcome message  */}
-            <AdminQuickActions/> {/* Quick actions for creating new items */}
+            <WelcomeMessage/> 
+            <AdminQuickActions/> 
 
-            {/* Overview Section */}
             <Typography variant="h5" gutterBottom>
                 Overview
             </Typography>
 
-            {/* Grid for Stat Cards */}
             <Grid container spacing={3} sx={{ mb: 3 }}>
                 <Grid item xs={12} sm={6} md={3}>
                     <StatCard
@@ -68,7 +61,7 @@ export const AdminDashBoard: React.FC = () => {
                         value={productTotal}
                         isLoading={productsLoading}
                         error={productsError}
-                        color="#4caf50" // Green
+                        color="#4caf50" 
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
@@ -78,7 +71,7 @@ export const AdminDashBoard: React.FC = () => {
                         value={usersTotal}
                         isLoading={usersLoading}
                         error={usersError}
-                        color="#2196f3" // Blue
+                        color="#2196f3" 
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
@@ -88,16 +81,16 @@ export const AdminDashBoard: React.FC = () => {
                         value={categoriesTotal}
                         isLoading={categoriesLoading}
                         error={categoriesError}
-                        color="#ff9800" // Orange
+                        color="#ff9800" 
                     />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} md={8}> 
-                    <LowStockVariants /> {/* Low stock products */}
+                    <LowStockVariants /> 
                 </Grid>
-                <Grid item xs={12} md={4}> {/* Feed takes less space */}
+                <Grid item xs={12} md={4}>
                     <RecentUsers />
                 </Grid>
             </Grid>

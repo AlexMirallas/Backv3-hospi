@@ -20,8 +20,8 @@ export const SuperAdminClientFilterList = () => {
     } = useGetList(
         'clients',
         { 
-            pagination: { page: 1, perPage: 1000 }, // Fetch up to 1000 clients
-            sort: { field: 'name', order: 'ASC' }   // Sort by name
+            pagination: { page: 1, perPage: 20 }, 
+            sort: { field: 'name', order: 'ASC' }  
         }
     );
 

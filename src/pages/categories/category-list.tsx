@@ -1,8 +1,21 @@
-import { Datagrid, List, ReferenceField, TextField, EditButton, FunctionField, ArrayField, SingleFieldList } from 'react-admin';
+import { Datagrid, List, ReferenceField, TextField, EditButton, FunctionField, ArrayField, SingleFieldList, usePermissions,Loading } from 'react-admin';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
-export const CategoryList = () => (
-    <List aside={<SuperAdminClientFilterList />} >
+export const CategoryList = () => {
+    const {isLoading, permissions} = usePermissions();
+
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+
+    const listProps = {
+        ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
+    };
+
+    if (isLoading) {
+        return <Loading />;
+    }
+    
+    return (
+    <List {...listProps} >
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',
@@ -19,4 +32,4 @@ export const CategoryList = () => (
             <EditButton label='Modifier' />
         </Datagrid>
     </List>
-);
+)};

@@ -1,14 +1,23 @@
-import { ArrayField, BooleanField, ChipField, Datagrid, DateField, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton } from 'react-admin';
+import { ArrayField, BooleanField, ChipField, Datagrid, DateField, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton,usePermissions } from 'react-admin';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
 
 export const VariantList = () =>{
     
+    const {isLoading, permissions} = usePermissions();
+
     const variantFilters = [
         <TextInput label="Product Name" source="name" resettable />,
-        <NumberInput label="Stock" source="stockQuantity" />,]
+        <NumberInput label="Stock" source="stockQuantity" />,
+    ]
 
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+    
+    const listProps = {
+        filters: variantFilters,
+        ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
+    };
     return(
-    <List filters={variantFilters}  aside={<SuperAdminClientFilterList/>}>
+    <List {...listProps}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',

@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField } from 'react-admin';
+import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions } from 'react-admin';
 import { CustomCheckIcon} from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
@@ -6,15 +6,25 @@ import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFil
 
 
 export const ProductList = () => {
+
+    const { isLoading: permissionsLoading, permissions } = usePermissions();
+    
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+
     const productFilters = [
         <TextInput label="Nom" source="name" resettable />,
         <TextInput label="Description" source="description" resettable  />,
         <TextInput label="SKU" source="sku" resettable />,
         <BooleanInput label="Actif" source="isActive"  />,  
     ];
+
+    const listProps = {
+        filters: productFilters,
+        ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
+    };
     
     return(
-    <List filters={productFilters} aside={<SuperAdminClientFilterList/>}>
+    <List {...listProps}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',
@@ -32,7 +42,6 @@ export const ProductList = () => {
                     <ChipField source="name" />
                 </SingleFieldList>
             </ArrayField>
-            { /* Reminder When to add Image uncomment: <FunctionField label="Image" render={record => <img src={record.imageUrl} alt={record.name} style={{ width: '50px' }} />} />*/}
             <DateField source="createdAt" label="Date de création" />
             <DateField source="updatedAt" label="Date de mise à jour" />
             <EditButton label='Modifier' />

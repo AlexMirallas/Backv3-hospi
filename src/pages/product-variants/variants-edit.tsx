@@ -12,7 +12,10 @@ import {
     FormDataConsumer,
     RaRecord,
     required,
-    FormDataConsumerRenderParams
+    FormDataConsumerRenderParams,
+    usePermissions,
+    Loading,
+
 } from 'react-admin';
 import { Box, Typography, Grid } from '@mui/material';
 import { AttributeValueRecord, VariantAttributeValueLink } from '../../types/types'; 
@@ -21,6 +24,13 @@ import { transformEditVariant } from '../../utils/transformData';
 
 
 export const VariantEdit = () => {
+    const {isLoading:permissionsLoading, permissions} = usePermissions();
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+
+    if(permissionsLoading) {
+        return <Loading/>
+    }
+
     return (
         <Edit transform={transformEditVariant} undoable={false}>
             <SimpleForm>   
@@ -31,6 +41,13 @@ export const VariantEdit = () => {
                              <Grid item xs={12} sm={6}>
                                 <TextField source="product.name" label="Product"/>
                              </Grid>
+                             {isSuperAdmin && (
+                                <Grid item xs={12}> {/* Span full width */}
+                                <ReferenceInput source="clientId" reference="clients" fullWidth>
+                                    <AutocompleteInput optionText="name" validate={required()} helperText="Assign variant to a client"/>
+                                </ReferenceInput>
+                            </Grid>)
+                            }
                              <Grid item xs={12} sm={6}>
                                 <TextInput source="sku" validate={required()} fullWidth />
                             </Grid>

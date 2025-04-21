@@ -1,31 +1,28 @@
 import * as React from 'react';
 import { Title, useGetList, Loading } from 'react-admin';
 import { Box, Grid, Typography } from '@mui/material';
-import BusinessIcon from '@mui/icons-material/Business'; // Icon for clients
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Icon for active
-import CancelIcon from '@mui/icons-material/Cancel'; // Icon for inactive
+import BusinessIcon from '@mui/icons-material/Business';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { WelcomeMessage } from './Components/welcomeMessage';
 import { SuperAdminQuickActions } from './Components/SuperAdminQuickActions'; 
 import { StatCard } from './Components/statCard';
-import PauseCircleIcon from '@mui/icons-material/PauseCircleFilled'; // Icon for suspended
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'; // Icon for deleted
+import PauseCircleIcon from '@mui/icons-material/PauseCircleFilled';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const SuperAdminDashboard: React.FC = () => {
-    const pagination = { page: 1, perPage: 1 }; // For fetching totals
+    const pagination = { page: 1, perPage: 1 };
 
-    // Fetch total clients
     const { total: clientsTotal, isLoading: clientsLoading, error: clientsError } = useGetList(
         'clients', { pagination }
     );
 
-    // Fetch active clients
     const { total: activeTotal, isLoading: activeLoading, error: activeError } = useGetList(
-        'clients', { pagination, filter: { status: 'active' } } // Assuming 'active' status
+        'clients', { pagination, filter: { status: 'active' } }
     );
 
-    // Fetch inactive clients (optional, could be calculated)
     const { total: inactiveTotal, isLoading: inactiveLoading, error: inactiveError } = useGetList(
-        'clients', { pagination, filter: { status: 'inactive' } } // Assuming 'inactive' status
+        'clients', { pagination, filter: { status: 'inactive' } }
     );
 
     const { total: suspendedTotal, isLoading: suspendedLoading, error: suspendedError } = useGetList(
@@ -35,21 +32,15 @@ export const SuperAdminDashboard: React.FC = () => {
         'clients', { pagination, filter: { status: 'deleted' } }
     );
 
-    // Combine loading states
     const isLoading = clientsLoading || activeLoading || inactiveLoading || suspendedLoading || deletedLoading;
 
     if (isLoading) {
         return <Loading />;
     }
 
-    // Handle potential errors
     if (clientsError || activeError || inactiveError) {
          console.error("SuperAdmin Dashboard Errors:", { clientsError, activeError, inactiveError });   
-         // Optionally display an error message to the user
     }
-
-    // Calculate inactive if not fetched directly
-    // const calculatedInactiveTotal = (clientsTotal ?? 0) - (activeClientsTotal ?? 0);
 
     return (
         <Box sx={{ p: 2 }}> 
@@ -61,71 +52,58 @@ export const SuperAdminDashboard: React.FC = () => {
                 Client Overview
             </Typography>
 
-            {/* Grid for Client Stat Cards */}
             <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={12} sm={6} md={4}> {/* Adjusted grid size */}
+                <Grid item xs={12} sm={6} md={4}>
                     <StatCard
                         icon={BusinessIcon}
                         title="Total Clients"
                         value={clientsTotal}
                         isLoading={clientsLoading}
                         error={clientsError}
-                        color="#673ab7" // Purple
+                        color="#673ab7"
                     />
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}> {/* Adjusted grid size */}
+                <Grid item xs={12} sm={6} md={4}>
                     <StatCard
                         icon={CheckCircleIcon}
                         title="Active Clients"
                         value={activeTotal}
                         isLoading={activeLoading}
                         error={activeError}
-                        color="#4caf50" // Green
+                        color="#4caf50"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
-                        icon={CancelIcon} // Using Cancel for Inactive
+                        icon={CancelIcon}
                         title="Inactive Clients"
                         value={inactiveTotal}
                         isLoading={inactiveLoading} 
                         error={inactiveError} 
-                        color="#ff9800" // Orange
+                        color="#ff9800"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
-                        icon={PauseCircleIcon} // Using Pause for Suspended
+                        icon={PauseCircleIcon}
                         title="Suspended Clients"
                         value={suspendedTotal}
                         isLoading={suspendedLoading}
                         error={suspendedError}
-                        color="#ffc107" // Amber
+                        color="#ffc107"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
-                        icon={DeleteForeverIcon} // Using Delete for Deleted
+                        icon={DeleteForeverIcon}
                         title="Deleted Clients"
                         value={deletedTotal}
                         isLoading={deletedLoading}
                         error={deletedError}
-                        color="#f44336" // Red
+                        color="#f44336"
                     />
                 </Grid>
             </Grid>
-
-            {/* Add other superadmin-specific components here */}
-            {/* Example:
-            <Grid container spacing={3}>
-                <Grid item xs={12} md={6}> 
-                    <RecentClients /> 
-                </Grid>
-                <Grid item xs={12} md={6}> 
-                    {/* Another client-related component *}
-                </Grid>
-            </Grid>
-            */}
         </Box>
     );
 };

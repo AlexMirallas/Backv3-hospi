@@ -50,7 +50,6 @@ const AttributeValuesActions = () => {
 export const AttributeEdit: React.FC<EditProps> = (props) => (
     <Edit {...props} actions={<AttributeValuesActions />}>
         <SimpleForm>
-            <TextInput source="id" disabled />
             <TextInput source="name" validate={required()}  />
             <NumberInput source="position" />
             <BooleanInput source="isActive" label="Active" defaultValue={true} />

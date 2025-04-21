@@ -20,8 +20,13 @@ export const UserList = () => {
     if (isLoading) {
         return <Loading/>
     }
+
+    const listProps = {
+        filters: userFilters,
+        ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
+    };
     return(
-    <List filters={userFilters} aside={<SuperAdminClientFilterList/>}>
+    <List {...listProps}>
         <Datagrid sx={{
                 '& .RaDatagrid-rowOdd': {
                     backgroundColor: '#f0f0f0',

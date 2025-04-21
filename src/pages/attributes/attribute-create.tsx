@@ -1,9 +1,47 @@
-import { Create, SimpleForm, TextInput, BooleanInput, NumberInput } from 'react-admin';
-import { Typography } from '@mui/material';
+import { 
+    Create, 
+    SimpleForm, 
+    TextInput, 
+    BooleanInput, 
+    NumberInput,
+    usePermissions,
+    useGetIdentity,
+    Loading,
+    ReferenceInput,
+    AutocompleteInput,
+    required
+} from 'react-admin';
+import { Typography, Box } from '@mui/material';
+import { useCallback } from 'react';
 
 const AttributeCreate = () => {
+    const { isLoading: permissionsLoading, permissions } = usePermissions();
+    const { identity, isLoading: identityLoading } = useGetIdentity();
+
+    const isSuperAdmin = !permissionsLoading && Array.isArray(permissions) && permissions.includes('superadmin');
+    const isAdmin = !permissionsLoading && Array.isArray(permissions) && permissions.includes('admin') && !isSuperAdmin;
+
+    const transform = useCallback(async (data: any) => {
+        const transformedData = { ...data };
+        if (isAdmin && identity?.clientId) {
+            transformedData.clientId = identity.clientId;
+        }
+        console.log("Transformed Attribute Data:", transformedData);
+        return transformedData;
+    }, [isAdmin, identity]);
+
+    if (permissionsLoading || identityLoading) {
+        return <Loading />;
+    }
+
+    const canCreate = isSuperAdmin || isAdmin;
+
+    if (!canCreate) {
+        return <Typography color="error">You do not have permission to create attributes.</Typography>;
+    }
+
     return ( 
-        <Create >
+        <Create transform={transform}>
             <Typography variant="h5" style={
                 { marginTop: '16px',
                 marginBottom: '16px',
@@ -14,20 +52,28 @@ const AttributeCreate = () => {
                  }
             }>Créer un nouvel attribut</Typography>
             <SimpleForm>
+                {isSuperAdmin && (
+                    <Box sx={{ width: '100%', mb: 2 }}>
+                        <ReferenceInput source="clientId" reference="clients" fullWidth>
+                            <AutocompleteInput optionText="name" validate={required()} helperText="Assign attribute to a client"/>
+                        </ReferenceInput>
+                    </Box>
+                )}
+
                 <TextInput 
-                source="name" 
-                required
-                helperText="Nom de l'attribut(ex: Couleur)"
-                validate={value => value ? undefined : 'Required'}
+                    source="name" 
+                    validate={required()}
+                    helperText="Nom de l'attribut(ex: Couleur)"
+                    fullWidth
                  />
                 <NumberInput 
-                source="position"
-                required
-                helperText="Position de l'attribut"
-                validate={value => value ? undefined : 'Required'}
-                min={1}
+                    source="position"
+                    validate={required()}
+                    helperText="Position de l'attribut"
+                    min={1}
+                    fullWidth
                  />  
-                <BooleanInput source="isActive" defaultValue={true} />    
+                <BooleanInput source="isActive" defaultValue={true} fullWidth />    
             </SimpleForm>    
         </Create>
      );
