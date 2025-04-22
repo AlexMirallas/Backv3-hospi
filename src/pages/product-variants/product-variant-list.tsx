@@ -1,6 +1,5 @@
-import React from 'react';
 import { useMediaQuery, Theme } from '@mui/material';
-import { useRecordContext } from 'react-admin';
+import { useRecordContext, usePermissions } from 'react-admin';
 import { ReferenceManyField, SimpleList } from 'react-admin';
 import { ProductVariantRecord } from '../../types/types';
 import { VariantsListWithDynamicAttributes } from './VariantsListWithDynamicAttributes';
@@ -15,6 +14,9 @@ import { VariantsListWithDynamicAttributes } from './VariantsListWithDynamicAttr
 export const ExistingVariantsList: React.FC = () => {
     const record = useRecordContext(); 
     const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
+    const {permissions} = usePermissions();
+
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
 
     if (!record) return null;
 
@@ -24,7 +26,8 @@ export const ExistingVariantsList: React.FC = () => {
             reference="variants"  
             target="productId" 
             source="id"       
-            perPage={25}
+            perPage={10}
+            filter={(isSuperAdmin ? { clientId: record.clientId } : { })}
         >
            
            {isSmall ? (

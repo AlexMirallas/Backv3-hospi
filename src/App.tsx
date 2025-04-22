@@ -46,7 +46,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
-import VariantIcon from '@mui/icons-material/SettingsInputComposite';
+import VariantIcon from '@mui/icons-material/TurnedInNotSharp';
 
 
 

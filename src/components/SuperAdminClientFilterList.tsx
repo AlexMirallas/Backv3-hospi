@@ -6,13 +6,11 @@ import {
 } from 'react-admin';
 import { Card, CardContent, Typography, Box, CircularProgress } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { statusChoices } from '../enums/enums';
 
 export const SuperAdminClientFilterList = () => {
     const { isLoading: permissionsLoading, permissions } = usePermissions();
     
-    // Fetch all clients (we'll use them to create FilterListItems)
     const { 
         data: clients, 
         isLoading: clientsLoading, 
@@ -51,12 +49,10 @@ export const SuperAdminClientFilterList = () => {
         );
     }
 
-    // Only render for superadmins
     if (!isSuperAdmin) {
         return null;
     }
 
-    // Group clients by status
     const clientsByStatus = {
         active: clients?.filter(client => client.status === 'active') || [],
         inactive: clients?.filter(client => client.status === 'inactive') || [],
@@ -64,7 +60,6 @@ export const SuperAdminClientFilterList = () => {
         deleted: clients?.filter(client => client.status === 'deleted') || [],
     };
 
-    // Get label for status from statusChoices
     const getStatusLabel = (statusId: string) => {
         const status = statusChoices.find(status => status.id === statusId);
         return status ? status.name : statusId;
@@ -77,20 +72,8 @@ export const SuperAdminClientFilterList = () => {
                     Client Filters
                 </Typography>
 
-                {/* Recent Clients Filter Group */}
-                <FilterList 
-                    label="Recent Clients" 
-                    icon={<AccessTimeIcon />}
-                >
-                    <FilterListItem
-                        label="All Clients"
-                        value={{}}
-                    />
-                </FilterList>
 
-                {/* Status-based Clients Filter Groups */}
                 {Object.entries(clientsByStatus).map(([status, statusClients]) => {
-                    // Skip empty status groups
                     if (statusClients.length === 0) return null;
 
                     return (

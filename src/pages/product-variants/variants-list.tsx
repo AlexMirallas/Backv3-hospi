@@ -16,6 +16,11 @@ export const VariantList = () =>{
         filters: variantFilters,
         ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
     };
+
+    if (isLoading) {
+        return null; 
+    }
+
     return(
     <List {...listProps}>
         <Datagrid sx={{
@@ -34,8 +39,6 @@ export const VariantList = () =>{
                     <ChipField source="attributeValue.value" />
                 </SingleFieldList>
             </ArrayField>
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
             <EditButton label='Modifier' />
             <ShowButton label='Détails' />
         </Datagrid>

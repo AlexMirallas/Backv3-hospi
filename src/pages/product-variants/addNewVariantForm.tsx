@@ -33,13 +33,20 @@ export const AddNewVariantForm: React.FC = () => {
     const dataProvider = useDataProvider();
     const productRecord = useRecordContext();
 
+    const clientId = productRecord?.clientId;
+    
+    const attributesFilter = {
+        isActive: true,
+        ...(clientId ? { clientId } : {}),
+    }
+
     // Fetch attributes 
     const { data: attributes, isLoading: attributesLoading, error: attributesError } = useGetList<AttributeRecord>(
         'attributes',
         {
             pagination: { page: 1, perPage: 100 },
             sort: { field: 'name', order: 'ASC' },
-            filter: { isActive: true },
+            filter: attributesFilter,
         }
        
     );
@@ -90,9 +97,10 @@ export const AddNewVariantForm: React.FC = () => {
             sku: formData.sku,
             priceAdjustment: Number(formData.priceAdjustment) || 0,
             stockQuantity: Number(formData.stockQuantity) || 0,
-            isActive: formData.isActive ?? true, // Default to true if not provided
+            isActive: formData.isActive ?? true, 
             productId: productRecord.id,
             attributeValues: attributeValueSelections,
+            clientId: productRecord.clientId,
         };
 
         try {
@@ -152,7 +160,6 @@ export const AddNewVariantForm: React.FC = () => {
                         </Grid>
                     ))}
 
-                    {/* Submission Button */}
                     <Grid item xs={12} sx={{ textAlign: 'right', mt: 2 }}>   
                           <SaveButton /> 
                     </Grid>
