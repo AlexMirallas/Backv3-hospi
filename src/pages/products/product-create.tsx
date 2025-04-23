@@ -13,7 +13,7 @@ import {
     usePermissions,     
     useGetIdentity,     
     Loading,           
-    required           
+    required,      
 } from 'react-admin';
 import { Typography } from '@mui/material';
 import { useCallback } from 'react'; 

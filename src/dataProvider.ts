@@ -7,7 +7,6 @@ import simpleRestProvider from 'ra-data-simple-rest';
 
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-// Custom fetch with auth token
 const httpClient = (url: string, options: any = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
