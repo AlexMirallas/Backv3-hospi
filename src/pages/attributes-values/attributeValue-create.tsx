@@ -26,12 +26,10 @@ const AttributeValueCreate = () => {
     const isSuperAdmin = !permissionsLoading && Array.isArray(permissions) && permissions.includes('superadmin');
     const isAdmin = !permissionsLoading && Array.isArray(permissions) && permissions.includes('admin') && !isSuperAdmin;
     
-    // Keep track of the selected client for superadmins
+
     const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
 
-    // Transform function to add client ID
     const transform = useCallback((data: any) => {
-        // For regular admins, use their client ID
         if (isAdmin && identity?.clientId) {
             return {
                 ...data,
@@ -39,7 +37,6 @@ const AttributeValueCreate = () => {
             };
         }
         
-        // For superadmins, use the selected client ID
         if (isSuperAdmin && selectedClientId) {
             return {
                 ...data,
@@ -47,7 +44,7 @@ const AttributeValueCreate = () => {
             };
         }
         
-        // Pass data unchanged if no client ID available
+        
         return data;
     }, [isAdmin, identity, isSuperAdmin, selectedClientId]);
 
@@ -55,7 +52,7 @@ const AttributeValueCreate = () => {
         return <Loading />;
     }
 
-    // Only allow admins and superadmins to create attribute values
+    
     const canCreate = isSuperAdmin || isAdmin;
     if (!canCreate) {
         return <Typography color="error">You do not have permission to create attribute values.</Typography>;
@@ -75,7 +72,6 @@ const AttributeValueCreate = () => {
             </Typography>
             
             <SimpleForm>
-                {/* Client Selection for SuperAdmins */}
                 {isSuperAdmin && (
                     <Box sx={{ width: '100%', mb: 2 }}>
                         <ReferenceInput source="clientId" reference="clients">
@@ -90,11 +86,8 @@ const AttributeValueCreate = () => {
                     </Box>
                 )}
                 
-                {/* Attribute Selection */}
                 <FormDataConsumer>
                     {({ formData, ...rest }) => {
-                        // For superadmins, filter attributes by selected client
-                        // For regular admins, attributes are filtered by their client ID automatically
                         const attributeFilter = isSuperAdmin && selectedClientId 
                             ? { clientId: selectedClientId }
                             : {};
@@ -103,13 +96,13 @@ const AttributeValueCreate = () => {
                             <ReferenceInput 
                                 source="attributeId" 
                                 reference="attributes"
-                                defaultValue={attributeIdFromState} // Use attributeId from URL state if available
+                                defaultValue={attributeIdFromState} 
                                 filter={attributeFilter}
                                 {...rest}
                             >
                                 <AutocompleteInput 
                                     optionText="name" 
-                                    disabled={!!attributeIdFromState} // Disable if coming from attribute edit
+                                    disabled={!!attributeIdFromState} 
                                     validate={required()}
                                 />
                             </ReferenceInput>

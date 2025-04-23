@@ -10,7 +10,6 @@ export const transformEditVariant = (data: RaRecord): RaRecord => {
         // Map the array to the structure the backend expects
         transformedData.attributeValues = transformedData.attributeValues
             .map((item: VariantAttributeValueLink) => {
-                // Basic check to ensure the nested structure exists
                 if (!item?.attribute?.id || item?.attributeValue?.id === undefined || item?.attributeValue?.id === null) {
                     console.warn('Skipping transformation for invalid item:', item); 
                     return null;

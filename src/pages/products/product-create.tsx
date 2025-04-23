@@ -1,4 +1,4 @@
-import { Stack, Box } from '@mui/material'; // Import Box
+import { Stack, Box } from '@mui/material'; 
 import { 
     Create,
     SimpleForm, 
@@ -7,34 +7,34 @@ import {
     NumberInput, 
     ReferenceArrayInput, 
     AutocompleteArrayInput,
-    ReferenceInput,      // Import ReferenceInput
-    AutocompleteInput,   // Import AutocompleteInput
+    ReferenceInput,      
+    AutocompleteInput,   
     CreateProps,
-    usePermissions,      // Import usePermissions
-    useGetIdentity,      // Import useGetIdentity
-    Loading,             // Import Loading
-    required             // Import required
+    usePermissions,     
+    useGetIdentity,     
+    Loading,           
+    required           
 } from 'react-admin';
 import { Typography } from '@mui/material';
-import { useCallback } from 'react'; // Import useCallback
+import { useCallback } from 'react'; 
 
 const ProductCreate:React.FC<CreateProps> = (props) => {
     const { isLoading: permissionsLoading, permissions } = usePermissions();
     const { identity, isLoading: identityLoading } = useGetIdentity();
 
-    // Determine roles based on permissions
+   
     const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
     const isAdmin = Array.isArray(permissions) && permissions.includes('admin') && !isSuperAdmin;
 
-    // Transform function to add clientId for admin users
+   
     const transform = useCallback(async (data: any) => {
         const transformedData = { ...data };
         
-        // If the current user is an admin (not superadmin), set the clientId automatically
+      
         if (isAdmin && identity?.clientId) {
             transformedData.clientId = identity.clientId;
         } 
-        // Ensure categoryIds is an array if selected
+      
         if (transformedData.categoryIds && !Array.isArray(transformedData.categoryIds)) {
             transformedData.categoryIds = [transformedData.categoryIds];
         }

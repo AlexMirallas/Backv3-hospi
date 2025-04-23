@@ -28,11 +28,11 @@ export const StatCard: React.FC<StatCardProps> = ({ icon: Icon, title, value, is
         <Card sx={{ borderLeft: `5px solid ${color}`, my: 1 }}>
             <CardHeader
                 title={title}
-                avatar={<Icon sx={{ fontSize: 40, color: color }} />} // Display icon
+                avatar={<Icon sx={{ fontSize: 40, color: color }} />} 
             />
             <CardContent>
                 <Typography variant="h4" component="p" align="right">
-                    {isLoading ? '...' : value ?? 0} {/* Display loading indicator or value */}
+                    {isLoading ? '...' : value ?? 0} 
                 </Typography>
             </CardContent>
         </Card>
