@@ -1,4 +1,4 @@
-import { Datagrid, TextField, FunctionField, NumberField, BooleanField, EditButton } from 'react-admin';
+import { Datagrid, TextField, FunctionField, NumberField, BooleanField, EditButton, usePermissions, useRecordContext } from 'react-admin';
 import { LinearProgress } from '@mui/material';
 import { useListContext } from 'react-admin';
 import { ProductVariantRecord, AttributeRecord } from '../../types/types';
@@ -72,16 +72,27 @@ export const VariantsListWithDynamicAttributes: React.FC = () => {
     
     const dataProvider = useDataProvider();
     const notify = useNotify();
+    const {permissions} = usePermissions();
+    const productRecord =  useRecordContext<ProductVariantRecord>();
+
     const [attributeTypes, setAttributeTypes] = useState<AttributeRecord[] | null>(null);
     const [loadingAttributes, setLoadingAttributes] = useState<boolean>(true);
     const [attributeError, setAttributeError] = useState<Error | null>(null);
 
+    const clientId = productRecord?.clientId;
+    const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
+
     useEffect(() => {
-        setLoadingAttributes(true); 
+        setLoadingAttributes(true);
+        
+        const filter = {
+            ...(clientId && isSuperAdmin ? { clientId } : {}),
+        }
+
         dataProvider.getList<AttributeRecord>('attributes', {
             pagination: { page: 1, perPage: 100 }, 
             sort: { field: 'position', order: 'ASC' },
-            filter: {},
+            filter: filter,
         })
         .then(({ data }) => {
             setAttributeTypes(data);

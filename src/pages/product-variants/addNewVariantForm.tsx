@@ -120,6 +120,7 @@ export const AddNewVariantForm: React.FC = () => {
     if (attributesError) return <Alert severity="error">Error loading attributes: {attributesError.message}</Alert>;
     if (!attributes) return <Alert severity="info">No attributes found.</Alert>;
     if (!productRecord) return <Alert severity="warning">Product context not found.</Alert>;
+    if (attributes.length === 0) return <Alert severity="info">No active attributes found for this client. Please create attributes first.</Alert>;
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -145,7 +146,9 @@ export const AddNewVariantForm: React.FC = () => {
                                 label={attribute.name}
                                 source={`${attribute.name}`}
                                 reference="attribute-values"
-                                filter={{ attributeId: attribute.id }}
+                                filter={{ attributeId: attribute.id,
+                                    ...(clientId ? { clientId } : {}),
+                                 }}
                                 perPage={100}
                                 allowEmpty={false} 
                                 isRequired 

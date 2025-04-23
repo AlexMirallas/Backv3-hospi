@@ -1,32 +1,28 @@
-import { Box, Typography } from "@mui/material";
-import { AutocompleteInput, FormDataConsumer, NumberInput, ReferenceInput } from "react-admin";
+import { ReferenceInput, AutocompleteInput, FormDataConsumer } from 'react-admin';
 
-
-
-
-
-export const CategoryHierarchy = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-      <Typography variant="h6" gutterBottom>Category Hierarchy</Typography>
-      
-      <ReferenceInput source="parentId" reference="categories">
-        <AutocompleteInput 
-          label="Parent Category" 
-          fullWidth
-          optionText="name"
-          helperText="Select a parent category (leave empty for top-level categories)"
-        />
-      </ReferenceInput>
-      
-      <FormDataConsumer>
-        {({ formData, ...rest }) => formData.parentId && (
-          <NumberInput 
-            source="parentId" 
-            disabled
-            helperText="Parent category ID (automatically set)"
+export const CategoryHierarchy = ({ isSuperAdmin }: { isSuperAdmin: boolean },) => {
+  return (
+    <FormDataConsumer>
+      {({ formData, ...rest }) => {
+        const categoryFilter = isSuperAdmin && formData?.clientId 
+          ? { clientId: formData.clientId }
+          : {};
+          
+        return (
+          <ReferenceInput
+            source="parentId"
+            reference="categories"
+            filter={categoryFilter}
             {...rest}
-          />
-        )}
-      </FormDataConsumer>
-    </Box>
+          >
+            <AutocompleteInput
+              optionText="name"
+              label="Parent Category"
+              helperText="Select a parent category (optional)"
+            />
+          </ReferenceInput>
+        );
+      }}
+    </FormDataConsumer>
   );
+};
