@@ -2,7 +2,8 @@ import {
     BooleanInput,
     Edit,
     ReferenceArrayInput,
-    SimpleForm,
+    TabbedForm,
+    FormTab,
     TextInput,
     NumberInput,
     AutocompleteArrayInput,
@@ -17,6 +18,8 @@ import {
 import { ExistingVariantsList } from '../product-variants/product-variant-list';
 import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
 import { Card, CardContent, Typography,Stack,Box } from '@mui/material';
+import { ProductImageList } from '../../components/imageComponents/ProductimageList';
+import { ProductImageUploadForm } from '../../components/imageComponents/ProductImageUploadForm';
 
 
 
@@ -42,73 +45,77 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
     return (
         <> 
         <Edit {...props} transform={transform}>
-            <Typography variant="h5" style={
-                            { marginTop: '16px',
-                            marginBottom: '16px',
-                            color: '#333333',
-                            textAlign: 'center',
-                            fontSize: '2rem'
-                             }
-                        }>
-                            Modifier le produit
-            </Typography>
-            <SimpleForm >
-                <TextInput source="id" disabled fullWidth />
+            {/* Use TabbedForm instead of SimpleForm for better organization */}
+            <TabbedForm>
+                <FormTab label="Product Details">
+                    {/* Keep all your existing product fields here */}
+                    <Typography variant="h5" /* ... styles ... */>
+                        Modifier le produit
+                    </Typography>
+                    <TextInput source="id" disabled fullWidth />
 
-             
-                {isSuperAdmin ? (
-                    <Box sx={{ width: '100%', mb: 2 }}>
-                        <ReferenceInput source="clientId" reference="clients" fullWidth>
-                            <AutocompleteInput optionText="name" validate={required()} helperText="Assign product to a client"/>
-                        </ReferenceInput>
-                    </Box>
-                ) : (
-                    <TextInput source="clientId" disabled fullWidth helperText="Client ID (read-only)" />
-                )}
+                    {/* Client Selection/Display */}
+                    {isSuperAdmin ? (
+                         <Box sx={{ width: '100%', mb: 2 }}>
+                            <ReferenceInput source="clientId" reference="clients" fullWidth>
+                                <AutocompleteInput optionText="name" validate={required()} helperText="Assign product to a client"/>
+                            </ReferenceInput>
+                        </Box>
+                    ) : (
+                        <TextInput source="clientId" disabled fullWidth helperText="Client ID (read-only)" />
+                    )}
+{/* SKU, Name, Price, Active, Description */}
+                    <Stack direction="row" spacing={2} mb={2}>
+                        <TextInput source="sku" validate={required()} /* ... */ />
+                        <TextInput source="name" validate={required()} /* ... */ />
+                    </Stack>
+                    <Stack direction="row" spacing={2} mb={2}>
+                        <NumberInput source="basePrice" validate={required()} /* ... */ />
+                        <BooleanInput source="isActive" /* ... */ />
+                    </Stack>
+                    <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
 
-                <Stack direction="row" spacing={2} mb={2}>
-                    <TextInput source="sku" validate={required()} helperText="Numéro d'unité de gestion des stocks, doit être unique"/>
-                    <TextInput source="name" validate={required()} helperText="Nom de produit"/>
-                </Stack>
-                <Stack direction="row" spacing={2} mb={2}>
-                    <NumberInput source="basePrice" validate={required()} helperText="Prix ​​de base du produit, le prix final sera calculé après ajustement du prix des variantes."/>
-                    <BooleanInput source="isActive" helperText="Si non actif, il ne peut pas être vu par les clients"/>
-                </Stack>
-                <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
-                <FormDataConsumer>
+                    {/* Category Selection */}
+                    <FormDataConsumer>
                         {({ formData, ...rest }) => {
-                          
                             let categoryFilter = {};
-                            if (isSuperAdmin && formData.clientId) {
+                            if (formData.clientId) {
                                 categoryFilter = { clientId: formData.clientId };
                             }
-
                             return (
                                 <ReferenceArrayInput
                                     source="categoryIds"
                                     reference="categories"
-                                    filter={categoryFilter} 
+                                    filter={categoryFilter}
                                     fullWidth
-                                    {...rest} 
+{...rest}
                                 >
-                                    <AutocompleteArrayInput
-                                        optionText="name"
-                                        optionValue="id"
-                                        label="Categories"
-                                        helperText="Select one or more categories"
-                                    />
+                                    <AutocompleteArrayInput /* ... */ />
                                 </ReferenceArrayInput>
                             );
                         }}
                     </FormDataConsumer>
-            </SimpleForm>
-            <ExistingVariantsList  />
-            <Card sx={{ marginTop: 2 }}>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>Add New Variant</Typography>
-                    <AddNewVariantForm />
-                </CardContent>
-            </Card>   
+                </FormTab>
+
+                <FormTab label="Images" path="images">
+                    {/* Display existing images and upload form */}
+                    {/* These components operate outside the main form's save */}
+                    <ProductImageList />
+                    <ProductImageUploadForm />
+                </FormTab>
+
+                 <FormTab label="Variants" path="variants">
+                    {/* Keep ExistingVariantsList and AddNewVariantForm sections */}
+                    {/* Note: AddNewVariantForm might need its own image upload logic */}
+                    <ExistingVariantsList />
+<Card sx={{ marginTop: 2 }}>
+                        <CardContent>
+                            <Typography variant="h6" gutterBottom>Add New Variant</Typography>
+                            <AddNewVariantForm />
+                        </CardContent>
+                    </Card>
+                 </FormTab>
+            </TabbedForm>
         </Edit>
     </>
 )};

@@ -2,12 +2,11 @@ import { RaRecord } from 'react-admin';
 import { VariantAttributeValueLink } from '../types/types';
 
 export const transformEditVariant = (data: RaRecord): RaRecord => {
-    // Create a copy to avoid mutating the original form state directly
+
     const transformedData = { ...data };
 
-    // Check if attributeValues exists and is an array
+    // check if attributeValues exists and is an array and map the array to the structure the backend expects
     if (Array.isArray(transformedData.attributeValues)) {
-        // Map the array to the structure the backend expects
         transformedData.attributeValues = transformedData.attributeValues
             .map((item: VariantAttributeValueLink) => {
                 if (!item?.attribute?.id || item?.attributeValue?.id === undefined || item?.attributeValue?.id === null) {
