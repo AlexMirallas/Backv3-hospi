@@ -1,4 +1,4 @@
-import { Datagrid, TextField, FunctionField, NumberField, BooleanField, EditButton, usePermissions, useRecordContext } from 'react-admin';
+import { Datagrid, TextField, FunctionField, NumberField, BooleanField, EditButton, usePermissions, useRecordContext, ReferenceManyField,SingleFieldList } from 'react-admin';
 import { LinearProgress } from '@mui/material';
 import { useListContext } from 'react-admin';
 import { ProductVariantRecord, AttributeRecord } from '../../types/types';
@@ -10,6 +10,7 @@ import { CircularProgress, Box, Typography } from '@mui/material';
 import { Error } from 'react-admin';
 import { CustomCheckIcon } from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
+import ApiImageField  from '../../components/imageComponents/ApiImageField';
 
 
 
@@ -47,7 +48,24 @@ const DynamicVariantDatagrid: React.FC<{ attributeTypes: AttributeRecord[] }> = 
                 },
                
             }}
-        >
+        >   
+        <ReferenceManyField
+                    label="Primary Image"
+                    reference="images" 
+                    target="variantId" 
+                    source="id" 
+                    filter={{ isPrimary: true }} 
+                    sortable={false}
+                    perPage={1} 
+            >
+                <SingleFieldList linkType={false}>
+                    <ApiImageField
+                        source="path"
+                        title="filename"
+                        sx={{ maxWidth: 80, maxHeight: 80, objectFit: 'contain' }}
+                    />
+                </SingleFieldList>
+            </ReferenceManyField>
             <TextField source="sku" sortable={false} />
 
             {attributeTypes.map(attrType => (

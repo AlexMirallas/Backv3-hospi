@@ -12,19 +12,19 @@ import { Typography, Card, CardContent } from '@mui/material';
 import { ProductImage } from '../../types/types';
 import ApiImageField from './ApiImageField'; 
 
-export const ProductImageList = () => {
+export const VariantImageList = () => {
     const record = useRecordContext();
 
     if (!record) return null;
 
     return (
-        <Card sx={{ marginTop: 2, width: '80%', alignSelf: 'left' }} >
+        <Card sx={{ marginTop: 2, width: '100', alignSelf: 'left' }} >
             <CardContent>
                 <Typography variant="h6" gutterBottom>Manage Product Images</Typography>
                 <ReferenceManyField<ProductImage>
                     label={false}
                     reference="images"
-                    target="productId"
+                    target="variantId"
                     source="id"
                     sort={{ field: 'displayOrder', order: 'ASC' }}
                     perPage={10}

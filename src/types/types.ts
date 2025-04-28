@@ -3,10 +3,10 @@ import { Identifier } from 'react-admin';
 
 
 export interface AttributeValueRecord extends RaRecord {
-    id: Identifier;
+    id: number;
     value: string;
     attribute?: {
-        id: Identifier;
+        id: number;
         name: string;
     };
 }
@@ -62,19 +62,25 @@ export interface CustomJwtPayload {
 }
 
 export interface ProductImage extends RaRecord {
-    // Inherits id from RaRecord (which is Identifier: string | number)
     filename: string;
-    path: string; // This will likely be the URL path to the image
+    path: string;
     originalFilename?: string;
     mimetype?: string;
     altText?: string;
     displayOrder: number;
     isPrimary: boolean;
-    productId?: Identifier; // Foreign key to Product (optional if variantId is present)
-    variantId?: Identifier; // Foreign key to ProductVariant (optional if productId is present)
-    clientId: Identifier; // Foreign key to Client
-    createdAt: Date | string; // Use string if your API returns dates as ISO strings
-    updatedAt: Date | string; // Use string if your API returns dates as ISO strings
+    productId?: Identifier; 
+    variantId?: Identifier; 
+    clientId: Identifier; 
+    createdAt: Date | string; 
+    updatedAt: Date | string; 
+}
+
+export interface ApiImageFieldProps {
+    source: string;
+    label?: string; 
+    title?: string; 
+    sx?: object;
 }
 
 

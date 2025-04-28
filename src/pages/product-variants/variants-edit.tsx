@@ -20,6 +20,9 @@ import {
 import { Box, Typography, Grid } from '@mui/material';
 import { AttributeValueRecord, VariantAttributeValueLink } from '../../types/types'; 
 import { transformEditVariant } from '../../utils/transformData';
+import { VariantImageUploadForm } from '../../components/imageComponents/VariantImageUploadForm';
+import { VariantImageList } from '../../components/imageComponents/VariantImageList';
+
 
 
 
@@ -42,7 +45,7 @@ export const VariantEdit = () => {
                                 <TextField source="product.name" label="Product"/>
                              </Grid>
                              {isSuperAdmin && (
-                                <Grid item xs={12}> {/* Span full width */}
+                                <Grid item xs={12}> 
                                 <ReferenceInput source="clientId" reference="clients" fullWidth>
                                     <AutocompleteInput optionText="name" validate={required()} helperText="Assign variant to a client"/>
                                 </ReferenceInput>
@@ -67,17 +70,20 @@ export const VariantEdit = () => {
                             <Typography variant="subtitle1" gutterBottom>Attributes</Typography>
                             <ArrayInput
                                 source="attributeValues"
+                                label={false}
                             >
                                 <SimpleFormIterator
                                     inline
                                     disableRemove
                                     disableAdd
                                     disableReordering
+                                    
                                 >
                                     {/* Source targets the 'name' field within the 'attribute' object */}
                                     <TextField
                                         source="attribute.name"
-                                        sx={{ marginRight: 2, minWidth: 150, display: 'flex', alignItems: 'center' }} 
+                                        label="Attribute"
+                                        sx={{ marginRight: 2, minWidth: 150, display: 'flex', alignItems: 'center' }}
                                     />
 
                                     {/* 2. Select Attribute Value */}
@@ -89,13 +95,13 @@ export const VariantEdit = () => {
 
                                             return (
                                                 <ReferenceInput
-                                                    label="Value"
+                                                    label={false}
                                                     source="attributeValue.id" 
                                                     reference="attribute-values" 
                                                     filter={filter} 
                                                     perPage={100}
                                                     isRequired
-                                                    sx={{ minWidth: 200 }}
+                                                    sx={{ minWidth: 200, marginRight: 2}}
                                                 >
                                                     <AutocompleteInput
                                                         optionText={(record?: AttributeValueRecord) => record?.value ?? ''}
@@ -110,6 +116,14 @@ export const VariantEdit = () => {
                                 </SimpleFormIterator>
                             </ArrayInput>
                         </Box>
+                        <Box mt={3} width={'100%'}>
+                            <Typography variant="subtitle1" gutterBottom>Variant Images</Typography>
+                            <VariantImageList />
+                            <Typography mt={3} variant="subtitle2" gutterBottom>Upload New Image</Typography>
+                            <Box sx={{ width: '40%', mb: 2 }}>
+                                <VariantImageUploadForm/> 
+                            </Box>
+                        </Box>                  
             </SimpleForm>
         </Edit>
     );

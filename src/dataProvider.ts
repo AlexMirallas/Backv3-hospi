@@ -15,7 +15,6 @@ const httpClient = (url: string, options: any = {}) => {
     const token = localStorage.getItem('token');
     if (token) {
         options.headers.set('Authorization', `Bearer ${token}`);
-        console.log('Adding token to request:', url);
     } else {
         console.log('No token available for request:', url);
     }

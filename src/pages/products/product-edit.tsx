@@ -17,20 +17,17 @@ import {
 } from 'react-admin';
 import { ExistingVariantsList } from '../product-variants/product-variant-list';
 import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
-import { Card, CardContent, Typography,Stack,Box } from '@mui/material';
+import { Card, CardContent, Typography,Stack,Box, Accordion, AccordionSummary, AccordionDetails, } from '@mui/material';
 import { ProductImageList } from '../../components/imageComponents/ProductimageList';
 import { ProductImageUploadForm } from '../../components/imageComponents/ProductImageUploadForm';
-
-
-
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export const ProductEdit:React.FC<EditProps> = (props) => {
     const { isLoading: permissionsLoading, permissions } = usePermissions();
 
     const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
 
- 
     const transform = async (data: any) => {
         const transformedData = { ...data };
         if (transformedData.categoryIds && !Array.isArray(transformedData.categoryIds)) {
@@ -45,16 +42,13 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
     return (
         <> 
         <Edit {...props} transform={transform}>
-            {/* Use TabbedForm instead of SimpleForm for better organization */}
             <TabbedForm>
                 <FormTab label="Product Details">
-                    {/* Keep all your existing product fields here */}
-                    <Typography variant="h5" /* ... styles ... */>
+                    <Typography variant="h5">
                         Modifier le produit
                     </Typography>
                     <TextInput source="id" disabled fullWidth />
 
-                    {/* Client Selection/Display */}
                     {isSuperAdmin ? (
                          <Box sx={{ width: '100%', mb: 2 }}>
                             <ReferenceInput source="clientId" reference="clients" fullWidth>
@@ -64,18 +58,16 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     ) : (
                         <TextInput source="clientId" disabled fullWidth helperText="Client ID (read-only)" />
                     )}
-{/* SKU, Name, Price, Active, Description */}
                     <Stack direction="row" spacing={2} mb={2}>
-                        <TextInput source="sku" validate={required()} /* ... */ />
-                        <TextInput source="name" validate={required()} /* ... */ />
+                        <TextInput source="sku" validate={required()} />
+                        <TextInput source="name" validate={required()} />
                     </Stack>
                     <Stack direction="row" spacing={2} mb={2}>
-                        <NumberInput source="basePrice" validate={required()} /* ... */ />
-                        <BooleanInput source="isActive" /* ... */ />
+                        <NumberInput source="basePrice" validate={required()} />
+                        <BooleanInput source="isActive" />
                     </Stack>
                     <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
 
-                    {/* Category Selection */}
                     <FormDataConsumer>
                         {({ formData, ...rest }) => {
                             let categoryFilter = {};
@@ -88,9 +80,9 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                                     reference="categories"
                                     filter={categoryFilter}
                                     fullWidth
-{...rest}
+                                    {...rest}
                                 >
-                                    <AutocompleteArrayInput /* ... */ />
+                                    <AutocompleteArrayInput />
                                 </ReferenceArrayInput>
                             );
                         }}
@@ -98,22 +90,45 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                 </FormTab>
 
                 <FormTab label="Images" path="images">
-                    {/* Display existing images and upload form */}
-                    {/* These components operate outside the main form's save */}
                     <ProductImageList />
-                    <ProductImageUploadForm />
+                    <Accordion sx={{ mt: 2, width: '40%' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel-upload-image-content"
+                            id="panel-upload-image-header"
+                        >
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <AddCircleOutlineIcon color="primary"/>
+                                <Typography>Add New Image</Typography>
+                            </Stack>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <ProductImageUploadForm />
+                        </AccordionDetails>
+                    </Accordion>
                 </FormTab>
 
                  <FormTab label="Variants" path="variants">
-                    {/* Keep ExistingVariantsList and AddNewVariantForm sections */}
-                    {/* Note: AddNewVariantForm might need its own image upload logic */}
                     <ExistingVariantsList />
-<Card sx={{ marginTop: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>Add New Variant</Typography>
-                            <AddNewVariantForm />
-                        </CardContent>
-                    </Card>
+                    <Accordion sx={{ mt: 2 }}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel-add-variant-content"
+                                id="panel-add-variant-header"
+                            >
+                                 <Stack direction="row" spacing={1} alignItems="center">
+                                    <AddCircleOutlineIcon color="primary"/>
+                                    <Typography>Add New Variant</Typography>
+                                </Stack>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Card>
+                                    <CardContent>
+                                        <AddNewVariantForm />
+                                    </CardContent>
+                                </Card>
+                            </AccordionDetails>
+                        </Accordion>
                  </FormTab>
             </TabbedForm>
         </Edit>

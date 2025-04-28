@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail } from "react-admin";
+import { Admin, Resource, LoginWithEmail, ShowGuesser } from "react-admin";
 import { Layout } from "./Layout";
 import myDataProvider from "./dataProvider";
 import authProvider from "./authProvider";
@@ -38,6 +38,8 @@ import { ClientShow } from "./pages/clients/client-show";
 import { ClientEdit } from "./pages/clients/client-edit";
 import { ClientCreate } from "./pages/clients/client-create";
 
+import ImageEdit from "./components/imageComponents/Image-Edit";
+
 import { Dashboard } from "./pages/dashboard/DashBoard";
 
 
@@ -47,6 +49,7 @@ import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
 import VariantIcon from '@mui/icons-material/TurnedInNotSharp';
+
 
 
 
@@ -90,6 +93,9 @@ export const App = () => {
                         />
                         <Resource
                             icon={VariantIcon} name="variants" list={VariantList} edit={VariantEdit} show={VariantShow}
+                        />
+                        <Resource
+                             name="images"  edit={ImageEdit} show={ShowGuesser} 
                         />
                     </>
                     )}

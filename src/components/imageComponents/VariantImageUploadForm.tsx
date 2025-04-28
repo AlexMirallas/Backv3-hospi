@@ -22,10 +22,10 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
-export const ProductImageUploadForm = () => {
+export const VariantImageUploadForm = () => {
     const notify = useNotify();
     const refresh = useRefresh();
-    const productRecord = useRecordContext();
+    const variantRecord = useRecordContext();
     const { identity } = useGetIdentity();
 
     const [file, setFile] = useState<File | null>(null);
@@ -37,7 +37,7 @@ export const ProductImageUploadForm = () => {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    if (!productRecord || !identity) return null;
+    if (!variantRecord || !identity) return null;
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
@@ -81,8 +81,8 @@ export const ProductImageUploadForm = () => {
         formData.append('altText', altText);
         formData.append('displayOrder', displayOrder.toString());
         formData.append('isPrimary', String(isPrimary));
-        formData.append('productId', productRecord.id.toString());
-        const clientIdToSend = productRecord.clientId || identity?.clientId;
+        formData.append('variantId', variantRecord.id.toString());
+        const clientIdToSend = variantRecord.clientId || identity?.clientId;
         if (!clientIdToSend) {
              notify('Client ID is missing, cannot upload image.', { type: 'error' });
              setUploading(false);
@@ -90,7 +90,7 @@ export const ProductImageUploadForm = () => {
         }
         formData.append('clientId', clientIdToSend.toString());
 
-        const apiUrl = `${import.meta.env.VITE_API_URL || ''}/images/product/${productRecord.id}`;
+        const apiUrl = `${import.meta.env.VITE_API_URL || ''}/images/variant/${variantRecord.id}`;
         const token = localStorage.getItem('token');
         const httpClient = fetchUtils.fetchJson;
 
@@ -115,7 +115,7 @@ export const ProductImageUploadForm = () => {
     return (
         <Card sx={{ marginTop: 2, width: '100%' }}>
             <CardContent>
-                <Typography variant="h6" gutterBottom>Upload New Image</Typography>
+                <Typography variant="h6" gutterBottom textAlign={'center'}>Upload New Image</Typography>
                 <Stack spacing={2}>
                     <Input
                         type="file"
@@ -129,6 +129,8 @@ export const ProductImageUploadForm = () => {
                         variant="outlined"
                         onClick={handleSelectFileClick}
                         startIcon={<AddPhotoAlternateIcon />}
+                        sx={{ width: '75%', margin: '0 auto', display: 'block' , alignSelf: 'center'}}
+
                     >
                         Select Image
                     </Button>

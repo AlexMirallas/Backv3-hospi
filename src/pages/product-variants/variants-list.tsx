@@ -1,5 +1,6 @@
-import { ArrayField, BooleanField, ChipField, Datagrid, DateField, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton,usePermissions } from 'react-admin';
+import { ArrayField, BooleanField, ChipField, Datagrid, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton,usePermissions, ReferenceManyField, } from 'react-admin';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import  ApiImageField  from '../../components/imageComponents/ApiImageField';
 
 export const VariantList = () =>{
     
@@ -28,6 +29,23 @@ export const VariantList = () =>{
                     backgroundColor: '#f0f0f0',
                 },
             }}>
+            <ReferenceManyField
+                    label="Primary Image"
+                    reference="images" 
+                    target="variantId" 
+                    source="id" 
+                    filter={{ isPrimary: true }} 
+                    sortable={false}
+                    perPage={1} 
+            >
+                <SingleFieldList linkType={false}>
+                    <ApiImageField
+                        source="path"
+                        title="filename"
+                        sx={{ maxWidth: 80, maxHeight: 80, objectFit: 'contain' }}
+                    />
+                </SingleFieldList>
+            </ReferenceManyField>
             <TextField source="sku" />
             <TextField source="product.name" />
             <NumberField source="priceAdjustment" options={

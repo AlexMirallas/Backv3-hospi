@@ -1,7 +1,8 @@
-import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions } from 'react-admin';
+import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions, ReferenceManyField } from 'react-admin';
 import { CustomCheckIcon} from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import ApiImageField from '../../components/imageComponents/ApiImageField';
 
 
 
@@ -30,6 +31,23 @@ export const ProductList = () => {
                     backgroundColor: '#f0f0f0',
                 },
             }} rowClick="edit">
+            <ReferenceManyField
+                    label="Primary Image"
+                    reference="images" 
+                    target="productId" 
+                    source="id" 
+                    filter={{ isPrimary: true }} 
+                    sortable={false}
+                    perPage={1} 
+                >
+                    <SingleFieldList linkType={false}>
+                        <ApiImageField
+                            source="path"
+                            title="filename"
+                            sx={{ maxWidth: 80, maxHeight: 80, objectFit: 'contain' }}
+                        />
+                    </SingleFieldList>
+                </ReferenceManyField>
             <TextField source="sku" label="SKU" />
             <TextField source="name" label="Nom" />
             <FunctionField source="description" label="Description" render={(record) => `${record.description.substring(0,30)} ...`} />
