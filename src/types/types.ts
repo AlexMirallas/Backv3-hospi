@@ -1,5 +1,7 @@
 import { RaRecord } from 'react-admin';
 import { Identifier } from 'react-admin';
+import { statusChoices } from '../enums/enums';
+
 
 
 export interface AttributeValueRecord extends RaRecord {
@@ -15,13 +17,17 @@ export interface ProductVariantRecord extends RaRecord {
     id: Identifier;
     sku: string;
     priceAdjustment?: number;
-    stockQuantity?: number;
     isActive?: boolean;
     images?:ProductImage[];
     attributeValues?: Array<{
         attributeValue: AttributeValueRecord;
         attribute: { id: Identifier; name: string };
     }>;
+    product?: ProductRecord;
+    productId?: Identifier;
+    clientId: Identifier;
+    client?: Client;
+    stockLevel?: StockLevelRecord;
 }
 
 export interface AttributeRecord extends RaRecord {
@@ -82,5 +88,51 @@ export interface ApiImageFieldProps {
     title?: string; 
     sx?: object;
 }
+
+export interface StockLevelRecord extends RaRecord {
+    id: string;
+    productId?: string;
+    product?: ProductRecord; 
+    variantId?: string;
+    variant?: ProductVariantRecord;
+    quantity: number;
+    clientId: string;
+    client?: Client; 
+    updatedAt: Date;
+}
+
+export interface Client extends RaRecord {
+    id: Identifier;
+    name: string;
+    subdomain: string;
+    status: typeof statusChoices;
+    settings: Array<any>;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface ProductRecord extends RaRecord {
+    id: Identifier;
+    name: string;
+    description?: string;
+    sku?: string;
+    price?: number;
+    stockLevel?: StockLevelRecord;
+    variants?: ProductVariantRecord[];
+    images?: ProductImage[];
+    clientId: Identifier;
+    client?: Client;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export enum StockMovementType {
+    DELIVERY = 'delivery', 
+    SALE = 'sale', 
+    ADJUSTMENT_IN = 'adjustment_in', 
+    ADJUSTMENT_OUT = 'adjustment_out', 
+    INITIAL = 'initial', 
+    RETURN = 'return', 
+  }
 
 

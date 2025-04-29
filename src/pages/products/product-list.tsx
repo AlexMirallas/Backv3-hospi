@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions, ReferenceManyField } from 'react-admin';
+import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions, ReferenceManyField, Loading, ReferenceField } from 'react-admin';
 import { CustomCheckIcon} from '../../components/CustomCheckIcon';
 import { CustomCrossIcon } from '../../components/CustomCrossIcon';
 import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
@@ -23,6 +23,9 @@ export const ProductList = () => {
         filters: productFilters,
         ...(isSuperAdmin ? { aside: <SuperAdminClientFilterList /> } : {}),
     };
+    if (permissionsLoading) {
+        return <Loading/>; // or a loading spinner
+    }
     
     return(
     <List {...listProps}>
@@ -32,7 +35,7 @@ export const ProductList = () => {
                 },
             }} rowClick="edit">
             <ReferenceManyField
-                    label="Primary Image"
+                    label="Image principale"
                     reference="images" 
                     target="productId" 
                     source="id" 
@@ -54,6 +57,9 @@ export const ProductList = () => {
             <NumberField source="basePrice" label="Prix" options={
                 { style: 'currency', currency: 'EUR' } } 
                  />
+            <NumberField source="currentStock" label="Stock actuel" options={
+                { style: 'decimal', minimumFractionDigits: 0 } } emptyText='N/A'
+            />
             <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
             <ArrayField source="categories" label="Catégories" sortable={false}>
                 <SingleFieldList linkType={false}> 

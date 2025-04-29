@@ -14,6 +14,8 @@ import {
     AutocompleteInput,
     required,
     FormDataConsumer,
+    Labeled,
+    NumberField,
 } from 'react-admin';
 import { ExistingVariantsList } from '../product-variants/product-variant-list';
 import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
@@ -65,6 +67,11 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     <Stack direction="row" spacing={2} mb={2}>
                         <NumberInput source="basePrice" validate={required()} />
                         <BooleanInput source="isActive" />
+                    </Stack>
+                    <Stack>
+                        <Labeled label="Stock actuel" sx={{ width: '100%',mb: 2, fontSize: '1.2rem' }}>
+                            <NumberField source="currentStock"  />
+                        </Labeled>
                     </Stack>
                     <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
 

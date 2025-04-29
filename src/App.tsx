@@ -97,6 +97,12 @@ export const App = () => {
                         <Resource
                              name="images"  edit={ImageEdit} show={ShowGuesser} 
                         />
+                        <Resource
+                            name="stock-levels"  edit={ShowGuesser} show={ShowGuesser}
+                        />
+                        <Resource
+                            name="stock-movements"  edit={ShowGuesser} show={ShowGuesser}
+                        />
                     </>
                     )}
                     
