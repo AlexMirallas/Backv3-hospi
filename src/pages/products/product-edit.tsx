@@ -24,14 +24,17 @@ import { ProductImageList } from '../../components/imageComponents/ProductimageL
 import { ProductImageUploadForm } from '../../components/imageComponents/ProductImageUploadForm';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { ProductStockManager } from '../../components/stockComponents/ProductStockManager';
+import { VariantStockManager } from '../../components/stockComponents/VariantStockManager';
+import { ProductRecord,ProductVariantRecord } from '../../types/types';
 
 export const ProductEdit:React.FC<EditProps> = (props) => {
     const { isLoading: permissionsLoading, permissions } = usePermissions();
 
     const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
 
-    const transform = async (data: any) => {
-        const transformedData = { ...data };
+    const transform = async (data: ProductRecord) => {
+        const transformedData: any = { ...data };
         if (transformedData.categoryIds && !Array.isArray(transformedData.categoryIds)) {
             transformedData.categoryIds = [transformedData.categoryIds];
         }
@@ -115,7 +118,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     </Accordion>
                 </FormTab>
 
-                 <FormTab label="Variants" path="variants">
+                <FormTab label="Variants" path="variants">
                     <ExistingVariantsList />
                     <Accordion sx={{ mt: 2 }}>
                             <AccordionSummary
@@ -136,7 +139,48 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                                 </Card>
                             </AccordionDetails>
                         </Accordion>
-                 </FormTab>
+                </FormTab>
+
+                <FormTab label="Stock Management" path="stock">
+                    <FormDataConsumer>
+                        {({ formData }) => { // 'formData' here is the ProductRecord
+                            if (!formData) return <Loading />;
+
+                            if (!formData.trackInventory) {
+                                return (
+                                    <Typography sx={{ p: 2 }}>
+                                        Inventory tracking is disabled for this product.
+                                        Enable it in the "Product Details" tab to manage stock.
+                                    </Typography>
+                                );
+                            }
+
+                            const hasVariants = formData.variants && formData.variants.length > 0;
+
+                            if (hasVariants) {
+                                // If product tracks inventory AND has variants, manage stock per variant
+                                return (
+                                    <Box sx={{ p: 1 }}>
+                                        <Typography variant="body1" sx={{mb:1}}>
+                                            This product tracks inventory and has variants. Manage stock for each variant individually.
+                                        </Typography>
+                                        {formData.variants.map((variant: ProductVariantRecord) => (
+                            <VariantStockManager
+                                key={variant.id}
+                                variant={variant}
+                                productTrackInventory={formData.trackInventory}
+                            />
+                                        ))}
+                                    </Box>
+                                );
+                            } else {
+                                // If product tracks inventory AND has NO variants, manage stock at product level
+                                // ProductLevelStockManager uses useRecordContext, so it gets the product record
+                                return <ProductStockManager />;
+                            }
+                        }}
+                    </FormDataConsumer>
+                </FormTab>
             </TabbedForm>
         </Edit>
     </>

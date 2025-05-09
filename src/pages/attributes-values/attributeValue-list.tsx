@@ -1,5 +1,5 @@
 import { Datagrid, DateField, EditButton, List, NumberField, ReferenceField, ReferenceInput, SelectInput, TextField,Loading,usePermissions } from 'react-admin';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 
 
 

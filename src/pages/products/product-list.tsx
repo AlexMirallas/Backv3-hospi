@@ -1,7 +1,7 @@
-import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions, ReferenceManyField, Loading, ReferenceField } from 'react-admin';
-import { CustomCheckIcon} from '../../components/CustomCheckIcon';
-import { CustomCrossIcon } from '../../components/CustomCrossIcon';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { Datagrid, DateField, List, TextField, EditButton,BooleanField, NumberField, TextInput, BooleanInput, FunctionField,ArrayField,SingleFieldList,ChipField, usePermissions, ReferenceManyField, Loading } from 'react-admin';
+import { CustomCheckIcon} from '../../components/buttons-icons/CustomCheckIcon';
+import { CustomCrossIcon } from '../../components/buttons-icons/CustomCrossIcon';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 import ApiImageField from '../../components/imageComponents/ApiImageField';
 
 

@@ -1,5 +1,5 @@
 import { ArrayField, BooleanField, ChipField, Datagrid, EditButton, List, NumberField, NumberInput, SingleFieldList, TextField,TextInput,ShowButton,usePermissions, ReferenceManyField, } from 'react-admin';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 import  ApiImageField  from '../../components/imageComponents/ApiImageField';
 
 export const VariantList = () =>{
@@ -50,7 +50,9 @@ export const VariantList = () =>{
             <TextField source="product.name" />
             <NumberField source="priceAdjustment" options={
                 { style: 'currency', currency: 'EUR' } } />
-            <NumberField source="stockQuantity" />
+            <NumberField source="currentStock" label="Stock actuel" options={
+                { style: 'decimal', minimumFractionDigits: 0 } } emptyText='N/A'
+            />
             <BooleanField source="isActive" />
             <ArrayField source="attributeValues" sortable={false}>
                 <SingleFieldList linkType={false}>

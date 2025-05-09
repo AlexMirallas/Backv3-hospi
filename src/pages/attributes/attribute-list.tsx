@@ -1,7 +1,7 @@
 import { Datagrid, List, TextField, EditButton, BooleanField,usePermissions,Loading } from 'react-admin';
-import { CustomCheckIcon } from '../../components/CustomCheckIcon';
-import { CustomCrossIcon } from '../../components/CustomCrossIcon';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { CustomCheckIcon } from '../../components/buttons-icons/CustomCheckIcon';
+import { CustomCrossIcon } from '../../components/buttons-icons/CustomCrossIcon';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 
 export const AttributeList = () => {
 

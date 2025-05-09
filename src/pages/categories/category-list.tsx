@@ -1,5 +1,5 @@
 import { Datagrid, List, ReferenceField, TextField, EditButton, FunctionField, ArrayField, SingleFieldList, usePermissions,Loading } from 'react-admin';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 
 export const CategoryList = () => {
     const {isLoading, permissions} = usePermissions();

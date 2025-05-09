@@ -31,7 +31,7 @@ export const AddNewVariantForm: React.FC = () => {
 
     const [sku, setSku] = useState('');
     const [priceAdjustment, setPriceAdjustment] = useState(0);
-    const [stockQuantity, setStockQuantity] = useState(0);
+    const [initialStock, setInitialStock] = useState(0);
     const [isActive, setIsActive] = useState(true);
     const [selectedAttributes, setSelectedAttributes] = useState<{ [key: number]: string | number | null }>({});
     const [attributeValuesByAttribute, setAttributeValuesByAttribute] = useState<{ [key: number]: AttributeValueRecord[] }>({});
@@ -179,7 +179,7 @@ export const AddNewVariantForm: React.FC = () => {
                 productId: productRecord?.id,
                 sku,
                 priceAdjustment,
-                stockQuantity,
+                initialStock,
                 isActive,
                 clientId: productRecord?.clientId || identity?.clientId,
                 attributeValues: attributeValues, 
@@ -196,7 +196,7 @@ export const AddNewVariantForm: React.FC = () => {
            
             setSku('');
             setPriceAdjustment(0);
-            setStockQuantity(0);
+            setInitialStock(0);
             setIsActive(true);
             
           
@@ -258,15 +258,13 @@ export const AddNewVariantForm: React.FC = () => {
                 
                 <Grid item xs={6} sm={3} md={2}>
                     <TextField
-                        label="Stock Quantity"
+                        label="Stock Initial"
                         type="number"
-                        value={stockQuantity}
-                        onChange={(e) => setStockQuantity(parseInt(e.target.value, 10) || 0)}
+                        value={initialStock}
+                        onChange={(e) => setInitialStock(parseInt(e.target.value, 10) || 0)}
                         fullWidth
                         size="small"
-                        InputProps={{
-                            inputProps: { min: 0, step: 1 }
-                        }}
+                        helperText="Stock initial pour ce produit"
                     />
                 </Grid>
                 

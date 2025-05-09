@@ -135,4 +135,21 @@ export enum StockMovementType {
     RETURN = 'return', 
   }
 
+  export interface StockMovementRecord extends RaRecord {
+    id: string;
+    productId?: string;
+    product?: ProductRecord;
+    variantId?: string;
+    variant?: ProductVariantRecord;
+    quantityChange: number;
+    movementType: StockMovementType;
+    reason?: string;
+    sourceDocumentId?: string; 
+    sourceDocumentType?: string; 
+    userId?: string;
+    clientId: string;
+    client?: Client;
+    movementDate: Date;
+}
+
 

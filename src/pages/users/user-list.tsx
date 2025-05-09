@@ -1,6 +1,6 @@
 import { Datagrid, EditButton, EmailField, List, TextField,Loading, TextInput,SelectInput, ShowButton, ReferenceField,usePermissions } from 'react-admin';
 import { roleChoices } from '../../enums/enums';
-import { SuperAdminClientFilterList } from '../../components/SuperAdminClientFilterList';
+import { SuperAdminClientFilterList } from '../../components/admin/SuperAdminClientFilterList';
 
 export const UserList = () => {
     const {isLoading, permissions} = usePermissions();

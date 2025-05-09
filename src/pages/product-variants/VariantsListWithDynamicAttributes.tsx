@@ -8,8 +8,8 @@ import { useDataProvider, useNotify } from 'react-admin';
 import { useEffect, useState } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
 import { Error } from 'react-admin';
-import { CustomCheckIcon } from '../../components/CustomCheckIcon';
-import { CustomCrossIcon } from '../../components/CustomCrossIcon';
+import { CustomCheckIcon } from '../../components/buttons-icons/CustomCheckIcon';
+import { CustomCrossIcon } from '../../components/buttons-icons/CustomCrossIcon';
 import ApiImageField  from '../../components/imageComponents/ApiImageField';
 
 
@@ -79,7 +79,9 @@ const DynamicVariantDatagrid: React.FC<{ attributeTypes: AttributeRecord[] }> = 
             ))}
 
             <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} sortable={false} />
-            <NumberField source="stockQuantity" sortable={true} />
+            <NumberField source="currentStock" label="Stock actuel" options={
+                { style: 'decimal', minimumFractionDigits: 0 } } emptyText='N/A'
+            />
             <BooleanField source="isActive" sortable={true} TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
             <EditButton />
         </Datagrid>

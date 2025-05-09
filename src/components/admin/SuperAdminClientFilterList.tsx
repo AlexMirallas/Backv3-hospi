@@ -6,7 +6,7 @@ import {
 } from 'react-admin';
 import { Card, CardContent, Typography, Box, CircularProgress } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
-import { statusChoices } from '../enums/enums';
+import { statusChoices } from '../../enums/enums';
 
 export const SuperAdminClientFilterList = () => {
     const { isLoading: permissionsLoading, permissions } = usePermissions();

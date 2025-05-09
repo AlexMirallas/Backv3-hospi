@@ -18,7 +18,7 @@ import {
     Link
 } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory'; 
-import { RefreshButton } from '../../../components/RefreshButton';
+import { RefreshButton } from '../../../components/buttons-icons/RefreshButton';
 
 const MAX_STOCK_THRESHOLD = 10; 
 const ITEMS_TO_SHOW = 5; 
