@@ -25,4 +25,6 @@ const httpClient = (url: string, options: any = {}) => {
 
 const myDataProvider: DataProvider = simpleRestProvider(apiUrl, httpClient);
 
+
+
 export default myDataProvider;

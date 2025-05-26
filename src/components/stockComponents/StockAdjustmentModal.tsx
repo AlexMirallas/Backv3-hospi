@@ -70,7 +70,7 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
         }
 
         create(
-            'stock-movements',
+            'adjust-stock',
             {
                 data: {
                     productId: isProductAdjustment ? recordContext.id : undefined,

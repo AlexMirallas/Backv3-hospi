@@ -47,11 +47,11 @@ export const ProductStockManager = () => {
     return (
         <Box pt={1} mt={2}>
             <Grid container spacing={2} alignItems="center" mb={2}>
-                <Grid item xs={12} sm={4} md={3}>
+                <Grid item xs={12} sm={6} md={4}>
                     <Typography variant="h6">Current Product Stock:</Typography>
                     <NumberField
                         record={record}
-                        source="stockLevel.quantity" // Assumes product record has stockLevel.quantity
+                        source="currentStock" // Assumes product record has stockLevel.quantity
                         sx={{ fontSize: '1.5em', fontWeight: 'bold' }}
                         emptyText="N/A"
                     />
@@ -75,7 +75,6 @@ export const ProductStockManager = () => {
                 label={false}
                 reference="stock-movements"
                 target="productId" // Target product ID
-                filter={{ variantId: null }} // Ensure we only get movements for the product itself, not its variants
                 source="id" // Product's ID
                 sort={{ field: 'movementDate', order: 'DESC' }}
                 pagination={<Pagination />}

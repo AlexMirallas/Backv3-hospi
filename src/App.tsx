@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail, ShowGuesser } from "react-admin";
+import { Admin, Resource, LoginWithEmail, ShowGuesser, EditGuesser } from "react-admin";
 import { Layout } from "./Layout";
 import myDataProvider from "./dataProvider";
 import authProvider from "./authProvider";
@@ -98,10 +98,10 @@ export const App = () => {
                              name="images"  edit={ImageEdit} show={ShowGuesser} 
                         />
                         <Resource
-                            name="stock-levels"  edit={ShowGuesser} show={ShowGuesser}
+                            name="stock-movements"  edit={EditGuesser} show={ShowGuesser}
                         />
                         <Resource
-                            name="stock-movements"  edit={ShowGuesser} show={ShowGuesser}
+                            name="adjust-stock"  edit={EditGuesser} show={ShowGuesser}
                         />
                     </>
                     )}

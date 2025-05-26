@@ -69,7 +69,8 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     </Stack>
                     <Stack direction="row" spacing={2} mb={2}>
                         <NumberInput source="basePrice" validate={required()} />
-                        <BooleanInput source="isActive" />
+                        <BooleanInput source="isActive" helperText="désactiver si le produit est arrêté" />
+                        <BooleanInput source="trackInventory" label="Suivre l'inventaire" helperText="Si vous souhaitez suivre l'inventaire des produits." />
                     </Stack>
                     <Stack>
                         <Labeled label="Stock actuel" sx={{ width: '100%',mb: 2, fontSize: '1.2rem' }}>
@@ -156,6 +157,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                             }
 
                             const hasVariants = formData.variants && formData.variants.length > 0;
+                            console.log('hasVariants:', hasVariants);
 
                             if (hasVariants) {
                                 // If product tracks inventory AND has variants, manage stock per variant
