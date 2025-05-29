@@ -152,4 +152,10 @@ export enum StockMovementType {
     movementDate: Date;
 }
 
-
+export interface StockAdjustmentModalProps {
+    open: boolean;
+    onClose: () => void;
+    product?: ProductRecord;
+    variant?: ProductVariantRecord;
+    currentStock?: number; 
+}

@@ -17,8 +17,8 @@ export const CategoryHierarchy = ({ isSuperAdmin }: { isSuperAdmin: boolean },) 
           >
             <AutocompleteInput
               optionText="name"
-              label="Parent Category"
-              helperText="Select a parent category (optional)"
+              label="Catégorie parente"
+              helperText="Sélectionnez une catégorie parente (facultatif)"
             />
           </ReferenceInput>
         );

@@ -10,8 +10,6 @@ import {
     Loading,
     Button,
     useNotify,
-    DeleteButton,
-    EditButton
 } from 'react-admin';
 import { Typography, Grid, Paper, Divider } from '@mui/material';
 import { ProductVariantRecord } from '../../types/types'; 
@@ -43,7 +41,7 @@ export const VariantStockManager: React.FC<VariantStockManagerProps> = ({ varian
 
     return (
         <Paper  elevation={5} sx={{ p: 2, mb: 2, borderRadius: 2, width: '100%' }}>
-            <Typography variant="subtitle1" gutterBottom>Product SKU: {variant.sku || 'N/A'}</Typography>
+            <Typography variant="subtitle1" gutterBottom>Produit SKU: {variant.sku || 'N/A'}</Typography>
             <Grid container spacing={2} alignItems="center" mb={1}>
                 <Grid item xs={12} sm={4} md={3}>
                     <Typography variant="body1">Stock de produits actuel:</Typography>
@@ -82,18 +80,11 @@ export const VariantStockManager: React.FC<VariantStockManagerProps> = ({ varian
                         pagination={<Pagination />} 
                         perPage={5}
                     >
-                        <Datagrid bulkActionButtons={false} size="small" optimized rowClick="edit" >
+                        <Datagrid bulkActionButtons={false} size="small" optimized rowClick={false} >
                             <DateField source="movementDate" label="Date" showTime />
                             <ChipField source="movementType" label="Type" />
                             <NumberField source="quantityChange" label="Change" options={{ signDisplay: 'always' }} />
-                            <TextField source="reason" label="Reason" />
-                            <EditButton label="Modifier" />
-                            <DeleteButton
-                            label="Supprimer"
-                            redirect={false} 
-                            mutationMode="optimistic" 
-                            onError={(error: any) => notify(`Error: ${error.message || 'Could not delete stock movement.'}`, { type: 'error' })}
-                            />
+                            <TextField source="reason" label="Reason/Remarques" />
                         </Datagrid>
                         
                     </ReferenceManyField>

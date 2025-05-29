@@ -22,10 +22,11 @@ const slugify = (text:string) => {
         <Typography variant="h6" gutterBottom>Category Details</Typography>
       
       <TextInput 
-        source="name" 
+        source="name"
+        label="Nom"
         fullWidth 
         validate={validateName} 
-        helperText="The name of the category"
+        helperText="Le nom de la catégorie"
         onChange={(event:any) => {
           const slug = slugify(event.target.value);
           event.target.form.slug.value = slug; 
@@ -36,15 +37,16 @@ const slugify = (text:string) => {
         source="slug" 
         fullWidth 
         validate={validateSlug} 
-        helperText="URL-friendly identifier (auto-generated if left empty)"
+        helperText="Identifiant convivial pour l'URL (généré automatiquement s'il est laissé vide)"
       />
       
       <TextInput 
         source="description" 
         multiline 
         rows={4} 
-        fullWidth 
-        helperText="Detailed description of the category"
+        fullWidth
+        label="Description" 
+        helperText="Description détaillée de la catégorie"
       />
     </Box>
   );

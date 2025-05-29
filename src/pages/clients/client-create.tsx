@@ -21,8 +21,8 @@ export const ClientCreate = () => (
             Créer un nouveau client
         </Typography>
         <SimpleForm>
-            <TextInput source="name" validate={required()} fullWidth helperText="Nom du client"/>
-            <TextInput source="subdomain" validate={required()} fullWidth helperText="Sous-domaine unique (ex: monclient)"/>
+            <TextInput source="name" label="Nom" validate={required()} fullWidth helperText="Nom du client"/>
+            <TextInput source="subdomain" label="Sous-domaine" validate={required()} fullWidth helperText="Sous-domaine unique (ex: monclient)"/>
             <SelectInput 
                 source="status" 
                 choices={statusChoices} 

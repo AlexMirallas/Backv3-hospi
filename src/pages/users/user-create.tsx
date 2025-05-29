@@ -2,7 +2,6 @@ import {
     Create, 
     SimpleForm, 
     TextInput, 
-    NumberInput, 
     PasswordInput, 
     SelectArrayInput, 
     ReferenceInput,   
@@ -78,26 +77,27 @@ const UserCreate = () => {
                             Créer un nouveau utilisateur
             </Typography>
             <SimpleForm>
-                <TextInput source="email" validate={[required(), email()]} helperText="User email" fullWidth />
-                <TextInput source="firstName" validate={required()} fullWidth />
-                <TextInput source="lastName" validate={required()} fullWidth />
-                <NumberInput source="phone" validate={required()} fullWidth />
-                <PasswordInput source="password" validate={required()} helperText="Le mot de passe doit comporter au moins 8 caractères." fullWidth />
-                <PasswordInput source="confirm_password" validate={required()} helperText="Confirmer mot de passe" fullWidth /> 
+                <TextInput source="email" validate={[required(), email()]} helperText="Email Utilisateur" fullWidth />
+                <TextInput source="firstName" label="Prenom" validate={required()} fullWidth />
+                <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
+                <TextInput source="phone" label="Numéro de téléphone" validate={required()} fullWidth />
+                <PasswordInput source="password" label="Mot de passe" validate={required()} helperText="Le mot de passe doit comporter au moins 8 caractères." fullWidth />
+                <PasswordInput source="confirm_password" label="Confirmer mot de passe" validate={required()} fullWidth /> 
 
                 {(isSuperAdmin || isAdmin) && (
                     <SelectArrayInput 
                         source="roles" 
                         choices={availableRoleChoices} 
                         validate={required()} 
-                        fullWidth 
-                        helperText="Select user role(s)"
+                        fullWidth
+                        label="Rôles"
+                        helperText="Sélectionnez les rôles de l'utilisateur"
                     />
                 )}
 
                 {isSuperAdmin && (
-                    <ReferenceInput source="clientId" reference="clients" fullWidth>
-                        <AutocompleteInput optionText="name" validate={required()} helperText="Assign to a client"/>
+                    <ReferenceInput source="clientId" reference="clients"  fullWidth>
+                        <AutocompleteInput optionText="name" validate={required()} label="Client" helperText="Client pour lequel l'utilisateur travaille"/>
                     </ReferenceInput>
                 )}
             </SimpleForm>    

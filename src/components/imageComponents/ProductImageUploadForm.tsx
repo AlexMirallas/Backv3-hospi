@@ -30,7 +30,7 @@ export const ProductImageUploadForm = () => {
 
     const [file, setFile] = useState<File | null>(null);
     const [altText, setAltText] = useState('');
-    const [displayOrder, setDisplayOrder] = useState(0);
+    const [displayOrder, setDisplayOrder] = useState('0');
     const [isPrimary, setIsPrimary] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -62,7 +62,7 @@ export const ProductImageUploadForm = () => {
         setFile(null);
         setPreviewUrl(null);
         setAltText('');
-        setDisplayOrder(0);
+        setDisplayOrder('0');
         setIsPrimary(false);
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
@@ -77,12 +77,15 @@ export const ProductImageUploadForm = () => {
         setUploading(true);
         const fileToUpload = file;
         const formData = new FormData();
+        const order = parseInt(displayOrder, 10);
+
         formData.append('image', fileToUpload);
         formData.append('altText', altText);
-        formData.append('displayOrder', displayOrder.toString());
+        formData.append('displayOrder', (Number.isNaN(order) ? 0 : order).toString());
         formData.append('isPrimary', String(isPrimary));
         formData.append('productId', productRecord.id.toString());
-        const clientIdToSend = productRecord.clientId || identity?.clientId;
+        const clientIdToSend = productRecord.clientId;
+        console.log("Client ID to send:", clientIdToSend);
         if (!clientIdToSend) {
              notify('Client ID is missing, cannot upload image.', { type: 'error' });
              setUploading(false);
@@ -115,7 +118,7 @@ export const ProductImageUploadForm = () => {
     return (
         <Card sx={{ marginTop: 2, width: '100%' }}>
             <CardContent>
-                <Typography variant="h6" gutterBottom>Upload New Image</Typography>
+                <Typography variant="h6" gutterBottom>Ajouter une nouvelle image</Typography>
                 <Stack spacing={2}>
                     <Input
                         type="file"
@@ -130,7 +133,7 @@ export const ProductImageUploadForm = () => {
                         onClick={handleSelectFileClick}
                         startIcon={<AddPhotoAlternateIcon />}
                     >
-                        Select Image
+                        Sélectionner une image
                     </Button>
 
                     {previewUrl && (
@@ -145,7 +148,7 @@ export const ProductImageUploadForm = () => {
                     {file && <Typography variant="body2">Selected: {file.name}</Typography>}
 
                     <TextField
-                        label="Alt Text"
+                        label="Alt Text*"
                         value={altText}
                         onChange={(e) => setAltText(e.target.value)}
                         fullWidth
@@ -153,14 +156,14 @@ export const ProductImageUploadForm = () => {
                         size="small"
                     />
                     <TextField
-                        label="Display Order"
+                        label="Ordre d'affichage"
+                        helperText="Position de l'image dans la liste"
                         type="number"
                         value={displayOrder}
-                        onChange={(e) => setDisplayOrder(parseInt(e.target.value, 10) || 0)}
+                        onChange={(e) => setDisplayOrder(e.target.value)}
                         fullWidth
                         variant="filled"
                         size="small"
-                        InputProps={{ inputProps: { min: 0 } }}
                     />
                     <FormControlLabel
                         control={
@@ -169,7 +172,7 @@ export const ProductImageUploadForm = () => {
                                 onChange={(e) => setIsPrimary(e.target.checked)}
                             />
                         }
-                        label="Set as Primary Image?"
+                        label="Définir comme image principale"
                     />
 
                     <Button
@@ -178,7 +181,7 @@ export const ProductImageUploadForm = () => {
                         disabled={uploading || !file}
                         startIcon={uploading ? <CircularProgress size={20} /> : <CloudUploadIcon />}
                     >
-                        {uploading ? 'Uploading...' : 'Upload Image'}
+                        {uploading ? 'Uploading...' : 'Télécharger l\'image'}
                     </Button>
                 </Stack>
             </CardContent>

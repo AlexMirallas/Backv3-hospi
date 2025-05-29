@@ -11,7 +11,7 @@ export const WelcomeMessage = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
              {identity.avatar && <Avatar src={identity.avatar} sx={{ mr: 1 }} />}
              <Typography variant="h6">
-                 Welcome back, {identity.firstname} {identity.lastname}! 
+                Bienvenue, {identity.firstname} {identity.lastname}! 
              </Typography>
         </Box>
     );

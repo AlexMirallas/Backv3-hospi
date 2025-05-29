@@ -179,7 +179,6 @@ export const AddNewVariantForm: React.FC = () => {
                 productId: productRecord?.id,
                 sku,
                 priceAdjustment,
-                initialStock,
                 isActive,
                 clientId: productRecord?.clientId || identity?.clientId,
                 attributeValues: attributeValues, 
@@ -231,19 +230,19 @@ export const AddNewVariantForm: React.FC = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <TextField
                         name="sku"
-                        label="Variant SKU"
+                        label="SKU de la variante"
                         value={sku}
                         onChange={(e) => setSku(e.target.value)}
                         fullWidth
                         size="small"
                         error={formError?.includes('SKU')}
-                        helperText="Unique SKU for this variant"
+                        helperText="SKU unique pour cette variante"
                     />
                 </Grid>
                 
                 <Grid item xs={6} sm={3} md={2}>
                     <TextField
-                        label="Price Adjustment"
+                        label="Ajustement de prix"
                         type="number"
                         value={priceAdjustment}
                         onChange={(e) => setPriceAdjustment(parseFloat(e.target.value) || 0)}
@@ -252,23 +251,11 @@ export const AddNewVariantForm: React.FC = () => {
                         InputProps={{
                             inputProps: { step: "0.01" }
                         }}
-                        helperText="Added to base price"
+                        helperText="Ajouter un ajustement de prix à la variante"
                     />
                 </Grid>
                 
-                <Grid item xs={6} sm={3} md={2}>
-                    <TextField
-                        label="Stock Initial"
-                        type="number"
-                        value={initialStock}
-                        onChange={(e) => setInitialStock(parseInt(e.target.value, 10) || 0)}
-                        fullWidth
-                        size="small"
-                        helperText="Stock initial pour ce produit"
-                    />
-                </Grid>
-                
-                <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center',mb: 3, ml:3 }}>
                     <FormControlLabel
                         control={
                             <Checkbox 
@@ -276,7 +263,7 @@ export const AddNewVariantForm: React.FC = () => {
                                 onChange={(e) => setIsActive(e.target.checked)} 
                             />
                         }
-                        label="Is Active"
+                        label="Est actif"
                     />
                 </Grid>
 

@@ -63,14 +63,15 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                         <TextInput source="clientId" disabled fullWidth helperText="Client ID (read-only)" />
                     )}
                     <Stack direction="row" spacing={2} mb={2}>
-                        <TextInput source="sku" validate={required()} />
-                        <TextInput source="name" validate={required()} />
+                        <TextInput source="sku" label="SKU" validate={required()} />
+                        <TextInput source="name" label="Nom du produit" validate={required()} />
                     </Stack>
                     <Stack direction="row" spacing={2} mb={2}>
-                        <NumberInput source="basePrice" validate={required()} />
-                        <BooleanInput source="isActive" helperText="désactiver si le produit est arrêté" />
-                        <BooleanInput source="trackInventory" label="Suivre l'inventaire" helperText="Si vous souhaitez suivre l'inventaire des produits." />
+                        <NumberInput source="basePrice" label="Prix de base" validate={required()}  />
+                        <BooleanInput source="isActive" label="Est actif" helperText="Désactiver si le produit est arrêté" />
+                        <BooleanInput source="trackInventory" label="Suivre l'inventaire" helperText="Si vous souhaitez suivre l'inventaire des produits" />
                     </Stack>
+
                     
                     <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
 
@@ -88,7 +89,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                                     fullWidth
                                     {...rest}
                                 >
-                                    <AutocompleteArrayInput />
+                                    <AutocompleteArrayInput  label ="Catégories"  helperText="Sélectionnez les catégories auxquelles ce produit appartient"/>
                                 </ReferenceArrayInput>
                             );
                         }}
@@ -105,7 +106,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                         >
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <AddCircleOutlineIcon color="primary"/>
-                                <Typography>Add New Image</Typography>
+                                <Typography>Ajouter une nouvelle image</Typography>
                             </Stack>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -124,7 +125,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                             >
                                  <Stack direction="row" spacing={1} alignItems="center">
                                     <AddCircleOutlineIcon color="primary"/>
-                                    <Typography>Add New Variant</Typography>
+                                    <Typography>Ajouter une variante</Typography>
                                 </Stack>
                             </AccordionSummary>
                             <AccordionDetails>
@@ -141,12 +142,10 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     <FormDataConsumer>
                         {({ formData }) => { // 
                             if (!formData) return <Loading />;
-                            console.log('formData in ProductEdit:', JSON.parse(JSON.stringify(formData)));
                             if (!formData.trackInventory) {
                                 return (
                                     <Typography sx={{ p: 2 }}>
-                                        Inventory tracking is disabled for this product.
-                                        Enable it in the "Product Details" tab to manage stock.
+                                        Le suivi des stocks est désactivé pour ce produit. Activez-le dans l'onglet « Détails du produit » pour gérer les stocks.
                                     </Typography>
                                 );
                             }
@@ -155,7 +154,6 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                             
 
                             if (hasVariants) {
-                                // If product tracks inventory AND has variants, manage stock per variant
                                 return (
                                     <Box sx={{ p: 1, width: '100%' }}>
                                         <Typography variant="body1" sx={{mb:2}}>

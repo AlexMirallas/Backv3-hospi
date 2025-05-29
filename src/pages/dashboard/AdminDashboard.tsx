@@ -87,9 +87,6 @@ export const AdminDashBoard: React.FC = () => {
             </Grid>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8}> 
-                    <LowStockVariants /> 
-                </Grid>
                 <Grid item xs={12} md={4}>
                     <RecentUsers />
                 </Grid>

@@ -42,15 +42,9 @@ const DynamicVariantDatagrid: React.FC<{ attributeTypes: AttributeRecord[] }> = 
             bulkActionButtons={false} 
             rowClick="edit"
             optimized 
-            sx={{
-                '& .RaDatagrid-rowOdd': {
-                    backgroundColor: '#f0f0f0',
-                },
-               
-            }}
         >   
         <ReferenceManyField
-                    label="Primary Image"
+                    label="Image principale"
                     reference="images" 
                     target="variantId" 
                     source="id" 
@@ -78,12 +72,12 @@ const DynamicVariantDatagrid: React.FC<{ attributeTypes: AttributeRecord[] }> = 
                 />
             ))}
 
-            <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} sortable={false} />
+            <NumberField source="priceAdjustment" options={{ style: 'currency', currency: 'EUR' }} sortable={false} label="Ajustement du prix" />
             <NumberField source="currentStock" label="Stock actuel" options={
                 { style: 'decimal', minimumFractionDigits: 0 } } emptyText='N/A'
             />
-            <BooleanField source="isActive" sortable={true} TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
-            <EditButton />
+            <BooleanField source="isActive" sortable={true} TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} label="Est actif" />
+            <EditButton label="Modifier" />
         </Datagrid>
     );
 };

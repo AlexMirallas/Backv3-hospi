@@ -21,7 +21,7 @@ export const ClientList = () => {
     <List filters={clientFilters} >
         <Datagrid rowClick="edit" bulkActionButtons={false} sx={{ fontSize: 14 }}>
             <TextField source="name" label="Nom de Client" />
-            <TextField source="subdomain" />
+            <TextField source="subdomain" label="Sous-domaine" />
             <FunctionField source="status" render={(record:any)=>{
                 if(!record || !record.status) return null;
                 let icon;

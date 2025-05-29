@@ -10,3 +10,13 @@ export const roleChoices = [
     { id: 'user', name: 'User' },
     { id: 'superadmin', name: 'Super Admin' }
 ];
+
+export const documentTypesChoices = [
+    { id: 'PURCHASE_ORDER', name: 'Purchase Order' },
+    { id: 'INVOICE', name: 'Invoice' },
+    { id: 'ITEM_RETURN', name: 'Return' },
+    { id: 'ADJUSTMENT_STOCK_TAKE', name: 'Adjustment' },
+    { id: 'OTHER', name: 'Other' },
+];
+
+

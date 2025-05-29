@@ -27,7 +27,9 @@ export const AttributeValueEdit = () => {
                 marginTop: '16px',
                 marginBottom: '16px',
                 color: '#333333',
-                fontSize: '2rem'
+                fontSize: '2rem',
+                display: 'flex',
+                justifyContent: 'center',
             }}>
                 Modifier la valeur d'attribut
             </Typography>
@@ -58,17 +60,16 @@ export const AttributeValueEdit = () => {
                             <ReferenceInput 
                                 source="attributeId" 
                                 reference="attributes"
-                                filter={attributeFilter}
-                                label="Attribut"
+                                filter={attributeFilter}    
                                 {...rest}
                             >
-                                <AutocompleteInput optionText="name" />
+                                <AutocompleteInput optionText="name" label="Attribut"/>
                             </ReferenceInput>
                         );
                     }}
                 </FormDataConsumer>
                 
-                <TextInput source="value" validate={required()} fullWidth />
+                <TextInput source="value" label="Valeur" validate={required()} fullWidth />
                 <NumberInput source="position" validate={required()} min={1} fullWidth />
                 <TextInput 
                     source="hexCode" 

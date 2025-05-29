@@ -15,7 +15,6 @@ import {
     EditButton,
 } from 'react-admin';
 import { Box, Typography, Grid } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ProductRecord } from '../../types/types'; 
 import { StockAdjustmentModal } from './StockAdjustmentModal'; 
 
@@ -39,7 +38,7 @@ export const ProductStockManager = () => {
     if (!record) return <Loading />;
 
     if (!record.trackInventory) {
-        return <Typography sx={{mt: 2}}>Inventory tracking is disabled for this product.</Typography>;
+        return <Typography sx={{mt: 2}}>Le suivi des stocks est désactivé pour ce produit</Typography>;
     }
 
     return (
@@ -58,16 +57,15 @@ export const ProductStockManager = () => {
                     <Button
                         variant="outlined"
                         onClick={handleOpenModal}
-                        startIcon={<AddShoppingCartIcon />}
                         disabled={!record.trackInventory}
                     >
-                        Adjust Product Stock
+                        Enregistrer un mouvement de stock
                     </Button>
                 </Grid>
             </Grid>
 
             <Typography variant="h6" gutterBottom mt={3}>
-                Product Stock Movement History
+                 Historique des mouvements des stocks de {record.sku || 'N/A'}
             </Typography>
             <ReferenceManyField
                 label={false}
@@ -78,18 +76,11 @@ export const ProductStockManager = () => {
                 pagination={<Pagination />}
                 perPage={10}
             >
-                <Datagrid bulkActionButtons={false} optimized rowClick="edit">
+                <Datagrid bulkActionButtons={false} optimized rowClick={false}>
                     <DateField source="movementDate" label="Date" showTime />
                     <ChipField source="movementType" label="Type" />
                     <NumberField source="quantityChange" label="Change" options={{ signDisplay: 'always' }} />
                     <TextField source="reason" label="Reason" />
-                    <EditButton label="Modifier" />
-                    <DeleteButton
-                        label="Supprimer"
-                        redirect={false} 
-                        mutationMode="optimistic" 
-                        sx={{ minWidth: '100px' }}
-                    />
                     
                 </Datagrid>
             </ReferenceManyField>

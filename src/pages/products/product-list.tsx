@@ -29,11 +29,7 @@ export const ProductList = () => {
     
     return(
     <List {...listProps}>
-        <Datagrid sx={{
-                '& .RaDatagrid-rowOdd': {
-                    backgroundColor: '#f0f0f0',
-                },
-            }} rowClick="edit">
+        <Datagrid  rowClick="edit">
             <ReferenceManyField
                     label="Image principale"
                     reference="images" 

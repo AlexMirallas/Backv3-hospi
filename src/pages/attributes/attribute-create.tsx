@@ -37,7 +37,7 @@ const AttributeCreate = () => {
     const canCreate = isSuperAdmin || isAdmin;
 
     if (!canCreate) {
-        return <Typography color="error">You do not have permission to create attributes.</Typography>;
+        return <Typography color="error">Vous n'avez pas l'autorisation de créer des attributs.</Typography>;
     }
 
     return ( 
@@ -55,7 +55,7 @@ const AttributeCreate = () => {
                 {isSuperAdmin && (
                     <Box sx={{ width: '100%', mb: 2 }}>
                         <ReferenceInput source="clientId" reference="clients" fullWidth>
-                            <AutocompleteInput optionText="name" validate={required()} helperText="Assign attribute to a client"/>
+                            <AutocompleteInput optionText="name" validate={required()} helperText="Attribuer un attribut à un client"/>
                         </ReferenceInput>
                     </Box>
                 )}
@@ -63,8 +63,9 @@ const AttributeCreate = () => {
                 <TextInput 
                     source="name" 
                     validate={required()}
-                    helperText="Nom de l'attribut(ex: Couleur)"
+                    helperText="(ex: Couleur, Taille, etc.)"
                     fullWidth
+                    label="Nom de l'attribut"
                  />
                 <NumberInput 
                     source="position"
@@ -73,7 +74,7 @@ const AttributeCreate = () => {
                     min={1}
                     fullWidth
                  />  
-                <BooleanInput source="isActive" defaultValue={true} fullWidth />    
+                <BooleanInput source="isActive" label="Est actif" defaultValue={true} fullWidth />    
             </SimpleForm>    
         </Create>
      );

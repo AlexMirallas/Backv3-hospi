@@ -20,11 +20,7 @@ export const AttributeList = () => {
     
     return(
     <List {...listProps}>
-        <Datagrid sx={{
-                '& .RaDatagrid-rowOdd': {
-                    backgroundColor: '#f0f0f0',
-                },
-            }}>
+        <Datagrid>
             <TextField source="name" label="Nom" />
             <TextField source="position" label="Position" />
             <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />            

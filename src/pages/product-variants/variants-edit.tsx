@@ -15,39 +15,43 @@ import {
     FormDataConsumerRenderParams,
     usePermissions,
     Loading,
-
 } from 'react-admin';
+
 import { Box, Typography, Grid } from '@mui/material';
 import { AttributeValueRecord, VariantAttributeValueLink } from '../../types/types'; 
 import { transformEditVariant } from '../../utils/transformData';
 import { VariantImageUploadForm } from '../../components/imageComponents/VariantImageUploadForm';
 import { VariantImageList } from '../../components/imageComponents/VariantImageList';
+import { VariantEditToolbar } from '../../components/variants/VariantEditToolbar';
 
 
 
 
 export const VariantEdit = () => {
+
     const {isLoading:permissionsLoading, permissions} = usePermissions();
     const isSuperAdmin = Array.isArray(permissions) && permissions.includes('superadmin');
 
     if(permissionsLoading) {
         return <Loading/>
     }
+    
+    
 
     return (
-        <Edit transform={transformEditVariant} undoable={false} redirect="products" >
-            <SimpleForm>   
+        <Edit transform={transformEditVariant} undoable={false} redirect="/products">    
+            <SimpleForm toolbar={<VariantEditToolbar />} >  
                         <Grid container spacing={2}>
                              <Grid item xs={12} sm={6}>
-                                <TextInput source="id" disabled fullWidth label="Variant ID" />
+                                <TextInput source="id" disabled fullWidth label="ID de variante" />
                              </Grid>
                              <Grid item xs={12} sm={6}>
-                                <TextField source="product.name" label="Product"/>
+                                <TextField source="product.name" label="Produit"/>
                              </Grid>
                              {isSuperAdmin && (
                                 <Grid item xs={12}> 
                                 <ReferenceInput source="clientId" reference="clients" fullWidth>
-                                    <AutocompleteInput optionText="name" validate={required()} helperText="Assign variant to a client"/>
+                                    <AutocompleteInput optionText="name" validate={required()} helperText="Client propriétaire du produit" disabled/>
                                 </ReferenceInput>
                             </Grid>)
                             }
@@ -55,10 +59,10 @@ export const VariantEdit = () => {
                                 <TextInput source="sku" validate={required()} fullWidth />
                             </Grid>
                             <Grid item xs={6} sm={3}>
-                                <NumberInput source="priceAdjustment" label="Price Adj." helperText="Différence de prix pour cette variante par rapport au produit principal" fullWidth defaultValue={0} />
+                                <NumberInput source="priceAdjustment" label="Ajustement du prix" helperText="Différence de prix pour cette variante par rapport au produit principal" fullWidth defaultValue={0} />
                             </Grid>
                              <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <BooleanInput source="isActive" label="Is Active"  helperText="Désactiver si le produit n'est plus disponible" />
+                                <BooleanInput source="isActive" label="Est actif"  helperText="Désactiver si le produit n'est plus disponible" />
                             </Grid>
                         </Grid>
 
@@ -76,7 +80,7 @@ export const VariantEdit = () => {
                                     disableReordering
                                     
                                 >
-                                    {/* Source targets the 'name' field within the 'attribute' object */}
+                                    
                                     <TextField
                                         source="attribute.name"
                                         label="Attribute"
@@ -105,6 +109,7 @@ export const VariantEdit = () => {
                                                         fullWidth
                                                         size="small"
                                                         helperText={false}
+                                                        label="Valeur de l'attribut"
                                                     />
                                                 </ReferenceInput>
                                             );
@@ -114,9 +119,9 @@ export const VariantEdit = () => {
                             </ArrayInput>
                         </Box>
                         <Box mt={3} width={'100%'}>
-                            <Typography variant="subtitle1" gutterBottom>Variant Images</Typography>
+                            <Typography variant="subtitle1" gutterBottom>Images du produit</Typography>
                             <VariantImageList />
-                            <Typography mt={3} variant="subtitle2" gutterBottom>Upload New Image</Typography>
+                            <Typography mt={3} variant="subtitle2" gutterBottom>Télécharger une nouvelle image</Typography>
                             <Box sx={{ width: '40%', mb: 2 }}>
                                 <VariantImageUploadForm/> 
                             </Box>

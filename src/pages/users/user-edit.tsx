@@ -75,11 +75,11 @@ const UserEdit = () => {
             </Typography>
             <SimpleForm>
                 <TextInput source="email" validate={[required(), email()]} helperText="User email" fullWidth />
-                <TextInput source="firstName" validate={required()} fullWidth />
-                <TextInput source="lastName" validate={required()} fullWidth />
-                <NumberInput source="phone" validate={required()} fullWidth />
-                <PasswordInput source="password"  helperText="Laissez vide pour conserver le mot de passe actuel. Minimum 8 caractères si modifié." fullWidth />
-                <PasswordInput source="confirm_password" helperText="Confirmer mot de passe" fullWidth /> 
+                <TextInput source="firstName" label="Prenom" validate={required()} fullWidth />
+                <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
+                <NumberInput source="phone" label="Numéro de téléphone" validate={required()} fullWidth />
+                <PasswordInput source="password" label="Mot de passe"  helperText="Laissez vide pour conserver le mot de passe actuel. Minimum 8 caractères si modifié." fullWidth />
+                <PasswordInput source="confirm_password" label="Confirmer mot de passe" fullWidth /> 
 
                 {(isSuperAdmin || isAdmin) && (
                     <SelectArrayInput 
@@ -87,13 +87,14 @@ const UserEdit = () => {
                         choices={availableRoleChoices} 
                         validate={required()} 
                         fullWidth 
-                        helperText="Select user role(s)"
+                        helperText="Sélectionnez les rôles de l'utilisateur"
+                        label="Rôles"
                     />
                 )}
 
                 {isSuperAdmin && (
                     <ReferenceInput source="clientId" reference="clients" fullWidth>
-                        <AutocompleteInput optionText="name" validate={required()} helperText="Assign to a client"/>
+                        <AutocompleteInput optionText="name" validate={required()} helperText="Client pour lequel l'utilisateur travaille"/>
                     </ReferenceInput>
                 )}
             </SimpleForm>    

@@ -19,12 +19,11 @@ export const AttributeValueShow = () => {
                 </ReferenceField>
             )}
             <NumberField source="position" />
-            <TextField source="value" />
-            <TextField source="hexCode" />
-            <NumberField source="attribute.id" />
-            <ReferenceField source="attributeId" reference="attributes" />
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
+            <TextField source="value" label="Valeur" />
+            <TextField source="hexCode" label="Code Hex" />
+            <ReferenceField source="attributeId" reference="attributes" label="Attribut" />
+            <DateField source="createdAt" label="Créé à" />
+            <DateField source="updatedAt" label="Mis à jour à" />
         </SimpleShowLayout>
     </Show>
 )};

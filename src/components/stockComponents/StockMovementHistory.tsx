@@ -1,3 +1,5 @@
+//Not in use this component
+
 import React from 'react';
 import {
     ReferenceManyField,
@@ -13,9 +15,9 @@ import {
 import { Typography } from '@mui/material';
 
 interface StockMovementHistoryProps {
-    targetId: Identifier; // Product ID or Variant ID
-    targetType: 'productId' | 'variantId'; // To filter movements correctly
-    resourceName: string; // e.g., "Product" or "Variant SKU" for title
+    targetId: Identifier; 
+    targetType: 'productId' | 'variantId'; 
+    resourceName: string; 
 }
 
 export const StockMovementHistory: React.FC<StockMovementHistoryProps> = ({
@@ -31,9 +33,9 @@ export const StockMovementHistory: React.FC<StockMovementHistoryProps> = ({
             <ReferenceManyField
                 label={false}
                 reference="stock-movements"
-                target={targetType} // 'productId' or 'variantId'
-                filter={{ [targetType]: targetId }} // Dynamic filter based on targetType
-                source="id" // This should be the ID of the parent (product/variant)
+                target={targetType} 
+                filter={{ [targetType]: targetId }} 
+                source="id" 
                 sort={{ field: 'movementDate', order: 'DESC' }}
                 pagination={<Pagination rowsPerPageOptions={[5]} />}
                 perPage={5}

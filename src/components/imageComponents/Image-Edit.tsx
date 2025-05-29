@@ -84,7 +84,7 @@ const ImagePreview = () => {
                     style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain' }}
                 />
             ) : (
-                <Typography>Image not available</Typography>
+                <Typography>Image non disponible</Typography>
             )}
         </DialogContent>
     </Dialog>
@@ -94,17 +94,17 @@ const ImagePreview = () => {
 
 export const ImageEdit = (props: any) => {
     return(
-    <Edit {...props} title="Edit Image Details" actions={<ImageEditActions />} redirect='products'>
+    <Edit {...props} title="Modifier les détails de l'image" actions={<ImageEditActions />} redirect='products'>
         <SimpleForm>
-            <Typography variant="h5" gutterBottom>Edit Image Metadata</Typography>
+            <Typography variant="h5" gutterBottom>Modifier les metadata de l'image</Typography>
             <Card sx={{ padding: 2, marginBottom: 2 }}>
                 <CardContent>
                     <ImagePreview />
-                    <TextInput source="filename" disabled fullWidth label="Stored Filename" />
-                    <TextInput source="originalFilename" disabled fullWidth label="Original Filename" />
-                    <TextInput source="altText" fullWidth label="Alt Text (for accessibility)"  />
-                    <NumberInput source="displayOrder" fullWidth label="Display Order" />
-                    <BooleanInput source="isPrimary" fullWidth label="Is Primary Image?" />
+                    <TextInput source="filename" disabled fullWidth label="Nom du fichier stocké" />
+                    <TextInput source="originalFilename" disabled fullWidth label="Nom de fichier d'origine" />
+                    <TextInput source="altText" fullWidth label="Texte alt (pour l'accessibilité)"  />
+                    <NumberInput source="displayOrder" fullWidth label="Ordre d'affichage" />
+                    <BooleanInput source="isPrimary" fullWidth label="Est-ce l'image principale ?" />
                 </CardContent>
             </Card>
         </SimpleForm>

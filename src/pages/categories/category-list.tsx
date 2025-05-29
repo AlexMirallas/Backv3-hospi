@@ -16,18 +16,14 @@ export const CategoryList = () => {
     
     return (
     <List {...listProps} >
-        <Datagrid sx={{
-                '& .RaDatagrid-rowOdd': {
-                    backgroundColor: '#f0f0f0',
-                },
-            }}>
+        <Datagrid >
             <TextField source="id" />
-            <TextField source="name" />
-            <TextField source="slug" />
-            <FunctionField source="description" render={(record) => `${record.description.substring(0,30)} ...`} />
+            <TextField source="name" label="Nom" />
+            <TextField source="slug" label="Slug" />
+            <FunctionField source="description" label="Déscription" render={(record) => `${record.description.substring(0,30)} ...`} />
             <ReferenceField source="parentId" reference="categories"/>
-            <ArrayField source="children" sortable={false}>
-                <SingleFieldList/>
+            <ArrayField source="children" sortable={false} label="Enfant">
+                <SingleFieldList />
             </ArrayField>
             <EditButton label='Modifier' />
         </Datagrid>

@@ -20,7 +20,7 @@ export const VariantImageList = () => {
     return (
         <Card sx={{ marginTop: 2, width: '100', alignSelf: 'left' }} >
             <CardContent>
-                <Typography variant="h6" gutterBottom>Manage Product Images</Typography>
+                <Typography variant="h6" gutterBottom>Gérer les images de produits</Typography>
                 <ReferenceManyField<ProductImage>
                     label={false}
                     reference="images"
@@ -37,10 +37,10 @@ export const VariantImageList = () => {
                             sx={{ maxWidth: 80, maxHeight: 80, objectFit: 'contain' }}
                         />
                         <TextField source="altText" label="Alt Text" sortable={false}/>
-                        <NumberField source="displayOrder" label="Order" sortable={false}/>
-                        <BooleanField source="isPrimary" label="Primary?" />
-                        <EditButton />
-                        <DeleteButton mutationMode="pessimistic" />
+                        <NumberField source="displayOrder" label="Ordre" sortable={false}/>
+                        <BooleanField source="isPrimary" label="Image principale" />
+                        <EditButton label="Modifier"/>
+                        <DeleteButton label="Supprimer" mutationMode="optimistic" />
                     </Datagrid>
                 </ReferenceManyField>
             </CardContent>

@@ -1,4 +1,4 @@
-import { Admin, Resource, LoginWithEmail, ShowGuesser, EditGuesser } from "react-admin";
+import { Admin, Resource, LoginWithEmail, ShowGuesser } from "react-admin";
 import { Layout } from "./Layout";
 import myDataProvider from "./dataProvider";
 import authProvider from "./authProvider";
@@ -29,7 +29,7 @@ import { AttributeValueEdit } from "./pages/attributes-values/attributeValue-edi
 import { AttributeValueShow } from "./pages/attributes-values/attributeValue-show";
 import { AttributeValueList } from "./pages/attributes-values/attributeValue-list";
 
-import { VariantList } from "./pages/product-variants/variants-list";
+
 import { VariantShow } from "./pages/product-variants/variants-show";
 import { VariantEdit } from "./pages/product-variants/variants-edit";
 
@@ -48,8 +48,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
-import VariantIcon from '@mui/icons-material/TurnedInNotSharp';
-import StockMovementEdit from "./pages/stock/stock-movement-edit";
+
 
 
 
@@ -78,19 +77,19 @@ export const App = () => {
                     {isAdminOrSuperAdmin  && (
                     <>
                         <Resource
-                            icon={UserIcon} name="users" list={UserList} edit={UserEdit} show={UserShow} create={UserCreate}
+                            icon={UserIcon} name="users" list={UserList} edit={UserEdit} show={UserShow} create={UserCreate} options={{ label: 'Utilisateurs' }}
                         />
                         <Resource
-                            icon={ProductIcon} name="products" list={ProductList} edit={ProductEdit} show={ProductShow} create={ProductCreate}
+                            icon={ProductIcon} name="products" list={ProductList} edit={ProductEdit} show={ProductShow} create={ProductCreate} options={{ label: 'Produits' }}
                         />
                         <Resource
-                            icon={CategoryIcon} name="categories" list={CategoryList} edit={CategoryEdit} show={CategoryShow} create={CreateCategory}
+                            icon={CategoryIcon} name="categories" list={CategoryList} edit={CategoryEdit} show={CategoryShow} create={CreateCategory} options={{ label: 'Catégories' }}
                         />
                         <Resource
-                            icon={AttributeIcon} name="Attributes" list={AttributeList} edit={AttributeEdit} show={AttributeShow} create={AttributeCreate}
+                            icon={AttributeIcon} name="Attributes" list={AttributeList} edit={AttributeEdit} show={AttributeShow} create={AttributeCreate} options={{ label: 'Attributs' }}
                         />
                         <Resource
-                            icon={AttributeValueIcon} name="attribute-values" list={AttributeValueList} edit={AttributeValueEdit} show={AttributeValueShow} create={AttributeValueCreate}
+                            icon={AttributeValueIcon} name="attribute-values" list={AttributeValueList} edit={AttributeValueEdit} show={AttributeValueShow} create={AttributeValueCreate} options={{ label: 'Valeurs des attributs' }}
                         />
                         <Resource
                              name="variants"  edit={VariantEdit} show={VariantShow}
@@ -99,7 +98,7 @@ export const App = () => {
                              name="images"  edit={ImageEdit} show={ShowGuesser} 
                         />
                         <Resource
-                            name="stock-movements"  edit={StockMovementEdit} 
+                            name="stock-movements" 
                         />
                         <Resource
                             name="adjust-stock" 

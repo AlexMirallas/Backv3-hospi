@@ -27,15 +27,11 @@ export const UserList = () => {
     };
     return(
     <List {...listProps}>
-        <Datagrid sx={{
-                '& .RaDatagrid-rowOdd': {
-                    backgroundColor: '#f0f0f0',
-                },
-            }}>
-            <TextField source="firstName" />
-            <TextField source="lastName" />
-            <EmailField source="email" />
-            <TextField source="roles" />
+        <Datagrid >
+            <TextField source="firstName" label="Prénom" />
+            <TextField source="lastName" label="Nom" />
+            <EmailField source="email" label="Email" />
+            <TextField source="roles" label="Rôles" />
             {isSuperAdmin && (
                     <ReferenceField source="clientId" reference="clients" label="Client" >
                         <TextField source="name" />

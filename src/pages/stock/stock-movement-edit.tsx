@@ -1,3 +1,5 @@
+// Description: Edit page for stock movements in a React Admin application. Not Live component
+
 import * as React from 'react';
 import {
     Edit,
@@ -5,27 +7,27 @@ import {
     TextInput,
     NumberInput,
     DateField,
-    ReferenceField,
-    TextField,
+    Labeled,
     SelectInput,
     Toolbar,
     SaveButton,
     DeleteButton,
     required,
-    useRecordContext,
     EditProps,
+    useRecordContext,
 } from 'react-admin';
 import { Grid, Typography, Box } from '@mui/material';
+import { StockMovementType } from '../../types/types';
+import { StockMovementRecord } from '../../types/types';
+import { documentTypesChoices } from '../../enums/enums'; 
 
-// Define choices for movementType if you have them
-const movementTypeChoices = [
-    { id: 'manual_adjustment_in', name: 'Manual Adjustment (In)' },
-    { id: 'manual_adjustment_out', name: 'Manual Adjustment (Out)' },
-    { id: 'sale', name: 'Sale' },
-    { id: 'return', name: 'Return' },
-    { id: 'initial_stock', name: 'Initial Stock' },
-    // Add other types as needed
-];
+const movementTypeChoices = Object.entries(StockMovementType).map(([key, value]) => ({
+    id: value,
+    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+}));
+
+const documentTypeChoices = documentTypesChoices;
+
 
 const StockMovementEditToolbar = (props: any) => (
     <Toolbar {...props} sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -35,42 +37,104 @@ const StockMovementEditToolbar = (props: any) => (
 );
 
 
-export const StockMovementEdit: React.FC<EditProps> = (props) => (
-    <Edit  {...props}>
-        <SimpleForm toolbar={<StockMovementEditToolbar />}>
-            <Typography variant="h6" gutterBottom>
-                Edit Stock Movement Details
-            </Typography>
-            <Box sx={{ paddingTop: '1em' }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="subtitle2" gutterBottom>Movement Information</Typography>
-                        <DateField source="movementDate" showTime label="Movement Date"   />
-                        <SelectInput
-                            source="movementType"
-                            choices={movementTypeChoices}
-                            validate={required()}
-                            fullWidth
-                        />
-                        <NumberInput source="quantityChange" validate={required()} fullWidth />
-                        <TextInput source="reason" multiline fullWidth resettable />
+
+export const StockMovementEdit: React.FC<EditProps> = (props) => {
+
+    const record = useRecordContext<StockMovementRecord>(); 
+
+   
+    const transform = (data: any) => {
+        const { absoluteQuantity, movementType, ...restOfData } = data;
+        let quantityChange = parseInt(absoluteQuantity, 10);
+
+        if (isNaN(quantityChange)) {
+            quantityChange = record?.quantityChange || 0;
+        } else {
+             if (
+                movementType === StockMovementType.SALE ||
+                movementType === StockMovementType.ADJUSTMENT_OUT
+              
+            ) {
+                quantityChange = -Math.abs(quantityChange);
+            } else {
+                quantityChange = Math.abs(quantityChange);
+            }
+        }
+
+        return {
+            ...restOfData,
+            quantityChange: quantityChange,
+        };
+    };
+
+    const initialValues = record ? {
+        ...record,
+        absoluteQuantity: record.quantityChange ? Math.abs(record.quantityChange) : 0,
+    } : {};
+
+    return (
+        <Edit  transform={transform}  {...props}>
+            <SimpleForm toolbar={<StockMovementEditToolbar />} defaultValues={initialValues}>
+                <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                    Modifier le mouvement des stocks
+                </Typography>
+                <Box sx={{ pt: 1 }}>
+                    <Grid container spacing={3}>
+                        {/* Column 1: Core Movement Details */}
+                        <Grid item xs={12} md={6}>
+                            <Typography variant="subtitle1" gutterBottom>Movement Details</Typography>
+                            <TextInput source="id" fullWidth disabled label="Movement ID" sx={{ mb: 2 }} />
+                            <Labeled>
+                                <DateField source="movementDate" showTime label="Movement Date" sx={{ mb: 2 }} />
+                            </Labeled> 
+                            <SelectInput
+                                source="movementType"
+                                label="Movement Type"
+                                choices={movementTypeChoices}
+                                validate={required()}
+                                sx={{ mb: 2 }}
+                            />
+                            <NumberInput
+                                source="absoluteQuantity"
+                                label="Changement de quantité"
+                                helperText="Saisissez une valeur positive. Le type détermine +/-."
+                                validate={required()}
+                                sx={{ mb: 2 }}
+                            />
+                            <TextInput
+                                source="reason"
+                                label="Raison / Remarques (Optionnel)"
+                                multiline
+                                minRows={3}
+                                fullWidth
+                                resettable
+                                sx={{ mb: 2 }}
+                            />
+                        </Grid>
+
+                        {/* Column 2: Contextual Information & Source Document */}
+                        <Grid item xs={12} md={6} mt={4} >
+
+                            <SelectInput
+                                source="sourceDocumentType"
+                                choices={documentTypeChoices}
+                                label="Type de document source"
+                                fullWidth
+                                sx={{ mb: 2 }}
+                            />
+                            <TextInput
+                                source="sourceDocumentId"
+                                label="ID/numéro du document source"
+                                fullWidth
+                                resettable
+                                sx={{ mb: 2 }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="subtitle2" gutterBottom>Associated Entities</Typography>
-                        {/* Display Product or Variant if applicable */}
-                        {/* You might need conditional logic here based on whether it's a product or variant movement */}
-                        <ReferenceField label="Product" source="productId" reference="products" link="show" >
-                            <TextField source="name" />
-                        </ReferenceField>
-                        <ReferenceField label="Variant" source="variantId" reference="variants" link="show" >
-                            <TextField source="sku" />
-                        </ReferenceField>
-                         <TextField source="id" label="Movement ID" fullWidth  />
-                    </Grid>
-                </Grid>
-            </Box>
-        </SimpleForm>
-    </Edit>
-);
+                </Box>
+            </SimpleForm>
+        </Edit>
+    );
+};
 
 export default StockMovementEdit;

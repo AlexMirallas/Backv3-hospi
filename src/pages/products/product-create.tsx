@@ -106,14 +106,14 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
 
                 <Stack direction="row" spacing={2} mb={2}>
                     <TextInput source="sku" validate={required()} helperText="Numéro d'unité de gestion des stocks, doit être unique"/>
-                    <TextInput source="name" validate={required()} helperText="Nom de produit"/>
+                    <TextInput source="name" validate={required()} helperText="Nom du produit"/>
                 </Stack>
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={12} sm={4}>
                         <NumberInput
                             source="basePrice"
                             validate={required()}
-                            helperText="Prix ​​de base du produit, le prix final sera calculé après ajustement du prix des variantes."
+                            helperText="Prix ​​de base du produit, le prix final sera calculé après ajustement du prix des variantes"
                             fullWidth
                         />
                     </Grid>
@@ -121,7 +121,7 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
                         <BooleanInput
                             source="isActive"
                             defaultValue={true}
-                            helperText="Si non actif, il ne peut pas être vu par les clients"
+                            helperText="Si non actif, ne peut pas être vu sur l'e-shop"
                             fullWidth
                         />
                     </Grid>
@@ -130,24 +130,11 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
                             source="trackInventory"
                             label="Track Inventory?"
                             defaultValue={false}
-                            helperText="Si le produit a des variantes, choisissez non"
+                            helperText="Suivre l'inventaire des produits ou des variantes"
                             fullWidth
                         />
                     </Grid>
                 </Grid>
-                <FormDataConsumer>
-                        {({ formData, ...rest }) => formData.trackInventory && (
-                            <Grid item xs={12} sm={4}>
-                                <NumberInput
-                                    source="initialStock"
-                                    validate={validateStock} 
-                                    helperText="Initial stock level (only if tracking inventory and no variants initially)"
-                                    fullWidth
-                                    {...rest}
-                                />
-                            </Grid>
-                        )}
-                    </FormDataConsumer>
                 <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
                 <Grid item xs={12}>
                          <FormDataConsumer>
@@ -155,8 +142,8 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
                                  <ReferenceArrayInput
                                      source="categoryIds"
                                      reference="categories"
-                                     filter={formData.clientId ? { clientId: formData.clientId } : {}} // Filter by selected/current client
-                                     disabled={!formData.clientId && isSuperAdmin} // Disable if SuperAdmin hasn't selected a client yet
+                                     filter={formData.clientId ? { clientId: formData.clientId } : {}} 
+                                     disabled={!formData.clientId && isSuperAdmin} 
                                      helperText={!formData.clientId && isSuperAdmin ? "Select a client first" : ""}
                                      fullWidth
                                      {...rest}
@@ -164,7 +151,6 @@ const ProductCreate:React.FC<CreateProps> = (props) => {
                                      <AutocompleteArrayInput
                                          optionText="name"
                                          label="Categories"
-                                         // Ensure ChipProps or styling prevents overly long chips if needed
                                          sx={{ width: '100%' }}
                                      />
                                  </ReferenceArrayInput>

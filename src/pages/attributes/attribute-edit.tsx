@@ -23,7 +23,6 @@ import {  Typography } from '@mui/material';
 
 
 
-// Custom action buttons for the attribute values list
 const AttributeValuesActions = () => {
     const record = useRecordContext();
     const navigate = useNavigate();
@@ -31,16 +30,14 @@ const AttributeValuesActions = () => {
     if (!record) return null;
     
     const handleClick = () => {
-        navigate('/attribute-values/create', {
-            state: { attributeId: record.id }
-        });
+        navigate('/attribute-values/create');
     };
     
     return (
         <TopToolbar>
             <Button
                 onClick={handleClick}
-                label="Create Value"
+                label="Créer une valeur"
                 startIcon={<AddIcon />}
             />
         </TopToolbar>
@@ -50,19 +47,19 @@ const AttributeValuesActions = () => {
 export const AttributeEdit: React.FC<EditProps> = (props) => (
     <Edit {...props} actions={<AttributeValuesActions />}>
         <SimpleForm>
-            <TextInput source="name" validate={required()}  />
+            <TextInput source="name" label="Nom" validate={required()}  />
             <NumberInput source="position" />
-            <BooleanInput source="isActive" label="Active" defaultValue={true} />
-            <Typography variant="h6" mt={4} mb={2}>Attribute Values</Typography>
+            <BooleanInput source="isActive" label="Est actif" defaultValue={true} />
+            <Typography variant="h6" mt={4} mb={2}>Valeurs d'attribut</Typography>
             <ReferenceManyField
-                label="Possible Values"
+                label="Valeurs possibles"
                 reference="attribute-values"
                 target="attributeId"
                 filter={{ attributeId: props.id }}
                 sort={{ field: 'position', order: 'ASC' }}
             >
                 <Datagrid bulkActionButtons={false} rowClick="edit">
-                    <TextField source="value" />
+                    <TextField source="value" label="Valeur" />
                     <TextField source="position" label="Position" />
                     <EditButton />
                     <DeleteButton />

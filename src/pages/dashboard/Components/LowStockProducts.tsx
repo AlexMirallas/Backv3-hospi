@@ -1,3 +1,4 @@
+// to be reviewed and updated  after latest changes in stock management. Not acrtive
 import {
     useGetList,
     Loading,

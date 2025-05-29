@@ -30,7 +30,7 @@ export const VariantImageUploadForm = () => {
 
     const [file, setFile] = useState<File | null>(null);
     const [altText, setAltText] = useState('');
-    const [displayOrder, setDisplayOrder] = useState(0);
+    const [displayOrder, setDisplayOrder] = useState('0');
     const [isPrimary, setIsPrimary] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -62,7 +62,7 @@ export const VariantImageUploadForm = () => {
         setFile(null);
         setPreviewUrl(null);
         setAltText('');
-        setDisplayOrder(0);
+        setDisplayOrder('0');
         setIsPrimary(false);
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
@@ -82,7 +82,7 @@ export const VariantImageUploadForm = () => {
         formData.append('displayOrder', displayOrder.toString());
         formData.append('isPrimary', String(isPrimary));
         formData.append('variantId', variantRecord.id.toString());
-        const clientIdToSend = variantRecord.clientId || identity?.clientId;
+        const clientIdToSend = variantRecord.clientId;
         if (!clientIdToSend) {
              notify('Client ID is missing, cannot upload image.', { type: 'error' });
              setUploading(false);
@@ -115,7 +115,7 @@ export const VariantImageUploadForm = () => {
     return (
         <Card sx={{ marginTop: 2, width: '100%' }}>
             <CardContent>
-                <Typography variant="h6" gutterBottom textAlign={'center'}>Upload New Image</Typography>
+                <Typography variant="h6" gutterBottom textAlign={'center'}>Ajouter une nouvelle image</Typography>
                 <Stack spacing={2}>
                     <Input
                         type="file"
@@ -132,7 +132,7 @@ export const VariantImageUploadForm = () => {
                         sx={{ width: '75%', margin: '0 auto', display: 'block' , alignSelf: 'center'}}
 
                     >
-                        Select Image
+                        Sélectionnez une image
                     </Button>
 
                     {previewUrl && (
@@ -144,7 +144,7 @@ export const VariantImageUploadForm = () => {
                             />
                         </Box>
                     )}
-                    {file && <Typography variant="body2">Selected: {file.name}</Typography>}
+                    {file && <Typography variant="body2">Choisie: {file.name}</Typography>}
 
                     <TextField
                         label="Alt Text"
@@ -155,10 +155,10 @@ export const VariantImageUploadForm = () => {
                         size="small"
                     />
                     <TextField
-                        label="Display Order"
+                        label="Ordre d'affichage"
                         type="number"
                         value={displayOrder}
-                        onChange={(e) => setDisplayOrder(parseInt(e.target.value, 10) || 0)}
+                        onChange={(e) => setDisplayOrder((e.target.value))}
                         fullWidth
                         variant="filled"
                         size="small"
@@ -171,7 +171,7 @@ export const VariantImageUploadForm = () => {
                                 onChange={(e) => setIsPrimary(e.target.checked)}
                             />
                         }
-                        label="Set as Primary Image?"
+                        label="Définir comme image principale?"
                     />
 
                     <Button
@@ -180,7 +180,7 @@ export const VariantImageUploadForm = () => {
                         disabled={uploading || !file}
                         startIcon={uploading ? <CircularProgress size={20} /> : <CloudUploadIcon />}
                     >
-                        {uploading ? 'Uploading...' : 'Upload Image'}
+                        {uploading ? 'Uploading...' : 'Télécharger l\'image'}
                     </Button>
                 </Stack>
             </CardContent>

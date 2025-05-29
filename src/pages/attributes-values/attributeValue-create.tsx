@@ -55,7 +55,7 @@ const AttributeValueCreate = () => {
     
     const canCreate = isSuperAdmin || isAdmin;
     if (!canCreate) {
-        return <Typography color="error">You do not have permission to create attribute values.</Typography>;
+        return <Typography color="error">Vous n'avez pas l'autorisation de créer des valeurs.</Typography>;
     }
 
     return (
@@ -68,7 +68,7 @@ const AttributeValueCreate = () => {
                 textAlign: 'center',
                 fontSize: '2rem'
             }}>
-                Create New Attribute Value
+                Créer une nouvelle valeur d'attribut
             </Typography>
             
             <SimpleForm>
@@ -79,7 +79,7 @@ const AttributeValueCreate = () => {
                                 optionText="name" 
                                 validate={required()} 
                                 label="Client" 
-                                helperText="Select the client this attribute value belongs to"
+                                helperText="Sélectionnez le client auquel appartient cette valeur d'attribut"
                                 onChange={(value) => setSelectedClientId(value)}
                             />
                         </ReferenceInput>
@@ -101,7 +101,9 @@ const AttributeValueCreate = () => {
                                 {...rest}
                             >
                                 <AutocompleteInput 
-                                    optionText="name" 
+                                    optionText="name"
+                                    label="Attribut"
+                                    helperText="Sélectionnez l'attribut auquel cette valeur appartient" 
                                     disabled={!!attributeIdFromState} 
                                     validate={required()}
                                 />
@@ -110,9 +112,9 @@ const AttributeValueCreate = () => {
                     }}
                 </FormDataConsumer>
                 
-                <TextInput source="value" validate={required()} fullWidth />
+                <TextInput source="value" label="Valeur" validate={required()} fullWidth />
                 <NumberInput source="position" validate={required()} min={1} fullWidth />
-                <TextInput source="hexCode" label="Hex Code if colour" fullWidth />
+                <TextInput source="hexCode" label="Code hex si couleur" fullWidth />
             </SimpleForm>
         </Create>
     );

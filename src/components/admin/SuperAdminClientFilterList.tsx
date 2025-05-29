@@ -37,13 +37,13 @@ export const SuperAdminClientFilterList = () => {
         );
     }
 
-    // Handle error
+    
     if (error) {
         console.error("Error loading clients:", error);
         return (
             <Card sx={{ order: -1, mr: 2, mt: '4em', width: 280 }}>
                 <CardContent>
-                    <Typography color="error">Error loading clients</Typography>
+                    <Typography color="error">Erreur lors du chargement des clients</Typography>
                 </CardContent>
             </Card>
         );
@@ -66,10 +66,10 @@ export const SuperAdminClientFilterList = () => {
     };
 
     return (
-        <Card sx={{ order: -1, mr: 2, mt: '4em', width: 280 }}>
+        <Card sx={{ order: -1, mr: 2, mt: '3em', width: 320 }}>
             <CardContent>
                 <Typography variant="h6" sx={{ mb: 1 }}>
-                    Client Filters
+                    Filtres Clients
                 </Typography>
 
 

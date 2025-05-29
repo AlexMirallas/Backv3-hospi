@@ -13,19 +13,13 @@ import {
     Loading,
 } from 'react-admin';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Grid, Typography } from '@mui/material';
-import { ProductRecord, ProductVariantRecord, StockMovementType } from '../../types/types';
+import { StockMovementType,StockAdjustmentModalProps } from '../../types/types';
+import { documentTypesChoices } from '../../enums/enums';
 
-interface StockAdjustmentModalProps {
-    open: boolean;
-    onClose: () => void;
-    product?: ProductRecord;
-    variant?: ProductVariantRecord;
-    currentStock?: number; // Pass current stock for display
-}
 
 const movementTypeChoices = Object.entries(StockMovementType).map(([key, value]) => ({
     id: value,
-    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), // Format name nicely
+    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 
 }));
 
 export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
@@ -43,19 +37,17 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
     const recordContext = product || variant;
     const recordName = product ? product.name : variant?.sku;
     const isProductAdjustment = !!product;
-
-    const documentTypeChoices = [
-        { id: 'PURCHASE_ORDER', name: 'Purchase Order' },
-        { id: 'INVOICE', name: 'Invoice' },
-        { id: 'ITEM_RETURN', name: 'Return' },
-        { id: 'ADJUSTMENT_STOCK_TAKE', name: 'Adjustment' },
-        { id: 'OTHER', name: 'Other' },
-    ];
+    const documentTypeChoices = documentTypesChoices;
 
 
     const handleSave = (values: any) => {
         if (!recordContext || !identity) {
             notify('Required context or user identity is missing.', { type: 'error' });
+            return;
+        }
+
+        if (!recordContext.clientId) {
+            notify(`Client ID is missing on the ${isProductAdjustment ? 'product' : 'variant'}. Cannot record stock movement.`, { type: 'error' });
             return;
         }
 
@@ -68,7 +60,6 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
         const movementType = values.movementType as StockMovementType;
         let quantityChange = quantity;
 
-        // Adjust sign based on movement type convention
         if (
             movementType === StockMovementType.SALE ||
             movementType === StockMovementType.ADJUSTMENT_OUT
@@ -127,7 +118,7 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
                         <Grid item xs={12} sm={6}>
                             <SelectInput
                                 source="movementType"
-                                label="Movement Type"
+                                label="Typoe de Mouvement"
                                 choices={movementTypeChoices}
                                 validate={required()}
                                 fullWidth
@@ -137,25 +128,25 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
                         <Grid item xs={12} sm={6}>
                             <NumberInput
                                 source="quantity"
-                                label="Quantity"
-                                helperText="Enter a positive value. Type determines +/-."
-                                validate={[required(), minValue(1)]} // Quantity should be at least 1
+                                label="Quantité"
+                                helperText="Saisissez une valeur positive. Le type détermine +/-.."
+                                validate={[required(), minValue(1)]} 
                                 fullWidth
                                 isRequired
                             />
                         </Grid>
                     
                         <Grid item xs={12} sm={6}>
-                            <SelectInput source="sourceDocumentType" choices={documentTypeChoices} label="Document Type (e.g., PO, Invoice)" fullWidth />
+                            <SelectInput source="sourceDocumentType" choices={documentTypeChoices} label="Type de document (par exemple, bon de commande, facture)" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextInput source="sourceDocumentId" label="Document ID/Number" fullWidth />
+                            <TextInput source="sourceDocumentId" label="ID/numéro du document source" fullWidth />
                         </Grid>
 
                         <Grid item xs={12}>
                             <TextInput
                                 source="reason"
-                                label="Reason / Notes (Optional)"
+                                label="Raison / Remarques (Optionnel)"
                                 multiline
                                 minRows={2}
                                 fullWidth

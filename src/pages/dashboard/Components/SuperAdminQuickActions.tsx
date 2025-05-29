@@ -7,7 +7,7 @@ export const SuperAdminQuickActions = () => (
     <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
         <CreateButton
             resource="clients"
-            label="New Client"
+            label="Créer un nouveau client"
             icon={<GroupAddIcon />}
             variant="contained"
          />

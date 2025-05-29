@@ -44,19 +44,19 @@ export const SuperAdminDashboard: React.FC = () => {
 
     return (
         <Box sx={{ p: 2 }}> 
-            <Title title="Super Admin Dashboard" /> 
+            <Title title=" Dashboard Super Admin" /> 
             <WelcomeMessage/> 
             <SuperAdminQuickActions/> 
 
             <Typography variant="h5" gutterBottom>
-                Client Overview
+                Vue d'ensemble des clients
             </Typography>
 
             <Grid container spacing={3} sx={{ mb: 3 }}>
                 <Grid item xs={12} sm={6} md={4}>
                     <StatCard
                         icon={BusinessIcon}
-                        title="Total Clients"
+                        title="Tous les clients"
                         value={clientsTotal}
                         isLoading={clientsLoading}
                         error={clientsError}
@@ -66,7 +66,7 @@ export const SuperAdminDashboard: React.FC = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <StatCard
                         icon={CheckCircleIcon}
-                        title="Active Clients"
+                        title="Clients Actifs"
                         value={activeTotal}
                         isLoading={activeLoading}
                         error={activeError}
@@ -76,7 +76,7 @@ export const SuperAdminDashboard: React.FC = () => {
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
                         icon={CancelIcon}
-                        title="Inactive Clients"
+                        title="Clients Inactifs"
                         value={inactiveTotal}
                         isLoading={inactiveLoading} 
                         error={inactiveError} 
@@ -86,7 +86,7 @@ export const SuperAdminDashboard: React.FC = () => {
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
                         icon={PauseCircleIcon}
-                        title="Suspended Clients"
+                        title="Clients Suspendus"
                         value={suspendedTotal}
                         isLoading={suspendedLoading}
                         error={suspendedError}
@@ -96,7 +96,7 @@ export const SuperAdminDashboard: React.FC = () => {
                 <Grid item xs={12} sm={6} md={3}> 
                     <StatCard
                         icon={DeleteForeverIcon}
-                        title="Deleted Clients"
+                        title="Clients Supprimés"
                         value={deletedTotal}
                         isLoading={deletedLoading}
                         error={deletedError}
