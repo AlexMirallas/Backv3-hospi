@@ -85,7 +85,6 @@ export const ProductImageUploadForm = () => {
         formData.append('isPrimary', String(isPrimary));
         formData.append('productId', productRecord.id.toString());
         const clientIdToSend = productRecord.clientId;
-        console.log("Client ID to send:", clientIdToSend);
         if (!clientIdToSend) {
              notify('Client ID is missing, cannot upload image.', { type: 'error' });
              setUploading(false);
