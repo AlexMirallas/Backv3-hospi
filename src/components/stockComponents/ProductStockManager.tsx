@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {
     useRecordContext,
     NumberField,
@@ -8,22 +8,21 @@ import {
     TextField,
     ChipField,
     Pagination,
-    ReferenceField,
     Loading,
     Button,
     useNotify,
-    useRefresh,
+    DeleteButton,
+    EditButton,
 } from 'react-admin';
 import { Box, Typography, Grid } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { ProductRecord } from '../../types/types'; // Adjust path as needed
-import { StockAdjustmentModal } from './StockAdjustmentModal'; // Adjust path
+import { ProductRecord } from '../../types/types'; 
+import { StockAdjustmentModal } from './StockAdjustmentModal'; 
 
 export const ProductStockManager = () => {
     const record = useRecordContext<ProductRecord>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const notify = useNotify();
-    const refresh = useRefresh();
 
     const handleOpenModal = useCallback(() => {
         if (!record?.trackInventory) {
@@ -35,7 +34,6 @@ export const ProductStockManager = () => {
 
     const handleCloseModal = useCallback(() => {
         setIsModalOpen(false);
-        // No need to call refresh here, modal's onSuccess does it
     }, []);
 
     if (!record) return <Loading />;
@@ -45,13 +43,13 @@ export const ProductStockManager = () => {
     }
 
     return (
-        <Box pt={1} mt={2}>
+        <Box pt={1} mt={2} sx={{ width: '100%' }}>
             <Grid container spacing={2} alignItems="center" mb={2}>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Typography variant="h6">Current Product Stock:</Typography>
+                    <Typography variant="h6">Stock de produits actuel:</Typography>
                     <NumberField
                         record={record}
-                        source="currentStock" // Assumes product record has stockLevel.quantity
+                        source="currentStock" 
                         sx={{ fontSize: '1.5em', fontWeight: 'bold' }}
                         emptyText="N/A"
                     />
@@ -74,28 +72,32 @@ export const ProductStockManager = () => {
             <ReferenceManyField
                 label={false}
                 reference="stock-movements"
-                target="productId" // Target product ID
-                source="id" // Product's ID
+                target="productId" 
+                source="id" 
                 sort={{ field: 'movementDate', order: 'DESC' }}
                 pagination={<Pagination />}
                 perPage={10}
             >
-                <Datagrid bulkActionButtons={false} optimized rowClick="show">
+                <Datagrid bulkActionButtons={false} optimized rowClick="edit">
                     <DateField source="movementDate" label="Date" showTime />
                     <ChipField source="movementType" label="Type" />
                     <NumberField source="quantityChange" label="Change" options={{ signDisplay: 'always' }} />
                     <TextField source="reason" label="Reason" />
-                    <ReferenceField source="userId" reference="users" link={false} label="User">
-                        <TextField source="fullName" /> {/* Adjust to your User record */}
-                    </ReferenceField>
-                    {/* Add sourceDocumentId/Type if needed */}
+                    <EditButton label="Modifier" />
+                    <DeleteButton
+                        label="Supprimer"
+                        redirect={false} 
+                        mutationMode="optimistic" 
+                        sx={{ minWidth: '100px' }}
+                    />
+                    
                 </Datagrid>
             </ReferenceManyField>
 
             <StockAdjustmentModal
                 open={isModalOpen}
                 onClose={handleCloseModal}
-                product={record} // Pass the product record
+                product={record} 
             />
         </Box>
     );

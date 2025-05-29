@@ -54,20 +54,17 @@ export const ProductList = () => {
             <TextField source="sku" label="SKU" />
             <TextField source="name" label="Nom" />
             <FunctionField source="description" label="Description" render={(record) => `${record.description.substring(0,30)} ...`} />
-            <NumberField source="basePrice" label="Prix" options={
+            <NumberField source="basePrice" label="Prix de base" options={
                 { style: 'currency', currency: 'EUR' } } 
                  />
-            <NumberField source="currentStock" label="Stock actuel" options={
-                { style: 'decimal', minimumFractionDigits: 0 } } emptyText='N/A'
-            />
-            <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
+            
             <ArrayField source="categories" label="Catégories" sortable={false}>
                 <SingleFieldList linkType={false}> 
                     <ChipField source="name" />
                 </SingleFieldList>
             </ArrayField>
+            <BooleanField source="isActive" label="Actif" TrueIcon={CustomCheckIcon} FalseIcon={CustomCrossIcon} />
             <DateField source="createdAt" label="Date de création" />
-            <DateField source="updatedAt" label="Date de mise à jour" />
             <EditButton label='Modifier' />
         </Datagrid>
     </List>

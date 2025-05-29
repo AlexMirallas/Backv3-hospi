@@ -44,6 +44,15 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
     const recordName = product ? product.name : variant?.sku;
     const isProductAdjustment = !!product;
 
+    const documentTypeChoices = [
+        { id: 'PURCHASE_ORDER', name: 'Purchase Order' },
+        { id: 'INVOICE', name: 'Invoice' },
+        { id: 'ITEM_RETURN', name: 'Return' },
+        { id: 'ADJUSTMENT_STOCK_TAKE', name: 'Adjustment' },
+        { id: 'OTHER', name: 'Other' },
+    ];
+
+
     const handleSave = (values: any) => {
         if (!recordContext || !identity) {
             notify('Required context or user identity is missing.', { type: 'error' });
@@ -81,8 +90,8 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
                     quantityChange: quantityChange,
                     reason: values.reason,
                     movementDate: new Date(),
-                    // sourceDocumentId: values.sourceDocumentId, // For future document tracking
-                    // sourceDocumentType: values.sourceDocumentType, // For future document tracking
+                    sourceDocumentId: values.sourceDocumentId, 
+                    sourceDocumentType: values.sourceDocumentType, 
                 },
             },
             {
@@ -110,7 +119,7 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
             </DialogTitle>
             <SimpleForm
                 onSubmit={handleSave}
-                toolbar={false} // We'll use DialogActions
+                toolbar={false} 
                 mode="onBlur"
             >
                 <DialogContent>
@@ -135,6 +144,14 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
                                 isRequired
                             />
                         </Grid>
+                    
+                        <Grid item xs={12} sm={6}>
+                            <SelectInput source="sourceDocumentType" choices={documentTypeChoices} label="Document Type (e.g., PO, Invoice)" fullWidth />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextInput source="sourceDocumentId" label="Document ID/Number" fullWidth />
+                        </Grid>
+
                         <Grid item xs={12}>
                             <TextInput
                                 source="reason"
@@ -144,14 +161,7 @@ export const StockAdjustmentModal: React.FC<StockAdjustmentModalProps> = ({
                                 fullWidth
                             />
                         </Grid>
-                        {/* Placeholder for future document upload fields
-                        <Grid item xs={12} sm={6}>
-                            <TextInput source="sourceDocumentType" label="Document Type (e.g., PO, Invoice)" fullWidth />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextInput source="sourceDocumentId" label="Document ID/Number" fullWidth />
-                        </Grid>
-                        */}
+                        
                     </Grid>
                 </DialogContent>
                 <DialogActions>

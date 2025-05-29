@@ -35,7 +35,7 @@ export const VariantEdit = () => {
     }
 
     return (
-        <Edit transform={transformEditVariant} undoable={false}>
+        <Edit transform={transformEditVariant} undoable={false} redirect="products" >
             <SimpleForm>   
                         <Grid container spacing={2}>
                              <Grid item xs={12} sm={6}>
@@ -55,19 +55,16 @@ export const VariantEdit = () => {
                                 <TextInput source="sku" validate={required()} fullWidth />
                             </Grid>
                             <Grid item xs={6} sm={3}>
-                                <NumberInput source="priceAdjustment" label="Price Adj." fullWidth defaultValue={0} />
+                                <NumberInput source="priceAdjustment" label="Price Adj." helperText="Différence de prix pour cette variante par rapport au produit principal" fullWidth defaultValue={0} />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <NumberInput source="stockQuantity" label="Stock Qty." fullWidth defaultValue={0} />
-                             </Grid>
                              <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <BooleanInput source="isActive" label="Is Active" defaultValue={true} />
+                                <BooleanInput source="isActive" label="Is Active"  helperText="Désactiver si le produit n'est plus disponible" />
                             </Grid>
                         </Grid>
 
 
                         <Box mt={3}>
-                            <Typography variant="subtitle1" gutterBottom>Attributes</Typography>
+                            <Typography variant="h5" gutterBottom>Attributs</Typography>
                             <ArrayInput
                                 source="attributeValues"
                                 label={false}

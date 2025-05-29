@@ -49,6 +49,7 @@ import ProductIcon from '@mui/icons-material/ProductionQuantityLimits';
 import AttributeIcon from '@mui/icons-material/Settings';
 import AttributeValueIcon from '@mui/icons-material/SettingsInputComponent';
 import VariantIcon from '@mui/icons-material/TurnedInNotSharp';
+import StockMovementEdit from "./pages/stock/stock-movement-edit";
 
 
 
@@ -86,22 +87,22 @@ export const App = () => {
                             icon={CategoryIcon} name="categories" list={CategoryList} edit={CategoryEdit} show={CategoryShow} create={CreateCategory}
                         />
                         <Resource
-                            icon={AttributeIcon} name="attributes" list={AttributeList} edit={AttributeEdit} show={AttributeShow} create={AttributeCreate}
+                            icon={AttributeIcon} name="Attributes" list={AttributeList} edit={AttributeEdit} show={AttributeShow} create={AttributeCreate}
                         />
                         <Resource
                             icon={AttributeValueIcon} name="attribute-values" list={AttributeValueList} edit={AttributeValueEdit} show={AttributeValueShow} create={AttributeValueCreate}
                         />
                         <Resource
-                            icon={VariantIcon} name="variants" list={VariantList} edit={VariantEdit} show={VariantShow}
+                             name="variants"  edit={VariantEdit} show={VariantShow}
                         />
                         <Resource
                              name="images"  edit={ImageEdit} show={ShowGuesser} 
                         />
                         <Resource
-                            name="stock-movements"  edit={EditGuesser} show={ShowGuesser}
+                            name="stock-movements"  edit={StockMovementEdit} 
                         />
                         <Resource
-                            name="adjust-stock"  edit={EditGuesser} show={ShowGuesser}
+                            name="adjust-stock" 
                         />
                     </>
                     )}

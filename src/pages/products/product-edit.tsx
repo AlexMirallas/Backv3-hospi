@@ -14,8 +14,6 @@ import {
     AutocompleteInput,
     required,
     FormDataConsumer,
-    Labeled,
-    NumberField,
 } from 'react-admin';
 import { ExistingVariantsList } from '../product-variants/product-variant-list';
 import { AddNewVariantForm } from '../product-variants/addNewVariantForm';
@@ -44,11 +42,12 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
     if (permissionsLoading) {
         return <Loading />;
     }
+
     return (
         <> 
         <Edit {...props} transform={transform}>
             <TabbedForm>
-                <FormTab label="Product Details">
+                <FormTab label="Détails du produit">
                     <Typography variant="h5">
                         Modifier le produit
                     </Typography>
@@ -72,11 +71,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                         <BooleanInput source="isActive" helperText="désactiver si le produit est arrêté" />
                         <BooleanInput source="trackInventory" label="Suivre l'inventaire" helperText="Si vous souhaitez suivre l'inventaire des produits." />
                     </Stack>
-                    <Stack>
-                        <Labeled label="Stock actuel" sx={{ width: '100%',mb: 2, fontSize: '1.2rem' }}>
-                            <NumberField source="currentStock"  />
-                        </Labeled>
-                    </Stack>
+                    
                     <TextInput source="description" validate={required()} multiline rows={3} fullWidth />
 
                     <FormDataConsumer>
@@ -119,7 +114,7 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                     </Accordion>
                 </FormTab>
 
-                <FormTab label="Variants" path="variants">
+                <FormTab label="Variantes de produits" path="variants">
                     <ExistingVariantsList />
                     <Accordion sx={{ mt: 2 }}>
                             <AccordionSummary
@@ -142,11 +137,11 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                         </Accordion>
                 </FormTab>
 
-                <FormTab label="Stock Management" path="stock">
+                <FormTab label="Gestion des stocks" path="stock">
                     <FormDataConsumer>
-                        {({ formData }) => { // 'formData' here is the ProductRecord
+                        {({ formData }) => { // 
                             if (!formData) return <Loading />;
-
+                            console.log('formData in ProductEdit:', JSON.parse(JSON.stringify(formData)));
                             if (!formData.trackInventory) {
                                 return (
                                     <Typography sx={{ p: 2 }}>
@@ -157,27 +152,25 @@ export const ProductEdit:React.FC<EditProps> = (props) => {
                             }
 
                             const hasVariants = formData.variants && formData.variants.length > 0;
-                            console.log('hasVariants:', hasVariants);
+                            
 
                             if (hasVariants) {
                                 // If product tracks inventory AND has variants, manage stock per variant
                                 return (
-                                    <Box sx={{ p: 1 }}>
-                                        <Typography variant="body1" sx={{mb:1}}>
-                                            This product tracks inventory and has variants. Manage stock for each variant individually.
+                                    <Box sx={{ p: 1, width: '100%' }}>
+                                        <Typography variant="body1" sx={{mb:2}}>
+                                            Ce produit suit les stocks et possède des variantes. Gérez le stock de chaque variante individuellement.
                                         </Typography>
                                         {formData.variants.map((variant: ProductVariantRecord) => (
-                            <VariantStockManager
-                                key={variant.id}
-                                variant={variant}
-                                productTrackInventory={formData.trackInventory}
-                            />
+                                            <VariantStockManager
+                                            key={variant.id}
+                                            variant={variant}
+                                            productTrackInventory={formData.trackInventory}/>
                                         ))}
                                     </Box>
                                 );
                             } else {
                                 // If product tracks inventory AND has NO variants, manage stock at product level
-                                // ProductLevelStockManager uses useRecordContext, so it gets the product record
                                 return <ProductStockManager />;
                             }
                         }}

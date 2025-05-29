@@ -27,7 +27,7 @@ export interface ProductVariantRecord extends RaRecord {
     productId?: Identifier;
     clientId: Identifier;
     client?: Client;
-    stockLevel?: StockLevelRecord;
+    currentStock?: number;
 }
 
 export interface AttributeRecord extends RaRecord {
@@ -117,7 +117,7 @@ export interface ProductRecord extends RaRecord {
     description?: string;
     sku?: string;
     price?: number;
-    stockLevel?: StockLevelRecord;
+    currentStock?: number;
     variants?: ProductVariantRecord[];
     images?: ProductImage[];
     clientId: Identifier;
